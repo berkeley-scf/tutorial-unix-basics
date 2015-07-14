@@ -8,16 +8,6 @@ Chris Paciorek, Department of Statistics, UC Berkeley
 ```{r setup, include=FALSE}
 opts_chunk$set(engine='bash') # because we're using a lot of bash, let's set as default
 ```
-```{r, setup-2, echo=FALSE}
-if [ -f ~/stat243-fall-2014/data/coop.txt.gz ]; then gunzip ~/stat243-fall-2014/data/coop.txt.gz 
-fi
-if [ -f ~/stat243.tgz ]; then rm -rf ~/stat243.tgz
-fi
-if [ -d /tmp/stat243 ]; then rm -rf /tmp/stat243 
-fi
-if [ -d /tmp/units ]; then rm -rf /tmp/units 
-fi
-```
 
 # 0) This Tutorial
 
@@ -255,9 +245,9 @@ cd -  # go back to the most recent directory you were in
 
 The zip utility compresses in a format compatible with zip files for Windows
 
-```{r, zip}
-cd ~/stat243-fall-2014
-zip stat243.zip *  # * stands in for everything in the current directory
+```{r, zip, eval=FALSE}
+cd ~
+zip -r stat243.zip stat243-fall-2014
 ```
 
 gzip is a standard UNIX compression utility to compress individual files
@@ -404,3 +394,16 @@ ls -l /tmp/stat243-fall-2014/data # check that it ran
 6) Try to run the following command `mkdir ~/projects/drought`. It will fail. Look in the help information on `mkdir` to figure out how to make it work without first creating the *projects* directory.
 
 7) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space.
+
+```{r, cleanup, echo=FALSE}
+if [ -f ~/stat243-fall-2014/data/coop.txt.gz ]; then gunzip ~/stat243-fall-2014/data/coop.txt.gz 
+fi
+if [ -f ~/stat243.tgz ]; then rm -rf ~/stat243.tgz
+fi
+if [ -f ~/stat243.tgz ]; then rm -rf ~/stat243.tgz
+fi
+if [ -d /tmp/stat243 ]; then rm -rf /tmp/stat243 
+fi
+if [ -d /tmp/units ]; then rm -rf /tmp/units 
+fi
+```
