@@ -264,21 +264,21 @@ ls -l coop.txt.gz
 Finally, the *tar* utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.
 ```{r, tar1}
 cd ~
-tar -cvf tutorial.tar tutorial-unix-basics
-ls -l tutorial.tar
-rm tutorial.tar
+tar -cvf data.tar stat243-fall-2014/data
+ls -l data.tar
+rm data.tar
 ```
 ```{r, tar2}
 cd ~
-tar -cvzf tutorial.tgz tutorial-unix-basics
-ls -l tutorial.tgz
+tar -cvzf data.tgz stat243-fall-2014/data
+ls -l data.tgz
 ```
 ```{r, tar3}
 cd ~
-mv tutorial.tgz /tmp
+mv data.tgz /tmp
 cd /tmp
-tar -xvzf tutorial.tgz
-ls -l tutorial
+tar -xvzf data.tgz
+ls -l data
 ```
 
 
@@ -398,9 +398,9 @@ ls -l /tmp/stat243-fall-2014/data # check that it ran
 ```{r, cleanup, echo=FALSE}
 if [ -f ~/stat243-fall-2014/data/coop.txt.gz ]; then gunzip ~/stat243-fall-2014/data/coop.txt.gz 
 fi
-if [ -f ~/tutorial.tgz ]; then rm -rf ~/tutorial.tgz
+if [ -f ~/data.tar ]; then rm -rf ~/data.tar
 fi
-if [ -f ~/tutorial.tgz ]; then rm -rf ~/tutorial.tgz
+if [ -f ~/data.tgz ]; then rm -rf ~/data.tgz
 fi
 if [ -d /tmp/stat243 ]; then rm -rf /tmp/stat243 
 fi
