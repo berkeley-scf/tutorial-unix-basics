@@ -56,14 +56,14 @@ For our purposes here, we'll simply use Git to download materials from Github, a
 First we'll download the materials for this tutorial.
 
 To *clone* (i.e., copy) a repository (in this case from Github) we do the following. Note that *berkeley-scf* is the project and *tutorial-unix-basics* is the repository.
-```{r, git-clone}
+```{r, git-clone, eval=FALSE}
 cd  # go to your home directory
 git clone https://github.com/berkeley-scf/tutorial-unix-basics
 ```
 
 Next let's clone a more extensive repository - we'll get the materials for my Statistics 243 class from Fall 2014.  
 
-```{r, git-clone2, echo=FALSE}
+```{r, git-clone2, eval=FALSE, echo=FALSE}
 cd  # go to your home directory
 git clone https://github.com/berkeley-stat243/stat243-fall-2014
 # when you do this you'll see some text indicating the progress of the cloning
