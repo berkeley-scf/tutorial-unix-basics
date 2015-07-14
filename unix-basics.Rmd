@@ -247,7 +247,7 @@ The zip utility compresses in a format compatible with zip files for Windows
 
 ```{r, zip, eval=FALSE}
 cd ~
-zip -r stat243.zip stat243-fall-2014
+zip -r tutor.zip tutorial-unix-basics
 ```
 
 gzip is a standard UNIX compression utility to compress individual files
@@ -264,21 +264,21 @@ ls -l coop.txt.gz
 Finally, the *tar* utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.
 ```{r, tar1}
 cd ~
-tar -cvf stat243.tar stat243-fall-2014
-ls -l stat243.tar
-rm stat243.tar
+tar -cvf tutorial.tar tutorial-unix-basics
+ls -l tutorial.tar
+rm tutorial.tar
 ```
 ```{r, tar2}
 cd ~
-tar -cvfz stat243.tgz stat243-fall-2014
-ls -l stat243.tgz
+tar -cvzf tutorial.tgz tutorial-unix-basics
+ls -l tutorial.tgz
 ```
 ```{r, tar3}
 cd ~
-mv stat243.tgz /tmp
+mv tutorial.tgz /tmp
 cd /tmp
-tar -xvzf stat243.tgz
-ls -l stat243
+tar -xvzf tutorial.tgz
+ls -l tutorial
 ```
 
 
@@ -398,9 +398,9 @@ ls -l /tmp/stat243-fall-2014/data # check that it ran
 ```{r, cleanup, echo=FALSE}
 if [ -f ~/stat243-fall-2014/data/coop.txt.gz ]; then gunzip ~/stat243-fall-2014/data/coop.txt.gz 
 fi
-if [ -f ~/stat243.tgz ]; then rm -rf ~/stat243.tgz
+if [ -f ~/tutorial.tgz ]; then rm -rf ~/tutorial.tgz
 fi
-if [ -f ~/stat243.tgz ]; then rm -rf ~/stat243.tgz
+if [ -f ~/tutorial.tgz ]; then rm -rf ~/tutorial.tgz
 fi
 if [ -d /tmp/stat243 ]; then rm -rf /tmp/stat243 
 fi
