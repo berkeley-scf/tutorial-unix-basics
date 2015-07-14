@@ -267,6 +267,7 @@ cd ~
 tar -cvf data.tar stat243-fall-2014/data
 ```
 ```{r, tar1a}
+cd ~
 ls -l data.tar
 rm data.tar
 ```
@@ -275,6 +276,7 @@ cd ~
 tar -cvzf data.tgz stat243-fall-2014/data
 ```
 ```{r, tar2a}
+cd ~
 ls -l data.tgz
 ```
 ```{r, tar3}
@@ -284,7 +286,7 @@ cd /tmp
 tar -xvzf data.tgz
 ```
 ```{r, tar4}
-ls -l stat243-fall-2014/data
+ls -l /tmp/stat243-fall-2014/data
 ```
 
 
