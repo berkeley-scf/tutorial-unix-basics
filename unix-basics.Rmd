@@ -11,6 +11,8 @@ opts_chunk$set(engine='bash') # because we're using a lot of bash, let's set as 
 ```{r, setup-2, echo=FALSE}
 if [ -f ~/stat243-fall-2014/data/coop.txt.gz ]; then gunzip ~/stat243-fall-2014/data/coop.txt.gz 
 fi
+if [ -f ~/stat243.tgz ]; then rm -rf ~/stat243.tgz
+fi
 if [ -d /tmp/stat243 ]; then rm -rf /tmp/stat243 
 fi
 if [ -d /tmp/units ]; then rm -rf /tmp/units 
