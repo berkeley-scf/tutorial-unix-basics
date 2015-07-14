@@ -265,12 +265,16 @@ Finally, the *tar* utility will combine multiple files and directories into a si
 ```{r, tar1}
 cd ~
 tar -cvf data.tar stat243-fall-2014/data
+```
+```{r, tar1a}
 ls -l data.tar
 rm data.tar
 ```
 ```{r, tar2}
 cd ~
 tar -cvzf data.tgz stat243-fall-2014/data
+```
+```{r, tar2a}
 ls -l data.tgz
 ```
 ```{r, tar3}
@@ -278,7 +282,9 @@ cd ~
 mv data.tgz /tmp
 cd /tmp
 tar -xvzf data.tgz
-ls -l data
+```
+```{r, tar4}
+ls -l stat243-fall-2014/data
 ```
 
 
