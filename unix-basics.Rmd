@@ -124,7 +124,7 @@ cd /home/oski/stat243-fall-2014/units
 cd ..  # go up a directory to the parent of the current directory
 ```
 ```{r cd5}
-cd /home/oski/stat243-fall-2014
+cd /home/oski/stat243-fall-2014/units
 cd ../data # go up a directory and then down to a different subdirectory
 ```
 ```{r cd6}
@@ -181,7 +181,7 @@ cd ~/stat243-fall-2014
 cp -pr units /tmp/.
 cd /tmp
 mkdir stat243
-mv -r units stat243
+mv units stat243
 ls -l stat243/units
 ```
 ```{r, cp-all2}
@@ -252,28 +252,28 @@ zip stat243.zip *  # * stands in for everything in the current directory
 
 gzip is a standard UNIX compression utility to compress individual files
 ```{r, gzip1}
-cd ~/stat243-fall/2014/data
+cd ~/stat243-fall-2014/data
 ls -l coop.txt
 ```
 ```{r, gzip2}
-cd ~/stat243-fall/2014/data
+cd ~/stat243-fall-2014/data
 gzip coop.txt
 ls -l coop.txt
 ```
 
 Finally, the *tar* utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.
 ```{r, tar1}
-cd ..
+cd ~/stat243-fall-2014
 tar -cvf stat243.tar *
 ls -l stat243.tar
 ```
 ```{r, tar2}
-cd ..
+cd ~/stat243-fall-2014
 tar -cvfz stat243.tgz *
 ls -l stat243.tgz
 ```
 ```{r, tar3}
-cd ..
+cd ~/stat243-fall-2014
 mv stat243.tgz /tmp
 cd /tmp
 tar -xvzf stat243.tgz
