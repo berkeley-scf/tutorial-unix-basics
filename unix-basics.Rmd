@@ -59,6 +59,7 @@ To *clone* (i.e., copy) a repository (in this case from Github) we do the follow
 ```{r, git-clone, eval=FALSE}
 cd  # go to your home directory
 git clone https://github.com/berkeley-scf/tutorial-unix-basics
+# when you do this you'll see some text indicating the progress of the cloning
 ```
 
 Next let's clone a more extensive repository - we'll get the materials for my Statistics 243 class from Fall 2014.  
@@ -66,10 +67,9 @@ Next let's clone a more extensive repository - we'll get the materials for my St
 ```{r, git-clone2, eval=FALSE}
 cd  # go to your home directory
 git clone https://github.com/berkeley-stat243/stat243-fall-2014
-# when you do this you'll see some text indicating the progress of the cloning
 ```
 
-Now suppose that whoever controls the repository makes some changes and you want an updated copy of the repository on your computer. Simply `cd` into the directory on your machine (or any subdirectories) and enter `git pull`.
+Now suppose that whoever controls the repository makes some changes and you want an updated copy of the repository on your computer. Simply `cd` into the directory on your machine (or any subdirectories of that directory) and enter `git pull`.
 ```{r, git-pull} 
 cd ~/stat243-fall-2014
 git pull
@@ -82,24 +82,27 @@ To be able to compare what we see in the Terminal to a graphical view of the fil
 
 ## 3.1) Moving around and listing information
 
-Anytime you are in a UNIX terminal, you have a *working directory* which is your current location in the file system. 
+Anytime you are in a UNIX terminal, you have a *working directory*, which is your current location in the file system. 
 
-Here's how you can see where you are (it will be the home directory for the *oski* user, where files specific to that user are stored) and list the files in the working directory:
+Here's how you can see where you are (it will be the home directory for the *oski* user, where files specific to that user are stored)...
 ```{r, engine='bash', pwd1}
 pwd
 ```
+and here's how you list the files in the working directory...
 ```{r, engine='bash', pwd2}
 ls
 ```
 ```{r, engine='bash', pwd3}
-ls -l
+ls -l  # this lists files on 'long' format
 ```
 
-Note the use of the -l flag to list the long-format information. As mentioned, options for UNIX commands are generally provided via this kind of syntax.
+Note the use of the `-l` flag to list the long-format information. As mentioned, options for UNIX commands are generally provided via this kind of syntax.
+
+Also note that anything that follows `#` is a comment and is ignored by UNIX.
 
 Notice that we have BCE set up so that your working directory is printed as part of the prompt. 
 
-In the last command you'll see information on each file (or directory) on a number of things of which the most important are:
+When using the `-l` flag to `ls`, you'll see information about each file (or directory) on a number of things, of which the most important are:
 * (column 1) file permissions (more later)
 * (column 3) the owner of the file
 * (column 5) the size of the file in bytes
@@ -108,33 +111,36 @@ In the last command you'll see information on each file (or directory) on a numb
 
 Now suppose I want to be in a different directory so I can see what is there or do things to the files in that directory.
 
-The command you need is `cd` and the concept you need to become familiar with is the notion of relative and absolute paths. The path is the set of nested directories that specify a subdirectory of interest.
+The command you need is `cd` and the concept you need to become familiar with is the notion of relative and absolute *path*s. The path is the set of nested directories that specify a subdirectory of interest.
 
 ```{r cd1}
 cd /home/oski  # go to home directory
-cd stat243-fall-2014 # relative path
-ls
+cd stat243-fall-2014 # go to subdirectory based on relative path
+pwd
 ```
 ```{r cd2}
 cd /home/oski/stat243-fall-2014 # absolute path to the same location
-ls
+pwd
 ```
 ```{r cd3}
 cd /home/oski/stat243-fall-2014/units
 cd ..  # go up a directory to the parent of the current directory
+pwd
 ```
 ```{r cd5}
 cd /home/oski/stat243-fall-2014/units
 cd ../data # go up a directory and then down to a different subdirectory
+pwd
 ```
 ```{r cd6}
 cd /home/oski/stat243-fall-2014/units
 cd ../../tutorial-unix-basics  # go up two directories and down
+pwd
 ```
 
 ## 3.2) The filesystem
 
-The filesystem is basically a upside-down tree. The top, or root of the tree, is the `/` directory. Within `/` there are subdirectories, such as `/home` (which contains users home directories where all of the files owned by a user are stored). For the *oski* user, everything is stored in `/home/oski`. If you are the oski user, you can also refer to `/home/oski` by the shortcuts `~` and `~oski`. 
+The filesystem is basically a upside-down tree. The top, or root of the tree, is the `/` directory. Within `/` there are subdirectories, such as `/home` (which contains users home directories where all of the files owned by a user are stored) and `/bin` (containing UNIX programs, aka 'binaries'). For the *oski* user, everything is stored in `/home/oski`. If you are the oski user, you can also refer to `/home/oski` by the shortcuts `~` and `~oski`. 
 
 
 ```{r, filesystem1}
@@ -144,13 +150,16 @@ ls /
 ls /home
 ```
 ```{r, filesystem3}
-ls /home/oski
+cd /home/oski
+pwd
 ```
 ```{r, filesystem4}
-ls ~
+cd ~
+pwd
 ```
 ```{r, filesystem5}
-ls ~oski
+cd ~oski
+pwd
 ```
 Another useful directory is `/tmp`, which is a good place to put temporary files that you only need briefly and don't need to save. These will disappear when a machine is rebooted. 
 
@@ -162,30 +171,32 @@ ls /tmp
 
 ## 3.3) Copying and removing files
 
-You'll often want to make a copy of a file, move it between directories, or remove it.
+You'll often want to make a copy of a file or subdirectory, move it between directories, or remove it.
 
 ```{r, cp1}
 cd ~/stat243-fall-2014/units
 cp unit8-parallel.R unit8-parallel-new.R
 mv unit8-parallel-new.R /tmp/.
-```
-```{r, cp2}
 cd /tmp
 ls -lrt 
+```
+```{r, cp3}
+cd /tmp
 rm unit8-parallel-new.R
+ls -lrt
 ```
 
 We can copy and remove entire directories
 ```{r, cp-all1}
 cd ~/stat243-fall-2014
-cp -pr units /tmp/.
+cp -pr ps /tmp/.
 cd /tmp
 mkdir stat243
-mv units stat243
-ls -l stat243/units
+mv ps stat243
+ls -l stat243/ps
 ```
 ```{r, cp-all2}
-rm -r /tmp/stat243/units
+rm -r /tmp/stat243/ps
 ls /tmp/stat243
 ```
 
@@ -201,18 +212,20 @@ scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2014/data/.
 
 Let's look at the first "column" of information returned by `ls -l`. The first column actually contains 10 individual single-character columns. The third column indicates the owner of each file and the fourth column the group of users the owner belongs to.
 
+```{r, createfile, echo=FALSE}
+echo "first line" > tmp.txt  # create a file
+```
+
 ```{r, perm}
-cd ~/stat243-fall-2014
 ls -l
 ```
 
-Items marked with a `d` in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read(r), write(w) and execute(x) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.
+Items marked with a `d` in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read\(r\), write(w) and execute(x) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.
 
-E.g., for the *txt* file, all users can read the file but only the owner can modify the file by writing to it. 
+E.g., for the *tmp.txt* file, all users can read the file but only the owner can modify the file by writing to it. 
 
 If we want to change the permissions, e.g., allowing all users to write to the file, or preventing anyone from writing to it:
 ```{r, perm2-1}
-echo "first line" > tmp.txt  # create a file
 chmod ugo+w tmp.txt  # anyone can write to it
 echo "added line" >> tmp.txt
 cat tmp.txt
@@ -269,7 +282,6 @@ tar -cvf data.tar stat243-fall-2014/data
 ```{r, tar1a}
 cd ~
 ls -l data.tar
-rm data.tar
 ```
 ```{r, tar2}
 cd ~
@@ -312,12 +324,15 @@ You can can see how much disk space is being used or is free as follows.
 ```{r, df1}
 df -h
 ```
+
+In general, you'll want to look at the '/' line, and on standard UNIX machines possibly at '/tmp', '/home', and others. 
+
 ```{r, df2}
 cd ~/stat243-fall-2014
 du -h
 ```
 
-In general, you'll want to look at the '/' line, and on standard UNIX machines possibly at '/tmp', '/home', and others. 
+
 
 ## 4.4) Machine information
 
@@ -380,28 +395,29 @@ You can put those lines into a file, say, mvStat243.sh, which will generally end
 
 Then we can run the code in the file as follows. (Results not shown here.)
 ```{r, run-script, eval=FALSE}
-chmod ugo+x mvStat243.sh  # make the script an executable
+chmod ugo+x mvStat243.sh  # make the script executable by everyone
 ./mvStat243.sh  # run it
-ls -l /tmp/stat243-fall-2014 # check that it ran
-
-ls -l /tmp/stat243-fall-2014/data # check that it ran
 ```
+
+The inital './' is needed because UNIX is not expecting there to be an executable file in this particular directory. 
 
 # 6) Questions
 
-1) Figure out how to print out free disk space in terms of megabytes. 
+1) Try to run the following command `mkdir ~/projects/drought`. It will fail. Look in the help information on `mkdir` to figure out how to make it work without first creating the *projects* directory.
 
-2) Change the permissions on the file stat243-fall-2014/units/unit1-unix.sh to be readable by the user and the group, writeable by the user, and executable by all users.
+2) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space.
 
-3) Where is Python installed on the system? What are some other programs/executables are installed in the same directory.
+3) Change the permissions on the file stat243-fall-2014/units/unit1-unix.sh to be readable by the user and the group, writeable by the user, and executable by all users.
 
-4) The `ls` command is itself an executable installed on the system. Where is it located?
+4) Use both `zip` and `tar -xvzf` to compress the stat243-fall-2014 directory. Is one much smaller than the other?
 
-5) Use both `zip` and `tar -xvzf` to compress the stat243-fall-2014 directory. Is one much smaller than the other?
+5) Figure out how to print out free disk space in terms of megabytes. 
 
-6) Try to run the following command `mkdir ~/projects/drought`. It will fail. Look in the help information on `mkdir` to figure out how to make it work without first creating the *projects* directory.
+6) The `ls` command is itself an executable installed on the system. Where is it located?
 
-7) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space.
+7) Where is Python installed on the system? What are some other programs/executables are installed in the same directory.
+
+
 
 ```{r, cleanup, echo=FALSE}
 if [ -f ~/stat243-fall-2014/data/coop.txt.gz ]; then gunzip ~/stat243-fall-2014/data/coop.txt.gz 
