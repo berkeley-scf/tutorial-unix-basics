@@ -111,27 +111,24 @@ Now suppose I want to be in a different directory so I can see what is there or 
 The command you need is `cd` and the concept you need to become familiar with is the notion of relative and absolute paths. The path is the set of nested directories that specify a subdirectory of interest.
 
 ```{r cd1}
-pwd
 cd /home/oski  # go to home directory
 cd stat243-fall-2014 # relative path
 ls
 ```
 ```{r cd2}
-pwd
 cd /home/oski/stat243-fall-2014 # absolute path to the same location
 ls
 ```
 ```{r cd3}
-cd units
-cd ..  # go up a directory to the parent of your current directory
-```
-```{r cd4}
-cd units
+cd /home/oski/stat243-fall-2014/units
+cd ..  # go up a directory to the parent of the current directory
 ```
 ```{r cd5}
+cd /home/oski/stat243-fall-2014
 cd ../data # go up a directory and then down to a different subdirectory
 ```
 ```{r cd6}
+cd /home/oski/stat243-fall-2014/units
 cd ../../tutorial-unix-basics  # go up two directories and down
 ```
 
@@ -189,6 +186,7 @@ ls -l stat243/units
 ```
 ```{r, cp-all2}
 rm -r /tmp/stat243/units
+ls /tmp/stat243
 ```
 
 You can use a variant of `cp` to copy files between different UNIX-like machines. Suppose I have access to the machine *radagast.berkeley.edu* and that my user name on that machine is *scf1*. I can copy a file to that machine or from that machine as follows. 
@@ -214,8 +212,9 @@ E.g., for the *txt* file, all users can read the file but only the owner can mod
 
 If we want to change the permissions, e.g., allowing all users to write to the file, or preventing anyone from writing to it:
 ```{r, perm2-1}
-chmod ugo+w tmp.txt  # anyone can write
-echo "added line" > tmp.txt
+echo "first line" > tmp.txt  # create a file
+chmod ugo+w tmp.txt  # anyone can write to it
+echo "added line" >> tmp.txt
 cat tmp.txt
 ```
 ```{r, perm2-2}
@@ -253,10 +252,11 @@ zip stat243.zip *  # * stands in for everything in the current directory
 
 gzip is a standard UNIX compression utility to compress individual files
 ```{r, gzip1}
-cd data
+cd ~/stat243-fall/2014/data
 ls -l coop.txt
 ```
 ```{r, gzip2}
+cd ~/stat243-fall/2014/data
 gzip coop.txt
 ls -l coop.txt
 ```
@@ -268,10 +268,12 @@ tar -cvf stat243.tar *
 ls -l stat243.tar
 ```
 ```{r, tar2}
+cd ..
 tar -cvfz stat243.tgz *
 ls -l stat243.tgz
 ```
 ```{r, tar3}
+cd ..
 mv stat243.tgz /tmp
 cd /tmp
 tar -xvzf stat243.tgz
