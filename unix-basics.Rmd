@@ -247,7 +247,7 @@ The zip utility compresses in a format compatible with zip files for Windows
 
 ```{r, zip, eval=FALSE}
 cd ~
-zip -r tutor.zip tutorial-unix-basics
+zip -r data.zip ~/stat243-fall-2014/data
 ```
 
 gzip is a standard UNIX compression utility to compress individual files
@@ -389,7 +389,7 @@ ls -l /tmp/stat243-fall-2014/data # check that it ran
 
 4) The `ls` command is itself an executable installed on the system. Where is it located?
 
-5) Use both `zip` and `tar -xvzf` to compress the stat243-fall-2014/data directory. Is one much smaller than the other?
+5) Use both `zip` and `tar -xvzf` to compress the stat243-fall-2014 directory. Is one much smaller than the other?
 
 6) Try to run the following command `mkdir ~/projects/drought`. It will fail. Look in the help information on `mkdir` to figure out how to make it work without first creating the *projects* directory.
 
