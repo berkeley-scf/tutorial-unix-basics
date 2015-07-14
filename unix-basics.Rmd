@@ -1,0 +1,389 @@
+The Basics of UNIX
+======================================================================================
+Illustrated with the BCE Virtual Machine
+======================================================================================
+
+Chris Paciorek, Department of Statistics, UC Berkeley
+
+```{r setup, include=FALSE}
+opts_chunk$set(engine='bash') # because we're using a lot of bash, let's set as default
+```
+
+# 0) This Tutorial
+
+This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or Mac OS X) environment. In particular, it covers using the UNIX command line, a powerful way to carry out operations on a computer and to automate tasks.  Being familiar with operating on the command line will allow you (with some practice and training) to do things more quickly and in a way that can be reproduced later. That's hard or impossible to do if you are doing point-and-click or drag-and-drop operations in a File Manager or Finder window. 
+
+This document accompanies a screencast of the material and the end of this document has questions that test your understanding of the material. 
+
+We'll use a virtual machine developed here at Berkeley, [the Berkeley Common Environment (BCE)](http://bce.berkeley.edu). BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us.
+
+Materials for this tutorial, including the R markdown file that was used to create this document are available on github at (https://github.com/berkeley-scf/tutorial-unix-basics).  You can download the files by doing a git clone from a terminal window on UNIX-like machine, as we'll demonstrate early in this document:
+```{r, clone, eval=FALSE}
+git clone https://github.com/berkeley-scf/tutorial-unix-basics
+```
+
+I'm using the R extension of Markdown because it allows me to embed UNIX commands and execute them with the output seen in the resulting HTML/PDF document. This could also have been done with Jupyter.
+
+To create this HTML document, simply compile the corresponding R Markdown file in R as follows (the following will work from within BCE after cloning the repository as above).
+```{r, build-html, eval = FALSE}
+Rscript -e "library(knitr); knit2html('unix-basics.Rmd')"
+```
+
+<!--
+#pandoc --number-sections spark.md -o spark.html
+#Rscript -e "library(knitr); knit('spark.Rmd')"
+#pandoc --mathjax --number-sections spark.md -o spark.html
+-->
+
+
+
+# 1) Getting prepared
+
+First, you'll need to install the VirtualBox software on your local machine. BCE runs on VirtualBox. Please follow the [BCE installation instructions](http://bce.berkeley.edu/install). Once you've done this, you'll have a Linux computer running within your own machine.
+
+Once you've started the BCE VM, open a Terminal window by clicking on the icon of the black square with the dollar sign in the top left of the BCE window (or Click on `Applications -> Accessories -> Terminal Emulator` in the top left). 
+
+That said, if you'd like to work in a Terminal window on your own Mac, feel free to do that (you'll find the Terminal under `Applications -> Utilities -> Terminal`). On Windows, you could install Cygwin and get a UNIX environment on your Windows machine. 
+
+Once you're in a Terminal window, you can enter UNIX commands to get information and work with the system. Commands often have optional arguments (flags) that are specified with a minus in front of them, as we'll see. 
+
+# 2) Using `git` for version control
+
+Git is an important tool to become familiar with, at least at the basic level. Git allows you to share files between different computers and different people and for people to collaborate on projects together. In particular, it is a version control tool that allows you to have different versions of your files and to go back to earlier versions of your files. Git stores the files for a project in a *repository*. 
+
+For our purposes here, we'll simply use Git to download materials from Github, a website that stores Git repositories in the cloud. 
+
+First we'll download the materials for this tutorial.
+
+To *clone* (i.e., copy) a repository (in this case from Github) we do the following. Note that *berkeley-scf* is the project and *tutorial-unix-basics* is the repository.
+```{r, git-clone}
+cd  # go to your home directory
+git clone https://github.com/berkeley-scf/tutorial-unix-basics
+```
+
+Next let's clone a more extensive repository - we'll get the materials for my Statistics 243 class from Fall 2014.  
+
+```{r, git-clone2, echo=FALSE}
+cd  # go to your home directory
+git clone https://github.com/berkeley-stat243/stat243-fall-2014
+# when you do this you'll see some text indicating the progress of the cloning
+```
+
+Now suppose that whoever controls the repository makes some changes and you want an updated copy of the repository on your computer. Simply `cd` into the directory on your machine (or any subdirectories) and enter `git pull`.
+```{r, git-pull} 
+cd ~/stat243-fall-2014
+git pull
+```
+
+
+# 3) Files and directories
+
+To be able to compare what we see in the Terminal to a graphical view of the files on the computer, open the *File Manager* by clicking on the icon showing a folder in the upper left. (If you are working on a Mac, open the *Finder*.)
+
+## 3.1) Moving around and listing information
+
+Anytime you are in a UNIX terminal, you have a *working directory* which is your current location in the file system. 
+
+Here's how you can see where you are (it will be the home directory for the *oski* user, where files specific to that user are stored) and list the files in the working directory:
+```{r, engine='bash', pwd1}
+pwd
+```
+```{r, engine='bash', pwd2}
+ls
+```
+```{r, engine='bash', pwd3}
+ls -l
+```
+
+Note the use of the -l flag to list the long-format information. As mentioned, options for UNIX commands are generally provided via this kind of syntax.
+
+Notice that we have BCE set up so that your working directory is printed as part of the prompt. 
+
+In the last command you'll see information on each file (or directory) on a number of things of which the most important are:
+* (column 1) file permissions (more later)
+* (column 3) the owner of the file
+* (column 5) the size of the file in bytes
+* (column 6-8) the last time the file was modified
+* (column 9) name of the file
+
+Now suppose I want to be in a different directory so I can see what is there or do things to the files in that directory.
+
+The command you need is `cd` and the concept you need to become familiar with is the notion of relative and absolute paths. The path is the set of nested directories that specify a subdirectory of interest.
+
+```{r cd1}
+cd stat243-fall-2014 # relative path
+ls
+```
+```{r cd2}
+cd /home/oski/stat243-fall-2014 # absolute path to the same location
+ls
+```
+```{r cd3}
+cd units
+cd ..  # go up a directory to the parent of your current directory
+```
+```{r cd4}
+cd units
+```
+```{r cd5}
+cd ../data # go up a directory and then down to a different subdirectory
+```
+```{r cd6}
+cd ../../tutorial-unix-basics  # go up two directories and down
+```
+
+## 3.2) The filesystem
+
+The filesystem is basically a upside-down tree. The top, or root of the tree, is the `/` directory. Within `/` there are subdirectories, such as `/home` (which contains users home directories where all of the files owned by a user are stored). For the *oski* user, everything is stored in `/home/oski`. If you are the oski user, you can also refer to `/home/oski` by the shortcuts `~` and `~oski`. 
+
+
+```{r, filesystem1}
+ls /
+```
+```{r, filesystem2}
+ls /home
+```
+```{r, filesystem3}
+ls /home/oski
+```
+```{r, filesystem4}
+ls ~
+```
+```{r, filesystem5}
+ls ~oski
+```
+```{r, filesystem6}
+ls /tmp
+```
+
+Another useful directory is `/tmp`, which is a good place to put temporary files that you only need briefly and don't need to save. These will disappear when a machine is rebooted. 
+
+
+## 3.3) Copying and removing files
+
+You'll often want to make a copy of a file, move it between directories, or remove it.
+
+```{r, cp1}
+cd ~/stat243-fall-2014/units
+cp unit8-parallel.R unit8-parallel-new.R
+mv unit8-parallel-new.R /tmp/.
+cd /tmp
+```
+```{r, cp2}
+ls -lrt 
+rm unit8-parallel-new.R
+```
+
+We can copy and remove entire directories
+```{r, cp-all1}
+cd ~/stat243-fall-2014
+cp -pr units /tmp/.
+cd /tmp
+mkdir stat243
+mv -r units stat243
+ls -l stat243/units
+```
+```{r, cp-all2}
+rm -r /tmp/stat243/units
+```
+
+You can use a variant of `cp` to copy files between different UNIX-like machines. Suppose I have access to the machine *radagast.berkeley.edu* and that my user name on that machine is *scf1*. I can copy a file to that machine or from that machine as follows. 
+
+```{r, scp, eval=FALSE}
+cd ~/stat243-fall-2014/units
+scp unit1-unix.sh scf1@radagast.berkeley.edu:~/Desktop/.  # copy the file to Desktop subdirectory of the scf1 home directory on the remote machine
+scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2014/data/.
+```
+
+## 3.4) File permissions
+
+Let's look at the first "column" of information returned by `ls -l`. The first column actually contains 10 individual single-character columns. The third column indicates the owner of each file and the fourth column the group of users the owner belongs to.
+
+```{r, perm}
+cd ~/stat243-fall-2014
+ls -l
+```
+
+Items marked with a `d` in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read(r), write(w) and execute(x) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.
+
+E.g., for the *txt* file, all users can read the file but only the owner can modify the file by writing to it. 
+
+If we want to change the permissions, e.g., allowing all users to write to the file, or preventing anyone from writing to it:
+```{r, perm2-1}
+chmod ugo+w tmp.txt  # anyone can write
+echo "added line" > tmp.txt
+cat tmp.txt
+```
+```{r, perm2-2}
+chmod ugo-r tmp.txt # no one can read
+cat tmp.txt
+```
+```{r, perm2-3}
+chmod u+r tmp.txt # only the owner can read
+cat tmp.txt
+```
+
+Confusingly, 'u' refers to the owner (user), while 'o' refers to others.
+
+## 3.5) Some additional useful syntax
+
+Here are some other useful variants on commands we've already seen
+
+```{r, useful, eval=FALSE}
+cp -p  # preserve timestamp and other useful info (e.g., if you want to know when the original file was last modified)
+ls -lrt  # list files in order of when last modified, most recent at the bottom
+rm -f file.txt  # remove a file without prompting for whether you are sure --- be careful -- there is no Trash from which you can recover a file
+cd -  # go back to the most recent directory you were in
+```
+
+# 4) Other useful tools and information
+
+## 4.1) Compressing and uncompressing files
+
+The zip utility compresses in a format compatible with zip files for Windows
+
+```{r, zip}
+cd ~/stat243-fall-2014
+zip stat243.zip *  # * stands in for everything in the current directory
+```
+
+gzip is a standard UNIX compression utility to compress individual files
+```{r, gzip1}
+cd data
+ls -l coop.txt
+```
+```{r, gzip2}
+gzip coop.txt
+ls -l coop.txt
+```
+
+Finally, the *tar* utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.
+```{r, tar1}
+cd ..
+tar -cvf stat243.tar *
+ls -l stat243.tar
+```
+```{r, tar2}
+tar -cvfz stat243.tgz *
+ls -l stat243.tgz
+```
+```{r, tar3}
+mv stat243.tgz /tmp
+cd /tmp
+tar -xvzf stat243.tgz
+ls -l stat243
+```
+
+
+## 4.2) Getting help with UNIX tools
+
+Essentially all UNIX commands/utilities have (often very extensive and hard to parse) help information.
+
+```{r, man, eval=FALSE}
+man chmod
+```
+
+You can see if a utility or program is installed (and where it is installed) using `which`.
+
+```{r, which}
+which R
+which python
+which matlab
+```
+
+## 4.3) Disk usage
+
+You can can see how much disk space is being used or is free as follows.
+```{r, df1}
+df -h
+```
+```{r, df2}
+cd ~/stat243-fall-2014
+du -h
+```
+
+In general, you'll want to look at the '/' line, and on standard UNIX machines possibly at '/tmp', '/home', and others. 
+
+## 4.4) Machine information
+
+Linux machines (but not Macs) have system information provided in a few special files. Note that `head` is like the `cat` command but just prints out the initial lines of the file.
+
+```{r, infofiles1}
+head -n 30 /proc/cpuinfo
+```
+```{r, infofiles2}
+cat /proc/meminfo
+```
+```{r, infofiles3}
+cat /etc/issue
+```
+
+We can also use utilities to get information:
+
+```{r}
+nproc  # how many processors
+```
+
+# 5) The shell
+
+The shell is the UNIX program that you have been interacting with when using the Terminal. The shell sits between you and the operating system and provides useful commands and functionality. There are actually different shells that you can use, of which `bash` is very common and is the default on both BCE and on the Mac. You've been using `bash` without knowing it.
+
+The shell provides a number of useful shortcuts, of which we highlight a couple here.
+
+## 5.1) Tab completion
+
+The shell will try to auto-complete the names of commands/programs or of files when you type part of the name and then hit <Tab>. This can save quite a bit of typing, particularly for long file names. 
+
+## 5.2) Command history
+
+The up and down arrow keys will move you through the history of commands you have entered in the terminal. So you can recover something you typed previously and then directly run it again, or edit it, and then run the modified version. 
+
+There's also lots more functionality along these lines that we won't go into here.
+
+You can navigate within a line using the usual arrows but also:
+
+* Ctrl-a moves to the beginning of the line
+* Ctrl-e moves to the end of the line
+* Ctrl-k deletes the rest of the line starting at the cursor
+* Ctrl-y pastes in whatever was deleted previously with Ctrl-k
+
+## 5.3) Saving your code as a shell script
+
+Often (particularly as you learn more sophisticated shell functionality) you will want to save your shell syntax in the form of a code file, called a script, that you could run another time.
+
+For example, suppose you often need to do the following series of steps:
+```{r, script, eval=FALSE}
+cd 
+tar -cvzf stat243.tgz stat243-fall-2014
+mv stat243.tgz /tmp
+cd /tmp
+tar -xvzf stat243.tgz
+rm -rf data
+```
+
+You can put those lines into a file, say, mvStat243.sh, which will generally end in .sh.
+
+Then we can run the code in the file as follows. (Results not shown here.)
+```{r, run-script, eval=FALSE}
+chmod ugo+x mvStat243.sh  # make the script an executable
+./mvStat243.sh  # run it
+ls -l /tmp/stat243-fall-2014 # check that it ran
+
+ls -l /tmp/stat243-fall-2014/data # check that it ran
+```
+
+# 6) Questions
+
+1) Figure out how to print out free disk space in terms of megabytes. 
+
+2) Change the permissions on the file stat243-fall-2014/units/unit1-unix.sh to be readable by the user and the group, writeable by the user, and executable by all users.
+
+3) Where is Python installed on the system? What are some other programs/executables are installed in the same directory.
+
+4) The `ls` command is itself an executable installed on the system. Where is it located?
+
+5) Use both `zip` and `tar -xvzf` to compress the stat243-fall-2014/data directory. Is one much smaller than the other?
+
+6) Try to run the following command `mkdir ~/projects/drought`. It will fail. Look in the help information on `mkdir` to figure out how to make it work without first creating the *projects* directory.
+
+7) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space.

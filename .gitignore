@@ -1,0 +1,5 @@
+# emacs backup files
+*~
+
+# intermediate markdown files
+*.md

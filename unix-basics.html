@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>The Basics of UNIX</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>The Basics of UNIX</h1>
+
+<h1>Illustrated with the BCE Virtual Machine</h1>
+
+<p>Chris Paciorek, Department of Statistics, UC Berkeley</p>
+
+<h1>0) This Tutorial</h1>
+
+<p>This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or Mac OS X) environment. In particular, it covers using the UNIX command line, a powerful way to carry out operations on a computer and to automate tasks.  Being familiar with operating on the command line will allow you (with some practice and training) to do things more quickly and in a way that can be reproduced later. That&#39;s hard or impossible to do if you are doing point-and-click or drag-and-drop operations in a File Manager or Finder window. </p>
+
+<p>This document accompanies a screencast of the material and the end of this document has questions that test your understanding of the material. </p>
+
+<p>We&#39;ll use a virtual machine developed here at Berkeley, <a href="http://bce.berkeley.edu">the Berkeley Common Environment (BCE)</a>. BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us.</p>
+
+<p>Materials for this tutorial, including the R markdown file that was used to create this document are available on github at (<a href="https://github.com/berkeley-scf/tutorial-unix-basics">https://github.com/berkeley-scf/tutorial-unix-basics</a>).  You can download the files by doing a git clone from a terminal window on UNIX-like machine, as we&#39;ll demonstrate early in this document:</p>
+
+<pre><code class="bash">git clone https://github.com/berkeley-scf/tutorial-unix-basics
+</code></pre>
+
+<p>I&#39;m using the R extension of Markdown because it allows me to embed UNIX commands and execute them with the output seen in the resulting HTML/PDF document. This could also have been done with Jupyter.</p>
+
+<p>To create this HTML document, simply compile the corresponding R Markdown file in R as follows (the following will work from within BCE after cloning the repository as above).</p>
+
+<pre><code class="bash">Rscript -e &quot;library(knitr); knit2html(&#39;unix-basics.Rmd&#39;)&quot;
+</code></pre>
+
+<!--
+#pandoc --number-sections spark.md -o spark.html
+#Rscript -e "library(knitr); knit('spark.Rmd')"
+#pandoc --mathjax --number-sections spark.md -o spark.html
+-->
+
+<h1>1) Getting prepared</h1>
+
+<p>First, you&#39;ll need to install the VirtualBox software on your local machine. BCE runs on VirtualBox. Please follow the <a href="http://bce.berkeley.edu/install">BCE installation instructions</a>. Once you&#39;ve done this, you&#39;ll have a Linux computer running within your own machine.</p>
+
+<p>Once you&#39;ve started the BCE VM, open a Terminal window by clicking on the icon of the black square with the dollar sign in the top left of the BCE window (or Click on <code>Applications -&gt; Accessories -&gt; Terminal Emulator</code> in the top left). </p>
+
+<p>That said, if you&#39;d like to work in a Terminal window on your own Mac, feel free to do that (you&#39;ll find the Terminal under <code>Applications -&gt; Utilities -&gt; Terminal</code>). On Windows, you could install Cygwin and get a UNIX environment on your Windows machine. </p>
+
+<p>Once you&#39;re in a Terminal window, you can enter UNIX commands to get information and work with the system. Commands often have optional arguments (flags) that are specified with a minus in front of them, as we&#39;ll see. </p>
+
+<h1>2) Using <code>git</code> for version control</h1>
+
+<p>Git is an important tool to become familiar with, at least at the basic level. Git allows you to share files between different computers and different people and for people to collaborate on projects together. In particular, it is a version control tool that allows you to have different versions of your files and to go back to earlier versions of your files. Git stores the files for a project in a <em>repository</em>. </p>
+
+<p>For our purposes here, we&#39;ll simply use Git to download materials from Github, a website that stores Git repositories in the cloud. </p>
+
+<p>First we&#39;ll download the materials for this tutorial.</p>
+
+<p>To <em>clone</em> (i.e., copy) a repository (in this case from Github) we do the following. Note that <em>berkeley-scf</em> is the project and <em>tutorial-unix-basics</em> is the repository.</p>
+
+<pre><code class="bash">cd  # go to your home directory
+git clone https://github.com/berkeley-scf/tutorial-unix-basics
+</code></pre>
+
+<pre><code>## Cloning into &#39;tutorial-unix-basics&#39;...
+## remote: Repository not found.
+## fatal: repository &#39;https://github.com/berkeley-scf/tutorial-unix-basics/&#39; not found
+</code></pre>
+
+<p>Next let&#39;s clone a more extensive repository - we&#39;ll get the materials for my Statistics 243 class from Fall 2014.  </p>
+
+<pre><code>## fatal: destination path &#39;stat243-fall-2014&#39; already exists and is not an empty directory.
+</code></pre>
+
+<p>Now suppose that whoever controls the repository makes some changes and you want an updated copy of the repository on your computer. Simply <code>cd</code> into the directory on your machine (or any subdirectories) and enter <code>git pull</code>.</p>
+
+<pre><code class="bash">cd ~/stat243-fall-2014
+git pull
+</code></pre>
+
+<pre><code>## Already up-to-date.
+</code></pre>
+
+<h1>3) Files and directories</h1>
+
+<p>To be able to compare what we see in the Terminal to a graphical view of the files on the computer, open the <em>File Manager</em> by clicking on the icon showing a folder in the upper left. (If you are working on a Mac, open the <em>Finder</em>.)</p>
+
+<h2>3.1) Moving around and listing information</h2>
+
+<p>Anytime you are in a UNIX terminal, you have a <em>working directory</em> which is your current location in the file system. </p>
+
+<p>Here&#39;s how you can see where you are (it will be the home directory for the <em>oski</em> user, where files specific to that user are stored) and list the files in the working directory:</p>
+
+<pre><code class="bash">pwd
+</code></pre>
+
+<pre><code>## /accounts/gen/vis/paciorek/staff/tutorials/tutorial-unix-basics
+</code></pre>
+
+<pre><code class="bash">ls
+</code></pre>
+
+<pre><code>## stat243-fall-2014
+## tmp.txt
+## unit1-unix.lyx
+## unit1-unix.sh
+## unix-basics.html
+## #unix-basics.md#
+## unix-basics.md
+## unix-basics.md~
+## unix-basics.Rmd
+## unix-basics.Rmd~
+</code></pre>
+
+<pre><code class="bash">ls -l
+</code></pre>
+
+<pre><code>## total 454
+## drwxr-sr-x 11 paciorek scfstaff     13 Jul 14 13:32 stat243-fall-2014
+## -rw-------  1 paciorek scfstaff     11 Jul 14 13:33 tmp.txt
+## -rw-r--r--  1 paciorek scfstaff  20846 Jul  9 16:22 unit1-unix.lyx
+## -rw-r--r--  1 paciorek scfstaff   1867 Jul  9 16:22 unit1-unix.sh
+## -rw-r--r--  1 paciorek scfstaff 117620 Jul 14 13:33 unix-basics.html
+## -rw-r--r--  1 paciorek scfstaff  60236 Jul  9 16:32 #unix-basics.md#
+## -rw-r--r--  1 paciorek scfstaff 112780 Jul 14 13:33 unix-basics.md
+## -rw-r--r--  1 paciorek scfstaff  62940 Jul  9 16:29 unix-basics.md~
+## -rw-r--r--  1 paciorek scfstaff  15883 Jul 14 14:02 unix-basics.Rmd
+## -rw-r--r--  1 paciorek scfstaff  14941 Jul 13 18:33 unix-basics.Rmd~
+</code></pre>
+
+<p>Note the use of the -l flag to list the long-format information. As mentioned, UNIX flags are generally provided via this kind of syntax.</p>
+
+<p>Notice that we have BCE set up so that your working directory is printed as part of the prompt. </p>
+
+<p>In the last command you&#39;ll see information on each file (or directory) on a number of things of which the most important are:</p>
+
+<ul>
+<li>(column 1) file permissions (more later)</li>
+<li>(column 3) the owner of the file</li>
+<li>(column 5) the size of the file in bytes</li>
+<li>(column 6-8) the last time the file was modified</li>
+<li>(column 9) name of the file</li>
+</ul>
+
+<p>Now suppose I want to be in a different directory so I can see what is there or do things to the files in that directory.</p>
+
+<p>The command you need is <code>cd</code> and the concept you need to become familiar with is the notion of relative and absolute paths. The path is the set of nested directories that specify a subdirectory of interest.</p>
+
+<pre><code class="bash">cd stat243-fall-2014 # relative path
+ls
+</code></pre>
+
+<pre><code>## /accounts/gen/vis/paciorek/staff/tutorials/tutorial-unix-basics/stat243-fall-2014
+## data
+## howtos
+## literateProgramming
+## project
+## ps
+## README.md
+## section
+## syllabus
+## units
+</code></pre>
+
+<pre><code class="bash">cd /home/oski/stat243-fall-2014 # absolute path to the same location
+ls
+</code></pre>
+
+<pre><code>## bash: line 0: cd: /home/oski/stat243-fall-2014: No such file or directory
+## stat243-fall-2014
+## tmp.txt
+## unit1-unix.lyx
+## unit1-unix.sh
+## unix-basics.html
+## #unix-basics.md#
+## unix-basics.md
+## unix-basics.md~
+## unix-basics.Rmd
+## unix-basics.Rmd~
+</code></pre>
+
+<pre><code class="bash">cd units
+cd ..  # go up a directory to the parent of your current directory
+</code></pre>
+
+<pre><code>## bash: line 0: cd: units: No such file or directory
+</code></pre>
+
+<pre><code class="bash">cd units
+</code></pre>
+
+<pre><code>## bash: line 0: cd: units: No such file or directory
+</code></pre>
+
+<pre><code class="bash">cd ../data # go up a directory and then down to a different subdirectory
+</code></pre>
+
+<pre><code>## bash: line 0: cd: ../data: No such file or directory
+</code></pre>
+
+<pre><code class="bash">cd ../../tutorial-unix-basics  # go up two directories and down
+</code></pre>
+
+<pre><code>## bash: line 0: cd: ../../tutorial-unix-basics: No such file or directory
+</code></pre>
+
+<h2>3.2) The filesystem</h2>
+
+<p>The filesystem is basically a upside-down tree. The top, or root of the tree, is the <code>/</code> directory. Within <code>/</code> there are subdirectories, such as <code>/home</code> (which contains users home directories where all of the files owned by a user are stored). For the <em>oski</em> user, everything is stored in <code>/home/oski</code>. If you are the oski user, you can also refer to <code>/home/oski</code> by the shortcuts <code>~</code> and <code>~oski</code>. </p>
+
+<pre><code class="bash">ls /
+</code></pre>
+
+<pre><code>## accounts
+## bin
+## boot
+## dev
+## etc
+## home
+## initrd.img
+## initrd.img.old
+## lib
+## lib32
+## lib64
+## lost+found
+## media
+## mirror
+## mnt
+## opt
+## proc
+## root
+## run
+## sbin
+## scratch
+## server
+## srv
+## sys
+## system
+## tmp
+## usr
+## var
+## vmlinuz
+## vmlinuz.old
+</code></pre>
+
+<pre><code class="bash">ls /home
+</code></pre>
+
+<pre><code>## scflocal
+</code></pre>
+
+<pre><code class="bash">ls /home/oski
+</code></pre>
+
+<pre><code>## ls: cannot access /home/oski: No such file or directory
+</code></pre>
+
+<pre><code class="bash">ls ~
+</code></pre>
+
+<pre><code>## #.  #
+## 10.10
+## 2005.txt
+## 342.tex
+## 3d_pillows_and_duals.nb
+## 610-649x2.xml
+## abc.out
+## abc.py
+## abc.pyc
+## abs.txt
+## abs.txt~
+## admin
+## adminExercise.txt
+## aDNA.pdf
+## anal.sh
+## a.out
+## api6.R.q
+## arwen.21717+1.22972.log
+## arwen.21717+1.22973.log
+## arwen.21717+1.22975.log
+## arwen.21717+1.22977.log
+## arwen.3494+1.24001.log
+## arwen.3494+1.24002.log
+## arwen.3494+1.24004.log
+## asaClimate
+## %backup%~
+## backups
+## banff
+## bash.e18864
+## bash.o18864
+## #.bashrc#
+## bibfiles
+## bigGP_0.1-4.tar.gz
+## bigGP.Rcheck
+## binVals
+## biomass.R
+## blah.txt
+## bmjReview.txt
+## boot1.out
+## bootcamp-reg-aug22.txt
+## boot.out
+## cache
+## cefa.etal.2014.pdf
+## changReview.lyx
+## checkMachines
+## checkSudo.txt
+## checktmpDir.txt
+## code
+## configure.sh
+## cp.out
+## crossword-volume-1.pdf
+## cv
+## DeployDemo.prj
+## dept
+## Desktop
+## digital_signature
+## doan.pdf
+## Documents
+## doMPIexample2.R
+## doMPIexample2.R~
+## doMPIexample.R
+## Downloads
+## draft.tex
+## Dropbox
+## dw__login
+## dw__login.1
+## dw__login.2
+## dw__login.3
+## e
+## eg1.sam
+## eg2.sam
+## env2.txt
+## env.e18879
+## env.o18879
+## eq.pdf
+## eq.svg
+## errors2
+## errors3
+## example
+## example.cpp
+## f1
+## f2
+## figure
+## file.out
+## finu.etal.pdf
+## finu.etal.response.pdf
+## first.env
+## foreach_doMPI.out5
+## foreachWithSql.R
+## gandalf.5887+1.5972.log
+## gandalf.5887+1.5973.log
+## gandalf.5887+1.5975.log
+## gcc-info-bdver1
+## gdrive
+## GEV.output.nc
+## ggmapTemp.png
+## gmapcatcher
+## go
+## grid2.sh
+## hfile
+## hi2.txt
+## hosts
+## id_rsa
+## id_rsa.pem
+## igraphBUGS.R
+## igv
+## index.html
+## info
+## infotech
+## install.errorsvm0
+## install.errorsvm6
+## install.sh
+## intel
+## iris3.dat
+## it
+## item_1_z_rw_for_chris.npy
+## iut.aux
+## iut.pdf
+## iut.tex
+## iut.tex~
+## java.log.10983
+## java.log.30564
+## jdtest.ipynb~
+## job10.sh
+## job.lyx
+## jobs
+## job.sh
+## journals.txt
+## journals.txt~
+## kdeFit.pdf
+## krigeProblem.R~
+## krigeProblem.R.save
+## latex
+## launchers
+## level3s_v.csv
+## Library
+## library.r
+## library.R
+## library.R~
+## log.envinfo
+## ls.e18978
+## ls.o18978
+## lunn.etal.2000.pdf
+## machines
+## machines~
+## machines2
+## machines.save
+## mail
+## Mail
+## makeTS.prof
+## manual_demos_code
+## matlab_crash_dump.30564-1
+## matlab_crash_dump.30607-1
+## michaelAnal.xml
+## model
+## modelBUGS.R
+## modelstruc1.pdf
+## model.txt
+## Movies
+## Music
+## my-cookies-out.txt
+## my-cookies.txt
+## myfile
+## myls.sh
+## myls.sh~
+## myONT.txt
+## myPdfs.txt
+## newModelBUGS.R
+## neyman
+## nim31
+## nimblePipeline.txt
+## nimblePipeline.txt~
+## nims
+## nohup.out
+## nslots.txt
+## old.Rprofile
+## openblas-0.2.8
+## openblas_0.2.8-6ubuntu1.debian.tar.gz
+## openblas_0.2.8-6ubuntu1.dsc
+## openblas_0.2.8.orig.tar.xz
+## optBinVals
+## out3-100-1121.e15719
+## out3-100-1121.o15719
+## output.txt.
+## output.txt.arwen
+## output.txt.beren
+## output.txt.crow
+## output.txt.legolas
+## output.txt.smeagol
+## output.txt.treebeard
+## paciorek.info
+## paciorek-jetblue.pdf
+## paciorek-jetblue-receipt.pdf
+## pam(a)
+## papers
+## pause.e207883
+## pause.o207883
+## pgm.asv
+## Pictures
+## piper
+## pi.py
+## pi.pyc
+## potFilterX.R
+## potFilterX.R~
+## previewPDF.pdf
+## prob1.prof
+## prob2a.prof
+## profile
+## prog.f
+## prog.o
+## Public
+## pyt.py
+## R
+## ratio5.mat
+## r-base-3.0.2
+## r-base_3.0.2-1ubuntu1.diff.gz
+## r-base_3.0.2-1ubuntu1.dsc
+## r-base_3.0.2.orig.tar.gz
+## rcpp-0.9.9
+## rcpp_0.9.9-1.dsc
+## recharge.aux
+## recharge.pdf
+## recharge.tex
+## recharge.tex~
+## recs
+## research
+## rev.lyx
+## Rlibs
+## Rpkg.errors.vm0
+## Rpkg.errors.vm6
+## Rpkgs.R
+## Rpkgs.R~
+## Rplots.pdf
+## Rprof.out
+## runs.sh
+## runs.sh.e37090
+## runs.sh.o37090
+## s133.1.pdf
+## s3distcp.jar
+## sampleKTFast.pl
+## sas
+## sasuser.v92
+## sasuser.v93
+## sasuser.v94
+## sat.xlsx
+## sauron.30391+1.30453.log
+## sauron.30391+1.30454.log
+## sauron.30391+1.30456.log
+## scf1@localhost
+## second.env
+## sent
+## shef2leeds.gpx
+## shell_thw
+## simple.py
+## simulation.m
+## sleep 10000000000000.e207884
+## sleep 10000000000000.o207884
+## sleep.sh
+## sleep.sh.e231842
+## sleep.sh.o231842
+## spark_rsa.pub
+## src
+## staff
+## stat243-fall-2014
+## StatSciMar13.tex
+## stats.txt
+## stats.txt~
+## success
+## sun.xlsx
+## T002reg_pdp.do
+## teaching
+## TEMP_conjugateSamplerDefinitions.R
+## template
+## Templates
+## test
+## test.out
+## test.R
+## test.R~
+## test.Rout
+## test.sh
+## test.sh~
+## texfiles.zip
+## timing.C~
+## tmp.cpp
+## tmp.cpp~
+## #tmp.py#
+## tmp.q
+## tmp.q~
+## #tmp.R#
+## tmp.R
+## tmp.R~
+## #tmp.sh#
+## tmp.sh
+## #tmp.txt#
+## tmp.txt
+## todo
+## tpsBdry.pdf
+## travel
+## ttest.test
+## unit10-numbers.pdf
+## Untitled0.ipynb
+## Untitled1.ipynb
+## upstart-dbus-bridge.2911.pid
+## upstart-dbus-bridge.8449.pid
+## upstart-file-bridge.2911.pid
+## upstart-file-bridge.8449.pid
+## var
+## Videos
+## VirtualBox VMs
+## wallet
+## wallet~
+## webpage
+## wekafiles
+## wiDeriv.lyx
+## WIND
+## WINDOWS
+## wordpress
+## workMac108files
+## www
+</code></pre>
+
+<pre><code class="bash">ls ~oski
+</code></pre>
+
+<pre><code>## ls: cannot access ~oski: No such file or directory
+</code></pre>
+
+<pre><code class="bash">ls /tmp
+</code></pre>
+
+<pre><code>## 10618600%2E2013%2E870074.pdf
+## 10618600%2E2013%2E874295.pdf
+## 10618600%2E2013%2E878662.pdf
+## 10618600%2E2014%2E889023.pdf
+## 10618600%2E2014%2E896808.pdf
+## 10618600%2E2014%2E897625.pdf
+## 10618600%2E2014%2E899236.pdf
+## 10618600%2E2014%2E900500.pdf
+## 10618600%2E2014%2E901914.pdf
+## 10618600%2E2014%2E902764.pdf
+## 10618600%2E2014%2E907095.pdf
+## 10618600%2E2014%2E909733.pdf
+## 10618600%2E2014%2E912136.pdf
+## 10618600%2E2014%2E914442.pdf
+## 10618600%2E2014%2E914946.pdf
+## 10618600%2E2014%2E920709.pdf
+## 10618600%2E2014%2E930041.pdf
+## 1405.4682v1.pdf
+## 14272-rsession
+## 16407-rsession
+## 16765-rsession
+## 23546-rsession
+## 23922-rsession
+## 44488-rsession
+## 46425-rsession
+## adobe-acrobat-xi-esign-pdf-file-tutorial-ue.pdf
+## airline.csv
+## art%3A10.1007%2Fs10651-014-0294-3.pdf
+## art%3A10.1007%2Fs10651-014-0297-0.pdf
+## art%3A10.1007%2Fs10651-014-0299-y.pdf
+## art%3A10.1007%2Fs10651-014-0300-9.pdf
+## art%3A10.1007%2Fs13253-014-0189-7.pdf
+## art%3A10.1007%2Fs13253-014-0192-z.pdf
+## art%3A10.1007%2Fs13253-014-0193-y.pdf
+## art%3A10.1007%2Fs13253-014-0195-9.pdf
+## art%3A10.1007%2Fs13253-015-0198-1.pdf
+## art%3A10.1007%2Fs13253-015-0199-0.pdf
+## art%3A10.1007%2Fs13253-015-0207-4.pdf
+## bam_2014nppdendrohighlightspresented.ppt
+## Biostat-2015-Bobb-493-508.pdf
+## Biostat-2015-Chang-509-21.pdf
+## Biostat-2015-Crawford-427-40.pdf
+## Biostat-2015-Li-413-26.pdf
+## Biostat-2015-Long-596-610.pdf
+## Biostat-2015-Neelon-465-79.pdf
+## Biostat-2015-Ozenne-580-95.pdf
+## Biostat-2015-Tang-441-53.pdf
+## blah
+## Burr_et_al-2015-Environmetrics.pdf
+## CanJ2012.pdf
+## Chang_et_al-2015-Biometrics.pdf
+## coi-dtl.csv
+## composition
+## composition_grid
+## config_0.3-100
+## config_0.3-101
+## config_0.3-102
+## config_0.3-103
+## config_0.3-104
+## config_0.3-105
+## config_0.3-106
+## config_0.4-101
+## config_0.4-102
+## config_0.4-103
+## config_0.4-104
+## config_0.4-105
+## config_0.4-106
+## cran.pdf
+## Dennis_et_al-2015-Biometrics.pdf
+## distributions_inputList.R
+## eigen-eigen-bdd17ee3b1b3
+## eigen-eigen-bdd17ee3b1b3.tar.gz
+## env2343-sup-0001-suppl1.pdf
+## Erhardt_et_al-2015-Biometrics.pdf
+## euclid.aoas.1430226082.pdf
+## euclid.aoas.1430226084.pdf
+## euclid.aoas.1430226086.pdf
+## euclid.aoas.1430226088.pdf
+## euclid.aoas.1430226089.pdf
+## euclid.aoas.1430226092.pdf
+## euclid.aoas.1430226093.pdf
+## euclid.aoas.1430226095.pdf
+## euclid.aoas.1430226096.pdf
+## euclid.aoas.1430226098.pdf
+## euclid.aoas.1430226100.pdf
+## euclid.ejs.1422885673.pdf
+## euclid.ejs.1427990069.pdf
+## euclid.ss.1433341471.pdf
+## euclid.ss.1433341472.pdf
+## euclid.ss.1433341473.pdf
+## euclid.ss.1433341474.pdf
+## euclid.ss.1433341475.pdf
+## euclid.ss.1433341476.pdf
+## euclid.ss.1433341481.pdf
+## ex2.json
+## excpi
+## ex.json
+## FagerlandLydersenLaake2011---RecommendedCIsForTwoIndependent....pdf
+## Fattorini_et_al-2015-Environmetrics.pdf
+## full-coi.csv
+## Geirsson_et_al-2015-Environmetrics
+## Goddard_et_al-2015-Environmetrics.pdf
+## grades.csv
+## Grego_et_al-2015-Environmetrics.pdf
+## Handcock_et_al-2015-Biometrics.pdf
+## Hanks_et_al-2015-Environmetrics.pdf
+## Hedayat_et_al-2015-Biometrics.pdf
+## hsperfdata_paciorek
+## ioscoitemplate.xlsx
+## jags_user_manual.pdf
+## Kaczmarska_et_al-2015-Environmetrics.pdf
+## knitr-examples
+## kxv004supp.pdf
+## Lange_et_al-2015-Biometrics.pdf
+## Lee_et_al-2015-Environmetrics
+## Lee_et_al-2015-Environmetrics.pdf
+## lenth.pdf
+## Li_et_al-2015-Biometrics.pdf
+## lost+found
+## lutpemom.tmp
+## lyx_tmpdir.MT4158
+## lyx_tmpdir.T13471
+## lyx_tmpdir.T19628
+## lyx_tmpdir.T30692
+## mat5000.Rda
+## MathLink
+## MATLAB-InternalConnector.log
+## MCMC_conjugacy.R
+## mmc1.pdf
+## murrell.pdf
+## mwr-078-01-0001.pdf
+## nim4
+## nim41
+## nim41oldR
+## nim4check
+## nim4dev
+## nim4devTest
+## nim4devTest1
+## nim4dists
+## nimble
+## nimble_0.4.tar.gz
+## nimble-dev
+## nimbleProject.R
+## nimble-save-dist-ranges
+## npp
+## nsf.pdf
+## Oliver_s_revisit_of_the_first_three_BAMS_attribution_supplements__for_PNAS_.pdf
+## oneil.pdf
+## openmpi-sessions-paciorek@smeagol_0
+## OSL_PIPE_3189_SingleOfficeIPC_f1de2b16c9710d8eb51dae0707d1c35
+## paci.mcla.2009.pdf
+## paciorek-biosketch.doc
+## paciorek-financial-disclosure.pdf
+## paleon-treegrowth.R
+## pbdBASE
+## pbdBASE_0.2-3.tar.gz
+## pbdDEMO-guide-1.pdf
+## pbdDEMO-guide-2.pdf
+## pbdDMAT
+## pbdDMAT_0.2-3.tar.gz
+## pbdMPI
+## pbdMPI_0.2-5.tar.gz
+## pbdSLAP
+## pbdSLAP_0.2-0.tar.gz
+## plugtmp
+## plugtmp-3
+## pulse-l7VwoO9gL9ka
+## qtsingleapp-RStudi-c679-c75-lockfile
+## Quiroz_et_al-2015-Biometrics.pdf
+## r-base-3.0.2
+## R-devel-mavericks-signed.pkg
+## R-devel.tar.gz
+## R-exts-1.pdf
+## R-exts.pdf
+## r-foundation.pdf
+## RJ-2015-1.pdf
+## Rtmp1jAlFQ
+## Rtmp3m911C
+## Rtmp87a4Ay
+## RtmpB8JW1B
+## RtmpDt9SY7
+## RtmpDzBsEd
+## Rtmpee5ETb
+## RtmpEXEdvJ
+## RtmpF9fRcf
+## Rtmpff7ILy
+## RtmpHmbMxG
+## RtmphPeIzS
+## RtmpiKhLwD
+## RtmpJR2IIN
+## RtmpKjrn6d
+## RtmpnYRvDf
+## RtmprhacFl
+## RtmpU5Uw6z
+## RtmpvInik5
+## Rtmpx2rkeN
+## RtmpXLxTmN
+## RtmpYXdABe
+## RtmpzidpC1
+## RtmpzyDuNp
+## Rushworth_et_al-2015-Environmetrics
+## Saarela_et_al-2015-Biometrics.pdf
+## SCF
+## Smith_et_al-2015-Biometrics.pdf
+## spark-1.4.0.tgz
+## ssh-DY6x18TFFujG
+## stat243
+## stat243-fall-2014
+## stat243.tgz
+## Stata14.dmg
+## Stata14Linux64.tar.gz
+## sysctl.aws.txt
+## test-trunc.R
+## tmp10
+## tmp2
+## tmp6
+## tmp.r
+## tmp.Rda
+## tmp.tgz
+## #tmp.txt#
+## tmp.txt
+## tmp.zip
+## Ugarte-2015-Biometrics.pdf
+## v63i02.pdf
+## Ventz_et_al-2015-Biometrics.pdf
+## Vock_et_al-2015-Biometrics.pdf
+## Zammit_Mangion_et_al-2015-Environmetrics.pdf
+## Zhang_et_al-2015-Biometrics.pdf
+</code></pre>
+
+<p>Another useful directory is <code>/tmp</code>, which is a good place to put temporary files that you only need briefly and don&#39;t need to save. These will disappear when a machine is rebooted. </p>
+
+<h2>3.3) Copying and removing files</h2>
+
+<p>You&#39;ll often want to make a copy of a file, move it between directories, or remove it.</p>
+
+<pre><code class="bash">cd ~/stat243-fall-2014/units
+cp unit8-parallel.R unit8-parallel-new.R
+mv unit8-parallel-new.R /tmp/.
+cd /tmp
+</code></pre>
+
+<pre><code class="bash">ls -lrt 
+rm unit8-parallel-new.R
+</code></pre>
+
+<pre><code>## total 454
+## -rw-r--r--  1 paciorek scfstaff  20846 Jul  9 16:22 unit1-unix.lyx
+## -rw-r--r--  1 paciorek scfstaff   1867 Jul  9 16:22 unit1-unix.sh
+## -rw-r--r--  1 paciorek scfstaff  62940 Jul  9 16:29 unix-basics.md~
+## -rw-r--r--  1 paciorek scfstaff  60236 Jul  9 16:32 #unix-basics.md#
+## -rw-r--r--  1 paciorek scfstaff  14941 Jul 13 18:33 unix-basics.Rmd~
+## drwxr-sr-x 11 paciorek scfstaff     13 Jul 14 13:32 stat243-fall-2014
+## -rw-------  1 paciorek scfstaff     11 Jul 14 13:33 tmp.txt
+## -rw-r--r--  1 paciorek scfstaff 112780 Jul 14 13:33 unix-basics.md
+## -rw-r--r--  1 paciorek scfstaff 117620 Jul 14 13:33 unix-basics.html
+## -rw-r--r--  1 paciorek scfstaff  15883 Jul 14 14:02 unix-basics.Rmd
+## rm: cannot remove ‘unit8-parallel-new.R’: No such file or directory
+</code></pre>
+
+<p>We can copy and remove entire directories</p>
+
+<pre><code class="bash">cd ~/stat243-fall-2014
+cp -pr units /tmp/.
+cd /tmp
+mkdir stat243
+mv -r units stat243
+ls -l stat243/units
+</code></pre>
+
+<pre><code>## mkdir: cannot create directory ‘stat243’: File exists
+## mv: invalid option -- &#39;r&#39;
+## Try &#39;mv --help&#39; for more information.
+## ls: cannot access stat243/units: No such file or directory
+</code></pre>
+
+<pre><code class="bash">rm -r /tmp/stat243/units
+</code></pre>
+
+<pre><code>## rm: cannot remove ‘/tmp/stat243/units’: No such file or directory
+</code></pre>
+
+<p>You can use a variant of <code>cp</code> to copy files between different UNIX-like machines. Suppose I have access to the machine <em>radagast.berkeley.edu</em> and that my user name on that machine is <em>scf1</em>. I can copy a file to that machine or from that machine as follows. </p>
+
+<pre><code class="bash">cd ~/stat243-fall-2014/units
+scp unit1-unix.sh scf1@radagast.berkeley.edu:~/Desktop/.  # copy the file to Desktop subdirectory of the scf1 home directory on the remote machine
+scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2014/data/.
+</code></pre>
+
+<h2>3.4) File permissions</h2>
+
+<p>Let&#39;s look at the first &ldquo;column&rdquo; of information returned by <code>ls -l</code>. The first column actually contains 10 individual single-character columns. The third column indicates the owner of each file and the fourth column the group of users the owner belongs to.</p>
+
+<pre><code class="bash">cd ~/stat243-fall-2014
+ls -l
+</code></pre>
+
+<pre><code>## total 16
+## drwxr-xr-x 2 paciorek scfstaff   12 Jul 14 13:33 data
+## drwxr-xr-x 2 paciorek scfstaff   16 Jul 14 13:33 howtos
+## drwxr-xr-x 2 paciorek scfstaff    8 Jul 14 13:33 literateProgramming
+## drwxr-xr-x 2 paciorek scfstaff    5 Jul 14 13:33 project
+## drwxr-xr-x 2 paciorek scfstaff   17 Jul 14 13:33 ps
+## -rw-r--r-- 1 paciorek scfstaff  141 Jul 14 13:33 README.md
+## drwxr-xr-x 7 paciorek scfstaff   11 Jul 14 13:33 section
+## -rw-r--r-- 1 paciorek scfstaff 1434 Jul 14 13:33 stat243.zip
+## drwxr-xr-x 2 paciorek scfstaff    4 Jul 14 13:33 syllabus
+## drwxr-xr-x 2 paciorek scfstaff   74 Jul 14  2015 units
+</code></pre>
+
+<p>Items marked with a <code>d</code> in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read&reg;, write(w) and execute(x) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.</p>
+
+<p>E.g., for the <em>txt</em> file, all users can read the file but only the owner can modify the file by writing to it. </p>
+
+<p>If we want to change the permissions, e.g., allowing all users to write to the file, or preventing anyone from writing to it:</p>
+
+<pre><code class="bash">chmod ugo+w tmp.txt  # anyone can write
+echo &quot;added line&quot; &gt; tmp.txt
+cat tmp.txt
+</code></pre>
+
+<pre><code>## added line
+</code></pre>
+
+<pre><code class="bash">chmod ugo-r tmp.txt # no one can read
+cat tmp.txt
+</code></pre>
+
+<pre><code>## cat: tmp.txt: Permission denied
+</code></pre>
+
+<pre><code class="bash">chmod u+r tmp.txt # only the owner can read
+cat tmp.txt
+</code></pre>
+
+<pre><code>## added line
+</code></pre>
+
+<p>Confusingly, &#39;u&#39; refers to the owner (user), while &#39;o&#39; refers to others.</p>
+
+<h2>3.5) Some additional useful syntax</h2>
+
+<p>Here are some other useful variants on commands we&#39;ve already seen</p>
+
+<pre><code class="bash">cp -p  # preserve timestamp and other useful info (e.g., if you want to know when the original file was last modified)
+ls -lrt  # list files in order of when last modified, most recent at the bottom
+rm -f file.txt  # remove a file without prompting for whether you are sure --- be careful -- there is no Trash from which you can recover a file
+cd -  # go back to the most recent directory you were in
+</code></pre>
+
+<h1>4) Other useful tools and information</h1>
+
+<h2>4.1) Compressing and uncompressing files</h2>
+
+<p>The zip utility compresses in a format compatible with zip files for Windows</p>
+
+<pre><code class="bash">cd ~/stat243-fall-2014
+zip stat243.zip *  # * stands in for everything in the current directory
+</code></pre>
+
+<pre><code>## updating: data/ (stored 0%)
+## updating: howtos/ (stored 0%)
+## updating: literateProgramming/ (stored 0%)
+## updating: project/ (stored 0%)
+## updating: ps/ (stored 0%)
+## updating: README.md (deflated 22%)
+## updating: section/ (stored 0%)
+## updating: syllabus/ (stored 0%)
+## updating: units/ (stored 0%)
+</code></pre>
+
+<p>gzip is a standard UNIX compression utility to compress individual files</p>
+
+<pre><code class="bash">cd data
+ls -l coop.txt
+</code></pre>
+
+<pre><code>## bash: line 0: cd: data: No such file or directory
+## ls: cannot access coop.txt: No such file or directory
+</code></pre>
+
+<pre><code class="bash">gzip coop.txt
+ls -l coop.txt
+</code></pre>
+
+<pre><code>## gzip: coop.txt: No such file or directory
+## ls: cannot access coop.txt: No such file or directory
+</code></pre>
+
+<p>Finally, the <em>tar</em> utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.</p>
+
+<pre><code class="bash">cd ..
+tar -cvf stat243.tar *
+ls -l stat243.tar
+</code></pre>
+
+<pre><code>## tar: stat243.tar: file is the archive; not dumped
+## tutorial-unix-basics/
+## tutorial-unix-basics/unix-basics.Rmd~
+## tutorial-unix-basics/unit1-unix.sh
+## tutorial-unix-basics/unix-basics.html
+## tutorial-unix-basics/stat243-fall-2014/
+## tutorial-unix-basics/stat243-fall-2014/data/
+## tutorial-unix-basics/stat243-fall-2014/data/cpds.csv
+## tutorial-unix-basics/stat243-fall-2014/data/IPs.RData
+## tutorial-unix-basics/stat243-fall-2014/data/precipData.txt
+## tutorial-unix-basics/stat243-fall-2014/data/precip.txt
+## tutorial-unix-basics/stat243-fall-2014/data/RTADataSub.csv
+## tutorial-unix-basics/stat243-fall-2014/data/capeCod.zip
+## tutorial-unix-basics/stat243-fall-2014/data/hivSequ.csv
+## tutorial-unix-basics/stat243-fall-2014/data/urls.txt
+## tutorial-unix-basics/stat243-fall-2014/data/coop.txt
+## tutorial-unix-basics/stat243-fall-2014/data/prec.RData
+## tutorial-unix-basics/stat243-fall-2014/literateProgramming/
+## tutorial-unix-basics/stat243-fall-2014/literateProgramming/testRnw.tex
+## tutorial-unix-basics/stat243-fall-2014/literateProgramming/testRnw.aux
+## tutorial-unix-basics/stat243-fall-2014/literateProgramming/testRnw.Rnw
+## tutorial-unix-basics/stat243-fall-2014/literateProgramming/testRnw.pdf
+## tutorial-unix-basics/stat243-fall-2014/literateProgramming/testRnw.log
+## tutorial-unix-basics/stat243-fall-2014/literateProgramming/testRnw.R
+## tutorial-unix-basics/stat243-fall-2014/howtos/
+## tutorial-unix-basics/stat243-fall-2014/howtos/gitInstall.txt
+## tutorial-unix-basics/stat243-fall-2014/howtos/latexTemplate.pdf
+## tutorial-unix-basics/stat243-fall-2014/howtos/startEC2virtualMachine.txt
+## tutorial-unix-basics/stat243-fall-2014/howtos/AWSsetup.txt
+## tutorial-unix-basics/stat243-fall-2014/howtos/Rinstall.txt
+## tutorial-unix-basics/stat243-fall-2014/howtos/Rprep.txt
+## tutorial-unix-basics/stat243-fall-2014/howtos/remoteConnect.pdf
+## tutorial-unix-basics/stat243-fall-2014/howtos/setup-storage
+## tutorial-unix-basics/stat243-fall-2014/howtos/latexTemplate.tex
+## tutorial-unix-basics/stat243-fall-2014/howtos/kdeFit.pdf
+## tutorial-unix-basics/stat243-fall-2014/howtos/virtualMachineInstall.txt
+## tutorial-unix-basics/stat243-fall-2014/howtos/startSparkVirtualCluster.txt
+## tutorial-unix-basics/stat243-fall-2014/howtos/latex.pdf
+## tutorial-unix-basics/stat243-fall-2014/howtos/github.txt
+## tutorial-unix-basics/stat243-fall-2014/section/
+## tutorial-unix-basics/stat243-fall-2014/section/ps0/
+## tutorial-unix-basics/stat243-fall-2014/section/ps0/solutions.r
+## tutorial-unix-basics/stat243-fall-2014/section/ps0/README
+## tutorial-unix-basics/stat243-fall-2014/section/ps0/practice.tex
+## tutorial-unix-basics/stat243-fall-2014/section/ps0/Makefile
+## tutorial-unix-basics/stat243-fall-2014/section/ps0/practice.pdf
+## tutorial-unix-basics/stat243-fall-2014/section/sectionNov10.pdf
+## tutorial-unix-basics/stat243-fall-2014/section/w11/
+## tutorial-unix-basics/stat243-fall-2014/section/w11/memory.py
+## tutorial-unix-basics/stat243-fall-2014/section/w11/README
+## tutorial-unix-basics/stat243-fall-2014/section/w11/scope.py
+## tutorial-unix-basics/stat243-fall-2014/section/w11/randomwalk.py
+## tutorial-unix-basics/stat243-fall-2014/section/w11/Makefile
+## tutorial-unix-basics/stat243-fall-2014/section/w11/python-and-r.tex
+## tutorial-unix-basics/stat243-fall-2014/section/w11/float.py
+## tutorial-unix-basics/stat243-fall-2014/section/w11/randomwalk.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/snippet4.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/snippet2-refactor.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/gotcha.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/snippet1-refactor1.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/README.md
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/snippet3-refactor1.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/snippet2.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/snippet3.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/snippet1-refactor.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/snippet1.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/snippet4-refactor.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/portable.R
+## tutorial-unix-basics/stat243-fall-2014/section/ps3/README
+## tutorial-unix-basics/stat243-fall-2014/section/millman-perez.pdf
+## tutorial-unix-basics/stat243-fall-2014/section/w10/
+## tutorial-unix-basics/stat243-fall-2014/section/w10/Makefile
+## tutorial-unix-basics/stat243-fall-2014/section/w10/ps4-review.pdf
+## tutorial-unix-basics/stat243-fall-2014/section/w10/README
+## tutorial-unix-basics/stat243-fall-2014/section/w10/ps4.R
+## tutorial-unix-basics/stat243-fall-2014/section/w10/ps4-review.tex
+## tutorial-unix-basics/stat243-fall-2014/section/chenMixtExample.pdf
+## tutorial-unix-basics/stat243-fall-2014/section/w13/
+## tutorial-unix-basics/stat243-fall-2014/section/w13/README
+## tutorial-unix-basics/stat243-fall-2014/section/w13/scope.py
+## tutorial-unix-basics/stat243-fall-2014/section/w13/git-II.tex
+## tutorial-unix-basics/stat243-fall-2014/section/w13/Makefile
+## tutorial-unix-basics/stat243-fall-2014/section/w13/fig/
+## tutorial-unix-basics/stat243-fall-2014/section/w13/fig/head-to-master.png
+## tutorial-unix-basics/stat243-fall-2014/section/w13/fig/two-branches.png
+## tutorial-unix-basics/stat243-fall-2014/section/sectionNov10.lyx
+## tutorial-unix-basics/stat243-fall-2014/.gitignore
+## tutorial-unix-basics/stat243-fall-2014/ps/
+## tutorial-unix-basics/stat243-fall-2014/ps/ps4.R
+## tutorial-unix-basics/stat243-fall-2014/ps/ps1.pdf
+## tutorial-unix-basics/stat243-fall-2014/ps/ps6.pdf
+## tutorial-unix-basics/stat243-fall-2014/ps/ps8.pdf
+## tutorial-unix-basics/stat243-fall-2014/ps/.gitignore
+## tutorial-unix-basics/stat243-fall-2014/ps/ps7.pdf
+## tutorial-unix-basics/stat243-fall-2014/ps/ps4prob6.Rda
+## tutorial-unix-basics/stat243-fall-2014/ps/ps3.pdf
+## tutorial-unix-basics/stat243-fall-2014/ps/ps4.pdf
+## tutorial-unix-basics/stat243-fall-2014/ps/helical.R
+## tutorial-unix-basics/stat243-fall-2014/ps/practice.pdf
+## tutorial-unix-basics/stat243-fall-2014/ps/ps5prob1.Rda
+## tutorial-unix-basics/stat243-fall-2014/ps/knitrTest.Rtex
+## tutorial-unix-basics/stat243-fall-2014/ps/ps5.pdf
+## tutorial-unix-basics/stat243-fall-2014/ps/ps2.pdf
+## tutorial-unix-basics/stat243-fall-2014/project/
+## tutorial-unix-basics/stat243-fall-2014/project/givens_hoeting_ch3.pdf
+## tutorial-unix-basics/stat243-fall-2014/project/project.lyx
+## tutorial-unix-basics/stat243-fall-2014/project/project.pdf
+## tutorial-unix-basics/stat243-fall-2014/README.md
+## tutorial-unix-basics/stat243-fall-2014/syllabus/
+## tutorial-unix-basics/stat243-fall-2014/syllabus/syllabus.lyx
+## tutorial-unix-basics/stat243-fall-2014/syllabus/syllabus.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/
+## tutorial-unix-basics/stat243-fall-2014/units/unit15-graphics.R
+## tutorial-unix-basics/stat243-fall-2014/units/unit12-sim.R
+## tutorial-unix-basics/stat243-fall-2014/units/ircr-book.png
+## tutorial-unix-basics/stat243-fall-2014/units/wainer1984.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/unit7-numbers.R
+## tutorial-unix-basics/stat243-fall-2014/units/unit9-bigData.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/best-practices.png
+## tutorial-unix-basics/stat243-fall-2014/units/unit8-parallel.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit7-numbers.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/unit11-linalg.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/mergescenario.png
+## tutorial-unix-basics/stat243-fall-2014/units/unit6-Rprog.R
+## tutorial-unix-basics/stat243-fall-2014/units/regexpr-Lang.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/unit2-bash.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/unit13-optim.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/git-scientists.png
+## tutorial-unix-basics/stat243-fall-2014/units/unit14-integ.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/unit15-graphics.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/unit5-debug.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/panama-canal.png
+## tutorial-unix-basics/stat243-fall-2014/units/exampleGraphic.png
+## tutorial-unix-basics/stat243-fall-2014/units/unit1-unix.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit5-debug.R
+## tutorial-unix-basics/stat243-fall-2014/units/unit11-linalg.R
+## tutorial-unix-basics/stat243-fall-2014/units/ipython_github_pull1.png
+## tutorial-unix-basics/stat243-fall-2014/units/unit12-sim.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit3-Rinput.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/mergeaftermath.png
+## tutorial-unix-basics/stat243-fall-2014/units/example.bashrc
+## tutorial-unix-basics/stat243-fall-2014/units/unit3-Rinput.R
+## tutorial-unix-basics/stat243-fall-2014/units/unit6-Rprog.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/threecommits.png
+## tutorial-unix-basics/stat243-fall-2014/units/unit4-usingR.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/HEAD_testing.png
+## tutorial-unix-basics/stat243-fall-2014/units/unit10-python.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit13-optim.R
+## tutorial-unix-basics/stat243-fall-2014/units/unit3-Rinput.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit12-sim.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/shell.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/forloopDownload.sh
+## tutorial-unix-basics/stat243-fall-2014/units/masterbranch.png
+## tutorial-unix-basics/stat243-fall-2014/units/branchcommit.png
+## tutorial-unix-basics/stat243-fall-2014/units/unit6-Rprog.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit10-python.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/unit4-usingR.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit15-graphics.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit14-integ.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit4-usingR.R
+## tutorial-unix-basics/stat243-fall-2014/units/unit5-debug.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/unit10-python.py
+## tutorial-unix-basics/stat243-fall-2014/units/unit9-bigData.R
+## tutorial-unix-basics/stat243-fall-2014/units/unit2-bash.sh
+## tutorial-unix-basics/stat243-fall-2014/units/goodCode.R
+## tutorial-unix-basics/stat243-fall-2014/units/knitr-book.png
+## tutorial-unix-basics/stat243-fall-2014/units/git-index.png
+## tutorial-unix-basics/stat243-fall-2014/units/unit8-parallel.R
+## tutorial-unix-basics/stat243-fall-2014/units/commit_anatomy.png
+## tutorial-unix-basics/stat243-fall-2014/units/unit1-unix.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/unit11-linalg.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/unit7-numbers.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit14-integ.R
+## tutorial-unix-basics/stat243-fall-2014/units/forloopJobs.sh
+## tutorial-unix-basics/stat243-fall-2014/units/unit2-bash.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/niceR.sh
+## tutorial-unix-basics/stat243-fall-2014/units/exampleRscript.R
+## tutorial-unix-basics/stat243-fall-2014/units/unit9-bigData.py
+## tutorial-unix-basics/stat243-fall-2014/units/unit13-optim.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit1-unix.sh
+## tutorial-unix-basics/stat243-fall-2014/units/gelmanUnwin2013.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/unit9-bigData.lyx
+## tutorial-unix-basics/stat243-fall-2014/units/unit8-parallel.pdf
+## tutorial-unix-basics/stat243-fall-2014/units/badCode.R
+## tutorial-unix-basics/stat243-fall-2014/.git/
+## tutorial-unix-basics/stat243-fall-2014/.git/config
+## tutorial-unix-basics/stat243-fall-2014/.git/description
+## tutorial-unix-basics/stat243-fall-2014/.git/logs/
+## tutorial-unix-basics/stat243-fall-2014/.git/logs/refs/
+## tutorial-unix-basics/stat243-fall-2014/.git/logs/refs/remotes/
+## tutorial-unix-basics/stat243-fall-2014/.git/logs/refs/remotes/origin/
+## tutorial-unix-basics/stat243-fall-2014/.git/logs/refs/remotes/origin/HEAD
+## tutorial-unix-basics/stat243-fall-2014/.git/logs/refs/heads/
+## tutorial-unix-basics/stat243-fall-2014/.git/logs/refs/heads/master
+## tutorial-unix-basics/stat243-fall-2014/.git/logs/HEAD
+## tutorial-unix-basics/stat243-fall-2014/.git/branches/
+## tutorial-unix-basics/stat243-fall-2014/.git/index
+## tutorial-unix-basics/stat243-fall-2014/.git/packed-refs
+## tutorial-unix-basics/stat243-fall-2014/.git/HEAD
+## tutorial-unix-basics/stat243-fall-2014/.git/refs/
+## tutorial-unix-basics/stat243-fall-2014/.git/refs/heads/
+## tutorial-unix-basics/stat243-fall-2014/.git/refs/heads/master
+## tutorial-unix-basics/stat243-fall-2014/.git/refs/remotes/
+## tutorial-unix-basics/stat243-fall-2014/.git/refs/remotes/origin/
+## tutorial-unix-basics/stat243-fall-2014/.git/refs/remotes/origin/HEAD
+## tutorial-unix-basics/stat243-fall-2014/.git/refs/tags/
+## tutorial-unix-basics/stat243-fall-2014/.git/info/
+## tutorial-unix-basics/stat243-fall-2014/.git/info/exclude
+## tutorial-unix-basics/stat243-fall-2014/.git/objects/
+## tutorial-unix-basics/stat243-fall-2014/.git/objects/info/
+## tutorial-unix-basics/stat243-fall-2014/.git/objects/pack/
+## tutorial-unix-basics/stat243-fall-2014/.git/objects/pack/pack-455f0fb0f0d5cdf044c0e0898d1462275b70f383.idx
+## tutorial-unix-basics/stat243-fall-2014/.git/objects/pack/pack-455f0fb0f0d5cdf044c0e0898d1462275b70f383.pack
+## tutorial-unix-basics/stat243-fall-2014/.git/hooks/
+## tutorial-unix-basics/stat243-fall-2014/.git/hooks/commit-msg.sample
+## tutorial-unix-basics/stat243-fall-2014/.git/hooks/pre-push.sample
+## tutorial-unix-basics/stat243-fall-2014/.git/hooks/prepare-commit-msg.sample
+## tutorial-unix-basics/stat243-fall-2014/.git/hooks/pre-rebase.sample
+## tutorial-unix-basics/stat243-fall-2014/.git/hooks/update.sample
+## tutorial-unix-basics/stat243-fall-2014/.git/hooks/pre-commit.sample
+## tutorial-unix-basics/stat243-fall-2014/.git/hooks/applypatch-msg.sample
+## tutorial-unix-basics/stat243-fall-2014/.git/hooks/post-update.sample
+## tutorial-unix-basics/stat243-fall-2014/.git/hooks/pre-applypatch.sample
+## tutorial-unix-basics/#unix-basics.md#
+## tutorial-unix-basics/unix-basics.md~
+## tutorial-unix-basics/unix-basics.Rmd
+## tutorial-unix-basics/unix-basics.md
+## tutorial-unix-basics/unit1-unix.lyx
+## tutorial-unix-basics/tmp.txt
+## z
+## -rw-r--r-- 1 paciorek scfstaff 181811200 Jul 14  2015 stat243.tar
+</code></pre>
+
+<pre><code class="bash">tar -cvfz stat243.tgz *
+ls -l stat243.tgz
+</code></pre>
+
+<pre><code>## tar: stat243.tgz: Cannot stat: No such file or directory
+## stat243-fall-2014/
+## stat243-fall-2014/data/
+## stat243-fall-2014/data/cpds.csv
+## stat243-fall-2014/data/IPs.RData
+## stat243-fall-2014/data/precipData.txt
+## stat243-fall-2014/data/precip.txt
+## stat243-fall-2014/data/RTADataSub.csv
+## stat243-fall-2014/data/capeCod.zip
+## stat243-fall-2014/data/hivSequ.csv
+## stat243-fall-2014/data/urls.txt
+## stat243-fall-2014/data/coop.txt
+## stat243-fall-2014/data/prec.RData
+## stat243-fall-2014/literateProgramming/
+## stat243-fall-2014/literateProgramming/testRnw.tex
+## stat243-fall-2014/literateProgramming/testRnw.aux
+## stat243-fall-2014/literateProgramming/testRnw.Rnw
+## stat243-fall-2014/literateProgramming/testRnw.pdf
+## stat243-fall-2014/literateProgramming/testRnw.log
+## stat243-fall-2014/literateProgramming/testRnw.R
+## stat243-fall-2014/howtos/
+## stat243-fall-2014/howtos/gitInstall.txt
+## stat243-fall-2014/howtos/latexTemplate.pdf
+## stat243-fall-2014/howtos/startEC2virtualMachine.txt
+## stat243-fall-2014/howtos/AWSsetup.txt
+## stat243-fall-2014/howtos/Rinstall.txt
+## stat243-fall-2014/howtos/Rprep.txt
+## stat243-fall-2014/howtos/remoteConnect.pdf
+## stat243-fall-2014/howtos/setup-storage
+## stat243-fall-2014/howtos/latexTemplate.tex
+## stat243-fall-2014/howtos/kdeFit.pdf
+## stat243-fall-2014/howtos/virtualMachineInstall.txt
+## stat243-fall-2014/howtos/startSparkVirtualCluster.txt
+## stat243-fall-2014/howtos/latex.pdf
+## stat243-fall-2014/howtos/github.txt
+## stat243-fall-2014/section/
+## stat243-fall-2014/section/ps0/
+## stat243-fall-2014/section/ps0/solutions.r
+## stat243-fall-2014/section/ps0/README
+## stat243-fall-2014/section/ps0/practice.tex
+## stat243-fall-2014/section/ps0/Makefile
+## stat243-fall-2014/section/ps0/practice.pdf
+## stat243-fall-2014/section/sectionNov10.pdf
+## stat243-fall-2014/section/w11/
+## stat243-fall-2014/section/w11/memory.py
+## stat243-fall-2014/section/w11/README
+## stat243-fall-2014/section/w11/scope.py
+## stat243-fall-2014/section/w11/randomwalk.py
+## stat243-fall-2014/section/w11/Makefile
+## stat243-fall-2014/section/w11/python-and-r.tex
+## stat243-fall-2014/section/w11/float.py
+## stat243-fall-2014/section/w11/randomwalk.R
+## stat243-fall-2014/section/ps3/
+## stat243-fall-2014/section/ps3/snippet4.R
+## stat243-fall-2014/section/ps3/snippet2-refactor.R
+## stat243-fall-2014/section/ps3/gotcha.R
+## stat243-fall-2014/section/ps3/snippet1-refactor1.R
+## stat243-fall-2014/section/ps3/README.md
+## stat243-fall-2014/section/ps3/snippet3-refactor1.R
+## stat243-fall-2014/section/ps3/snippet2.R
+## stat243-fall-2014/section/ps3/snippet3.R
+## stat243-fall-2014/section/ps3/snippet1-refactor.R
+## stat243-fall-2014/section/ps3/snippet1.R
+## stat243-fall-2014/section/ps3/snippet4-refactor.R
+## stat243-fall-2014/section/ps3/portable.R
+## stat243-fall-2014/section/ps3/README
+## stat243-fall-2014/section/millman-perez.pdf
+## stat243-fall-2014/section/w10/
+## stat243-fall-2014/section/w10/Makefile
+## stat243-fall-2014/section/w10/ps4-review.pdf
+## stat243-fall-2014/section/w10/README
+## stat243-fall-2014/section/w10/ps4.R
+## stat243-fall-2014/section/w10/ps4-review.tex
+## stat243-fall-2014/section/chenMixtExample.pdf
+## stat243-fall-2014/section/w13/
+## stat243-fall-2014/section/w13/README
+## stat243-fall-2014/section/w13/scope.py
+## stat243-fall-2014/section/w13/git-II.tex
+## stat243-fall-2014/section/w13/Makefile
+## stat243-fall-2014/section/w13/fig/
+## stat243-fall-2014/section/w13/fig/head-to-master.png
+## stat243-fall-2014/section/w13/fig/two-branches.png
+## stat243-fall-2014/section/sectionNov10.lyx
+## stat243-fall-2014/.gitignore
+## stat243-fall-2014/ps/
+## stat243-fall-2014/ps/ps4.R
+## stat243-fall-2014/ps/ps1.pdf
+## stat243-fall-2014/ps/ps6.pdf
+## stat243-fall-2014/ps/ps8.pdf
+## stat243-fall-2014/ps/.gitignore
+## stat243-fall-2014/ps/ps7.pdf
+## stat243-fall-2014/ps/ps4prob6.Rda
+## stat243-fall-2014/ps/ps3.pdf
+## stat243-fall-2014/ps/ps4.pdf
+## stat243-fall-2014/ps/helical.R
+## stat243-fall-2014/ps/practice.pdf
+## stat243-fall-2014/ps/ps5prob1.Rda
+## stat243-fall-2014/ps/knitrTest.Rtex
+## stat243-fall-2014/ps/ps5.pdf
+## stat243-fall-2014/ps/ps2.pdf
+## stat243-fall-2014/project/
+## stat243-fall-2014/project/givens_hoeting_ch3.pdf
+## stat243-fall-2014/project/project.lyx
+## stat243-fall-2014/project/project.pdf
+## stat243-fall-2014/README.md
+## stat243-fall-2014/syllabus/
+## stat243-fall-2014/syllabus/syllabus.lyx
+## stat243-fall-2014/syllabus/syllabus.pdf
+## stat243-fall-2014/units/
+## stat243-fall-2014/units/unit15-graphics.R
+## stat243-fall-2014/units/unit12-sim.R
+## stat243-fall-2014/units/ircr-book.png
+## stat243-fall-2014/units/wainer1984.pdf
+## stat243-fall-2014/units/unit7-numbers.R
+## stat243-fall-2014/units/unit9-bigData.pdf
+## stat243-fall-2014/units/best-practices.png
+## stat243-fall-2014/units/unit8-parallel.lyx
+## stat243-fall-2014/units/unit7-numbers.pdf
+## stat243-fall-2014/units/unit11-linalg.lyx
+## stat243-fall-2014/units/mergescenario.png
+## stat243-fall-2014/units/unit6-Rprog.R
+## stat243-fall-2014/units/regexpr-Lang.pdf
+## stat243-fall-2014/units/unit2-bash.pdf
+## stat243-fall-2014/units/unit13-optim.pdf
+## stat243-fall-2014/units/git-scientists.png
+## stat243-fall-2014/units/unit14-integ.pdf
+## stat243-fall-2014/units/unit15-graphics.pdf
+## stat243-fall-2014/units/unit5-debug.lyx
+## stat243-fall-2014/units/panama-canal.png
+## stat243-fall-2014/units/exampleGraphic.png
+## stat243-fall-2014/units/unit1-unix.lyx
+## stat243-fall-2014/units/unit5-debug.R
+## stat243-fall-2014/units/unit11-linalg.R
+## stat243-fall-2014/units/ipython_github_pull1.png
+## stat243-fall-2014/units/unit12-sim.lyx
+## stat243-fall-2014/units/unit3-Rinput.pdf
+## stat243-fall-2014/units/mergeaftermath.png
+## stat243-fall-2014/units/example.bashrc
+## stat243-fall-2014/units/unit3-Rinput.R
+## stat243-fall-2014/units/unit6-Rprog.pdf
+## stat243-fall-2014/units/threecommits.png
+## stat243-fall-2014/units/unit4-usingR.pdf
+## stat243-fall-2014/units/HEAD_testing.png
+## stat243-fall-2014/units/unit10-python.lyx
+## stat243-fall-2014/units/unit13-optim.R
+## stat243-fall-2014/units/unit3-Rinput.lyx
+## stat243-fall-2014/units/unit12-sim.pdf
+## stat243-fall-2014/units/shell.pdf
+## stat243-fall-2014/units/forloopDownload.sh
+## stat243-fall-2014/units/masterbranch.png
+## stat243-fall-2014/units/branchcommit.png
+## stat243-fall-2014/units/unit6-Rprog.lyx
+## stat243-fall-2014/units/unit10-python.pdf
+## stat243-fall-2014/units/unit4-usingR.lyx
+## stat243-fall-2014/units/unit15-graphics.lyx
+## stat243-fall-2014/units/unit14-integ.lyx
+## stat243-fall-2014/units/unit4-usingR.R
+## stat243-fall-2014/units/unit5-debug.pdf
+## stat243-fall-2014/units/unit10-python.py
+## stat243-fall-2014/units/unit9-bigData.R
+## stat243-fall-2014/units/unit2-bash.sh
+## stat243-fall-2014/units/goodCode.R
+## stat243-fall-2014/units/knitr-book.png
+## stat243-fall-2014/units/git-index.png
+## stat243-fall-2014/units/unit8-parallel.R
+## stat243-fall-2014/units/commit_anatomy.png
+## stat243-fall-2014/units/unit1-unix.pdf
+## stat243-fall-2014/units/unit11-linalg.pdf
+## stat243-fall-2014/units/unit7-numbers.lyx
+## stat243-fall-2014/units/unit14-integ.R
+## stat243-fall-2014/units/forloopJobs.sh
+## stat243-fall-2014/units/unit2-bash.lyx
+## stat243-fall-2014/units/niceR.sh
+## stat243-fall-2014/units/exampleRscript.R
+## stat243-fall-2014/units/unit9-bigData.py
+## stat243-fall-2014/units/unit13-optim.lyx
+## stat243-fall-2014/units/unit1-unix.sh
+## stat243-fall-2014/units/gelmanUnwin2013.pdf
+## stat243-fall-2014/units/unit9-bigData.lyx
+## stat243-fall-2014/units/unit8-parallel.pdf
+## stat243-fall-2014/units/badCode.R
+## stat243-fall-2014/.git/
+## stat243-fall-2014/.git/config
+## stat243-fall-2014/.git/description
+## stat243-fall-2014/.git/logs/
+## stat243-fall-2014/.git/logs/refs/
+## stat243-fall-2014/.git/logs/refs/remotes/
+## stat243-fall-2014/.git/logs/refs/remotes/origin/
+## stat243-fall-2014/.git/logs/refs/remotes/origin/HEAD
+## stat243-fall-2014/.git/logs/refs/heads/
+## stat243-fall-2014/.git/logs/refs/heads/master
+## stat243-fall-2014/.git/logs/HEAD
+## stat243-fall-2014/.git/branches/
+## stat243-fall-2014/.git/index
+## stat243-fall-2014/.git/packed-refs
+## stat243-fall-2014/.git/HEAD
+## stat243-fall-2014/.git/refs/
+## stat243-fall-2014/.git/refs/heads/
+## stat243-fall-2014/.git/refs/heads/master
+## stat243-fall-2014/.git/refs/remotes/
+## stat243-fall-2014/.git/refs/remotes/origin/
+## stat243-fall-2014/.git/refs/remotes/origin/HEAD
+## stat243-fall-2014/.git/refs/tags/
+## stat243-fall-2014/.git/info/
+## stat243-fall-2014/.git/info/exclude
+## stat243-fall-2014/.git/objects/
+## stat243-fall-2014/.git/objects/info/
+## stat243-fall-2014/.git/objects/pack/
+## stat243-fall-2014/.git/objects/pack/pack-455f0fb0f0d5cdf044c0e0898d1462275b70f383.idx
+## stat243-fall-2014/.git/objects/pack/pack-455f0fb0f0d5cdf044c0e0898d1462275b70f383.pack
+## stat243-fall-2014/.git/hooks/
+## stat243-fall-2014/.git/hooks/commit-msg.sample
+## stat243-fall-2014/.git/hooks/pre-push.sample
+## stat243-fall-2014/.git/hooks/prepare-commit-msg.sample
+## stat243-fall-2014/.git/hooks/pre-rebase.sample
+## stat243-fall-2014/.git/hooks/update.sample
+## stat243-fall-2014/.git/hooks/pre-commit.sample
+## stat243-fall-2014/.git/hooks/applypatch-msg.sample
+## stat243-fall-2014/.git/hooks/post-update.sample
+## stat243-fall-2014/.git/hooks/pre-applypatch.sample
+## tmp.txt
+## unit1-unix.lyx
+## unit1-unix.sh
+## unix-basics.html
+## #unix-basics.md#
+## unix-basics.md
+## unix-basics.md~
+## unix-basics.Rmd
+## unix-basics.Rmd~
+## tar: Exiting with failure status due to previous errors
+## ls: cannot access stat243.tgz: No such file or directory
+</code></pre>
+
+<pre><code class="bash">mv stat243.tgz /tmp
+cd /tmp
+tar -xvzf stat243.tgz
+ls -l stat243
+</code></pre>
+
+<pre><code>## mv: cannot stat ‘stat243.tgz’: No such file or directory
+## stat243-fall-2014/
+## stat243-fall-2014/howtos/
+## stat243-fall-2014/howtos/startSparkVirtualCluster.txt
+## stat243-fall-2014/howtos/remoteConnect.pdf
+## stat243-fall-2014/howtos/gitInstall.txt
+## stat243-fall-2014/howtos/virtualMachineInstall.txt
+## stat243-fall-2014/howtos/latexTemplate.pdf
+## stat243-fall-2014/howtos/latex.pdf
+## stat243-fall-2014/howtos/setup-storage
+## stat243-fall-2014/howtos/startEC2virtualMachine.txt
+## stat243-fall-2014/howtos/Rprep.txt
+## stat243-fall-2014/howtos/latexTemplate.tex
+## stat243-fall-2014/howtos/github.txt
+## stat243-fall-2014/howtos/kdeFit.pdf
+## stat243-fall-2014/howtos/Rinstall.txt
+## stat243-fall-2014/howtos/AWSsetup.txt
+## stat243-fall-2014/ps/
+## stat243-fall-2014/ps/ps7.pdf
+## stat243-fall-2014/ps/knitrTest.Rtex
+## stat243-fall-2014/ps/ps1.pdf
+## stat243-fall-2014/ps/ps6.pdf
+## stat243-fall-2014/ps/ps8.pdf
+## stat243-fall-2014/ps/ps4.R
+## stat243-fall-2014/ps/helical.R
+## stat243-fall-2014/ps/ps5prob1.Rda
+## stat243-fall-2014/ps/practice.pdf
+## stat243-fall-2014/ps/ps5.pdf
+## stat243-fall-2014/ps/ps2.pdf
+## stat243-fall-2014/ps/ps4prob6.Rda
+## stat243-fall-2014/ps/.gitignore
+## stat243-fall-2014/ps/ps3.pdf
+## stat243-fall-2014/ps/ps4.pdf
+## stat243-fall-2014/syllabus/
+## stat243-fall-2014/syllabus/syllabus.pdf
+## stat243-fall-2014/syllabus/syllabus.lyx
+## stat243-fall-2014/section/
+## stat243-fall-2014/section/sectionNov10.lyx
+## stat243-fall-2014/section/ps3/
+## stat243-fall-2014/section/ps3/snippet3.R
+## stat243-fall-2014/section/ps3/snippet2.R
+## stat243-fall-2014/section/ps3/README.md
+## stat243-fall-2014/section/ps3/snippet1-refactor.R
+## stat243-fall-2014/section/ps3/gotcha.R
+## stat243-fall-2014/section/ps3/README
+## stat243-fall-2014/section/ps3/snippet4-refactor.R
+## stat243-fall-2014/section/ps3/snippet1.R
+## stat243-fall-2014/section/ps3/portable.R
+## stat243-fall-2014/section/ps3/snippet2-refactor.R
+## stat243-fall-2014/section/ps3/snippet3-refactor1.R
+## stat243-fall-2014/section/ps3/snippet4.R
+## stat243-fall-2014/section/ps3/snippet1-refactor1.R
+## stat243-fall-2014/section/ps0/
+## stat243-fall-2014/section/ps0/Makefile
+## stat243-fall-2014/section/ps0/practice.tex
+## stat243-fall-2014/section/ps0/README
+## stat243-fall-2014/section/ps0/practice.pdf
+## stat243-fall-2014/section/ps0/solutions.r
+## stat243-fall-2014/section/w11/
+## stat243-fall-2014/section/w11/float.py
+## stat243-fall-2014/section/w11/python-and-r.tex
+## stat243-fall-2014/section/w11/README
+## stat243-fall-2014/section/w11/randomwalk.py
+## stat243-fall-2014/section/w11/randomwalk.R
+## stat243-fall-2014/section/w11/scope.py
+## stat243-fall-2014/section/w11/memory.py
+## stat243-fall-2014/section/w11/Makefile
+## stat243-fall-2014/section/w13/
+## stat243-fall-2014/section/w13/README
+## stat243-fall-2014/section/w13/git-II.tex
+## stat243-fall-2014/section/w13/scope.py
+## stat243-fall-2014/section/w13/Makefile
+## stat243-fall-2014/section/w13/fig/
+## stat243-fall-2014/section/w13/fig/two-branches.png
+## stat243-fall-2014/section/w13/fig/head-to-master.png
+## stat243-fall-2014/section/chenMixtExample.pdf
+## stat243-fall-2014/section/w10/
+## stat243-fall-2014/section/w10/ps4-review.pdf
+## stat243-fall-2014/section/w10/Makefile
+## stat243-fall-2014/section/w10/README
+## stat243-fall-2014/section/w10/ps4.R
+## stat243-fall-2014/section/w10/ps4-review.tex
+## stat243-fall-2014/section/sectionNov10.pdf
+## stat243-fall-2014/section/millman-perez.pdf
+## stat243-fall-2014/units/
+## stat243-fall-2014/units/unit6-Rprog.R
+## stat243-fall-2014/units/unit4-usingR.R
+## stat243-fall-2014/units/commit_anatomy.png
+## stat243-fall-2014/units/unit14-integ.lyx
+## stat243-fall-2014/units/unit10-python.pdf
+## stat243-fall-2014/units/knitr-book.png
+## stat243-fall-2014/units/unit10-python.py
+## stat243-fall-2014/units/unit8-parallel.R
+## stat243-fall-2014/units/unit1-unix.pdf
+## stat243-fall-2014/units/unit12-sim.R
+## stat243-fall-2014/units/forloopDownload.sh
+## stat243-fall-2014/units/unit13-optim.R
+## stat243-fall-2014/units/ircr-book.png
+## stat243-fall-2014/units/unit12-sim.pdf
+## stat243-fall-2014/units/goodCode.R
+## stat243-fall-2014/units/unit3-Rinput.lyx
+## stat243-fall-2014/units/branchcommit.png
+## stat243-fall-2014/units/unit4-usingR.lyx
+## stat243-fall-2014/units/unit7-numbers.R
+## stat243-fall-2014/units/masterbranch.png
+## stat243-fall-2014/units/unit8-parallel.pdf
+## stat243-fall-2014/units/unit15-graphics.pdf
+## stat243-fall-2014/units/unit5-debug.R
+## stat243-fall-2014/units/unit11-linalg.R
+## stat243-fall-2014/units/unit6-Rprog.pdf
+## stat243-fall-2014/units/unit7-numbers.lyx
+## stat243-fall-2014/units/unit11-linalg.pdf
+## stat243-fall-2014/units/niceR.sh
+## stat243-fall-2014/units/unit14-integ.R
+## stat243-fall-2014/units/forloopJobs.sh
+## stat243-fall-2014/units/exampleRscript.R
+## stat243-fall-2014/units/unit9-bigData.lyx
+## stat243-fall-2014/units/unit5-debug.lyx
+## stat243-fall-2014/units/unit2-bash.lyx
+## stat243-fall-2014/units/unit13-optim.lyx
+## stat243-fall-2014/units/unit9-bigData.py
+## stat243-fall-2014/units/unit2-bash.sh
+## stat243-fall-2014/units/regexpr-Lang.pdf
+## stat243-fall-2014/units/unit9-bigData.pdf
+## stat243-fall-2014/units/git-index.png
+## stat243-fall-2014/units/unit2-bash.pdf
+## stat243-fall-2014/units/unit5-debug.pdf
+## stat243-fall-2014/units/unit9-bigData.R
+## stat243-fall-2014/units/shell.pdf
+## stat243-fall-2014/units/unit15-graphics.R
+## stat243-fall-2014/units/unit13-optim.pdf
+## stat243-fall-2014/units/unit15-graphics.lyx
+## stat243-fall-2014/units/unit8-parallel.lyx
+## stat243-fall-2014/units/best-practices.png
+## stat243-fall-2014/units/wainer1984.pdf
+## stat243-fall-2014/units/mergescenario.png
+## stat243-fall-2014/units/unit11-linalg.lyx
+## stat243-fall-2014/units/unit7-numbers.pdf
+## stat243-fall-2014/units/unit6-Rprog.lyx
+## stat243-fall-2014/units/unit12-sim.lyx
+## stat243-fall-2014/units/unit1-unix.sh
+## stat243-fall-2014/units/unit3-Rinput.pdf
+## stat243-fall-2014/units/threecommits.png
+## stat243-fall-2014/units/example.bashrc
+## stat243-fall-2014/units/unit4-usingR.pdf
+## stat243-fall-2014/units/HEAD_testing.png
+## stat243-fall-2014/units/unit3-Rinput.R
+## stat243-fall-2014/units/mergeaftermath.png
+## stat243-fall-2014/units/gelmanUnwin2013.pdf
+## stat243-fall-2014/units/badCode.R
+## stat243-fall-2014/units/unit10-python.lyx
+## stat243-fall-2014/units/unit14-integ.pdf
+## stat243-fall-2014/units/exampleGraphic.png
+## stat243-fall-2014/units/git-scientists.png
+## stat243-fall-2014/units/panama-canal.png
+## stat243-fall-2014/units/unit1-unix.lyx
+## stat243-fall-2014/units/ipython_github_pull1.png
+## stat243-fall-2014/.gitignore
+## stat243-fall-2014/data/
+## stat243-fall-2014/data/cpds.csv
+## stat243-fall-2014/data/RTADataSub.csv
+## stat243-fall-2014/data/capeCod.zip
+## stat243-fall-2014/data/prec.RData
+## stat243-fall-2014/data/hivSequ.csv
+## stat243-fall-2014/data/precipData.txt
+## stat243-fall-2014/data/IPs.RData
+## stat243-fall-2014/data/coop.txt
+## stat243-fall-2014/data/urls.txt
+## stat243-fall-2014/data/precip.txt
+## stat243-fall-2014/project/
+## stat243-fall-2014/project/givens_hoeting_ch3.pdf
+## stat243-fall-2014/project/project.pdf
+## stat243-fall-2014/project/project.lyx
+## stat243-fall-2014/.git/
+## stat243-fall-2014/.git/refs/
+## stat243-fall-2014/.git/refs/tags/
+## stat243-fall-2014/.git/refs/remotes/
+## stat243-fall-2014/.git/refs/remotes/origin/
+## stat243-fall-2014/.git/refs/remotes/origin/HEAD
+## stat243-fall-2014/.git/refs/heads/
+## stat243-fall-2014/.git/refs/heads/master
+## stat243-fall-2014/.git/branches/
+## stat243-fall-2014/.git/info/
+## stat243-fall-2014/.git/info/exclude
+## stat243-fall-2014/.git/index
+## stat243-fall-2014/.git/objects/
+## stat243-fall-2014/.git/objects/info/
+## stat243-fall-2014/.git/objects/pack/
+## stat243-fall-2014/.git/objects/pack/pack-455f0fb0f0d5cdf044c0e0898d1462275b70f383.pack
+## stat243-fall-2014/.git/objects/pack/pack-455f0fb0f0d5cdf044c0e0898d1462275b70f383.idx
+## stat243-fall-2014/.git/description
+## stat243-fall-2014/.git/ORIG_HEAD
+## stat243-fall-2014/.git/logs/
+## stat243-fall-2014/.git/logs/refs/
+## stat243-fall-2014/.git/logs/refs/heads/
+## stat243-fall-2014/.git/logs/refs/heads/master
+## stat243-fall-2014/.git/logs/refs/remotes/
+## stat243-fall-2014/.git/logs/refs/remotes/origin/
+## stat243-fall-2014/.git/logs/refs/remotes/origin/HEAD
+## stat243-fall-2014/.git/logs/HEAD
+## stat243-fall-2014/.git/FETCH_HEAD
+## stat243-fall-2014/.git/packed-refs
+## stat243-fall-2014/.git/config
+## stat243-fall-2014/.git/HEAD
+## stat243-fall-2014/.git/hooks/
+## stat243-fall-2014/.git/hooks/post-update.sample
+## stat243-fall-2014/.git/hooks/pre-commit.sample
+## stat243-fall-2014/.git/hooks/pre-applypatch.sample
+## stat243-fall-2014/.git/hooks/pre-push.sample
+## stat243-fall-2014/.git/hooks/commit-msg.sample
+## stat243-fall-2014/.git/hooks/applypatch-msg.sample
+## stat243-fall-2014/.git/hooks/prepare-commit-msg.sample
+## stat243-fall-2014/.git/hooks/update.sample
+## stat243-fall-2014/.git/hooks/pre-rebase.sample
+## stat243-fall-2014/README.md
+## stat243-fall-2014/stat243.zip
+## stat243-fall-2014/literateProgramming/
+## stat243-fall-2014/literateProgramming/testRnw.pdf
+## stat243-fall-2014/literateProgramming/testRnw.R
+## stat243-fall-2014/literateProgramming/testRnw.log
+## stat243-fall-2014/literateProgramming/testRnw.Rnw
+## stat243-fall-2014/literateProgramming/testRnw.aux
+## stat243-fall-2014/literateProgramming/testRnw.tex
+## total 0
+</code></pre>
+
+<h2>4.2) Getting help with UNIX tools</h2>
+
+<p>Essentially all UNIX commands/utilities have (often very extensive and hard to parse) help information.</p>
+
+<pre><code class="bash">man chmod
+</code></pre>
+
+<p>You can see if a utility or program is installed (and where it is installed) using <code>which</code>.</p>
+
+<pre><code class="bash">which R
+which python
+which matlab
+</code></pre>
+
+<pre><code>## /usr/bin/R
+## /usr/bin/python
+## /usr/local/linux/bin/matlab
+</code></pre>
+
+<h2>4.3) Disk usage</h2>
+
+<p>You can can see how much disk space is being used or is free as follows.</p>
+
+<pre><code class="bash">df -h
+</code></pre>
+
+<pre><code>## Filesystem                           Size  Used Avail Use% Mounted on
+## /dev/sda1                             30G   11G   18G  39% /
+## none                                 4.0K     0  4.0K   0% /sys/fs/cgroup
+## udev                                 7.9G  4.0K  7.9G   1% /dev
+## tmpfs                                1.6G  1.9M  1.6G   1% /run
+## none                                 5.0M     0  5.0M   0% /run/lock
+## none                                 7.9G   13M  7.9G   1% /run/shm
+## none                                 100M     0  100M   0% /run/user
+## /dev/sda2                             30G  4.5G   24G  16% /var
+## /dev/sda5                            121G   17G   97G  15% /tmp
+## /dev/sda3                            722G  109G  576G  16% /var/tmp
+## sauron.berkeley.edu:/pool0/accounts   13T  2.5T   11T  20% /accounts
+## sauron.berkeley.edu:/pool0/system    3.0T  1.7T  1.4T  57% /system
+</code></pre>
+
+<pre><code class="bash">cd ~/stat243-fall-2014
+du -h
+</code></pre>
+
+<pre><code>## 3.9M ./howtos
+## 847K ./ps
+## 118K ./syllabus
+## 20K  ./section/ps3
+## 138K ./section/ps0
+## 23K  ./section/w11
+## 94K  ./section/w13/fig
+## 121K ./section/w13
+## 105K ./section/w10
+## 1.4M ./section
+## 11M  ./units
+## 24M  ./data
+## 568K ./project
+## 1.5K ./.git/refs/tags
+## 2.5K ./.git/refs/remotes/origin
+## 4.0K ./.git/refs/remotes
+## 2.5K ./.git/refs/heads
+## 9.5K ./.git/refs
+## 1.5K ./.git/branches
+## 2.5K ./.git/info
+## 1.5K ./.git/objects/info
+## 19M  ./.git/objects/pack
+## 19M  ./.git/objects
+## 2.5K ./.git/logs/refs/heads
+## 2.5K ./.git/logs/refs/remotes/origin
+## 4.0K ./.git/logs/refs/remotes
+## 8.0K ./.git/logs/refs
+## 11K  ./.git/logs
+## 23K  ./.git/hooks
+## 19M  ./.git
+## 114K ./literateProgramming
+## 60M  .
+</code></pre>
+
+<p>In general, you&#39;ll want to look at the &#39;/&#39; line, and on standard UNIX machines possibly at &#39;/tmp&#39;, &#39;/home&#39;, and others. </p>
+
+<h2>4.4) Machine information</h2>
+
+<p>Linux machines (but not Macs) have system information provided in a few special files. Note that <code>head</code> is like the <code>cat</code> command but just prints out the initial lines of the file.</p>
+
+<pre><code class="bash">head -n 30 /proc/cpuinfo
+</code></pre>
+
+<pre><code>## processor    : 0
+## vendor_id    : GenuineIntel
+## cpu family   : 6
+## model        : 42
+## model name   : Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz
+## stepping : 7
+## microcode    : 0x25
+## cpu MHz      : 3487.125
+## cache size   : 8192 KB
+## physical id  : 0
+## siblings : 8
+## core id      : 0
+## cpu cores    : 4
+## apicid       : 0
+## initial apicid   : 0
+## fpu      : yes
+## fpu_exception    : yes
+## cpuid level  : 13
+## wp       : yes
+## flags        : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+## bogomips : 6784.85
+## clflush size : 64
+## cache_alignment  : 64
+## address sizes    : 36 bits physical, 48 bits virtual
+## power management:
+## 
+## processor    : 1
+## vendor_id    : GenuineIntel
+## cpu family   : 6
+## model        : 42
+</code></pre>
+
+<pre><code class="bash">cat /proc/meminfo
+</code></pre>
+
+<pre><code>## MemTotal:       16389408 kB
+## MemFree:         1919868 kB
+## Buffers:          515012 kB
+## Cached:          3499060 kB
+## SwapCached:       432808 kB
+## Active:          9265816 kB
+## Inactive:        4103608 kB
+## Active(anon):    7605396 kB
+## Inactive(anon):  1808632 kB
+## Active(file):    1660420 kB
+## Inactive(file):  2294976 kB
+## Unevictable:         144 kB
+## Mlocked:             144 kB
+## SwapTotal:      15998972 kB
+## SwapFree:       13251164 kB
+## Dirty:             68524 kB
+## Writeback:             0 kB
+## AnonPages:       9146032 kB
+## Mapped:           282080 kB
+## Shmem:             58280 kB
+## Slab:             814528 kB
+## SReclaimable:     736396 kB
+## SUnreclaim:        78132 kB
+## KernelStack:        7416 kB
+## PageTables:        85892 kB
+## NFS_Unstable:        300 kB
+## Bounce:                0 kB
+## WritebackTmp:          0 kB
+## CommitLimit:    32388380 kB
+## Committed_AS:   19354748 kB
+## VmallocTotal:   34359738367 kB
+## VmallocUsed:      124828 kB
+## VmallocChunk:   34359481736 kB
+## HardwareCorrupted:     0 kB
+## AnonHugePages:   6213632 kB
+## HugePages_Total:       0
+## HugePages_Free:        0
+## HugePages_Rsvd:        0
+## HugePages_Surp:        0
+## Hugepagesize:       2048 kB
+## DirectMap4k:       85456 kB
+## DirectMap2M:    16648192 kB
+</code></pre>
+
+<pre><code class="bash">cat /etc/issue
+</code></pre>
+
+<pre><code>## Ubuntu 14.04.2 LTS \n \l
+</code></pre>
+
+<p>We can also use utilities to get information:</p>
+
+<pre><code class="bash">nproc  # how many processors
+</code></pre>
+
+<pre><code>## 8
+</code></pre>
+
+<h1>5) The shell</h1>
+
+<p>The shell is the UNIX program that you have been interacting with when using the Terminal. The shell sits between you and the operating system and provides useful commands and functionality. There are actually different shells that you can use, of which <code>bash</code> is very common and is the default on both BCE and on the Mac. You&#39;ve been using <code>bash</code> without knowing it.</p>
+
+<p>The shell provides a number of useful shortcuts, of which we highlight a couple here.</p>
+
+<h2>5.1) Tab completion</h2>
+
+<p>The shell will try to auto-complete the names of commands/programs or of files when you type part of the name and then hit <Tab>. This can save quite a bit of typing, particularly for long file names. </p>
+
+<h2>5.2) Command history</h2>
+
+<p>The up and down arrow keys will move you through the history of commands you have entered in the terminal. So you can recover something you typed previously and then directly run it again, or edit it, and then run the modified version. </p>
+
+<p>There&#39;s also lots more functionality along these lines that we won&#39;t go into here.</p>
+
+<p>You can navigate within a line using the usual arrows but also:</p>
+
+<ul>
+<li>Ctrl-a moves to the beginning of the line</li>
+<li>Ctrl-e moves to the end of the line</li>
+<li>Ctrl-k deletes the rest of the line starting at the cursor</li>
+<li>Ctrl-y pastes in whatever was deleted previously with Ctrl-k</li>
+</ul>
+
+<h2>5.3) Saving your code as a shell script</h2>
+
+<p>Often (particularly as you learn more sophisticated shell functionality) you will want to save your shell syntax in the form of a code file, called a script, that you could run another time.</p>
+
+<p>For example, suppose you often need to do the following series of steps:</p>
+
+<pre><code class="bash">cd 
+tar -cvzf stat243.tgz stat243-fall-2014
+mv stat243.tgz /tmp
+cd /tmp
+tar -xvzf stat243.tgz
+rm -rf data
+</code></pre>
+
+<p>You can put those lines into a file, say, mvStat243.sh, which will generally end in .sh.</p>
+
+<p>Then we can run the code in the file as follows. (Results not shown here.)</p>
+
+<pre><code class="bash">chmod ugo+x mvStat243.sh  # make the script an executable
+./mvStat243.sh  # run it
+ls -l /tmp/stat243-fall-2014 # check that it ran
+
+ls -l /tmp/stat243-fall-2014/data # check that it ran
+</code></pre>
+
+<h1>6) Questions</h1>
+
+<p>1) Figure out how to print out free disk space in terms of megabytes. </p>
+
+<p>2) Change the permissions on the file stat243-fall-2014/units/unit1-unix.sh to be readable by the user and the group, writeable by the user, and executable by all users.</p>
+
+<p>3) Where is Python installed on the system? What are some other programs/executables are installed in the same directory.</p>
+
+<p>4) The <code>ls</code> command is itself an executable installed on the system. Where is it located?</p>
+
+<p>5) Use both <code>zip</code> and <code>tar -xvzf</code> to compress the stat243-fall-2014/data directory. Is one much smaller than the other?</p>
+
+<p>6) Try to run the following command <code>mkdir ~/projects/drought</code>. It will fail. Look in the help information on <code>mkdir</code> to figure out how to make it work without first creating the <em>projects</em> directory.</p>
+
+<p>7) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space.</p>
+
+</body>
+
+</html>
