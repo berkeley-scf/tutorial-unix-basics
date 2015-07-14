@@ -258,22 +258,23 @@ ls -l coop.txt
 ```{r, gzip2}
 cd ~/stat243-fall-2014/data
 gzip coop.txt
-ls -l coop.txt
+ls -l coop.txt.gz
 ```
 
 Finally, the *tar* utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.
 ```{r, tar1}
-cd ~/stat243-fall-2014
-tar -cvf stat243.tar *
+cd ~
+tar -cvf stat243.tar stat243-fall-2014
 ls -l stat243.tar
+rm stat243.tar
 ```
 ```{r, tar2}
-cd ~/stat243-fall-2014
-tar -cvfz stat243.tgz *
+cd ~
+tar -cvfz stat243.tgz stat243-fall-2014
 ls -l stat243.tgz
 ```
 ```{r, tar3}
-cd ~/stat243-fall-2014
+cd ~
 mv stat243.tgz /tmp
 cd /tmp
 tar -xvzf stat243.tgz
