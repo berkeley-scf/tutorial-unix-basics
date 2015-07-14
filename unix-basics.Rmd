@@ -63,7 +63,7 @@ git clone https://github.com/berkeley-scf/tutorial-unix-basics
 
 Next let's clone a more extensive repository - we'll get the materials for my Statistics 243 class from Fall 2014.  
 
-```{r, git-clone2, eval=FALSE, echo=FALSE}
+```{r, git-clone2, eval=FALSE}
 cd  # go to your home directory
 git clone https://github.com/berkeley-stat243/stat243-fall-2014
 # when you do this you'll see some text indicating the progress of the cloning
@@ -111,10 +111,13 @@ Now suppose I want to be in a different directory so I can see what is there or 
 The command you need is `cd` and the concept you need to become familiar with is the notion of relative and absolute paths. The path is the set of nested directories that specify a subdirectory of interest.
 
 ```{r cd1}
+pwd
+cd /home/oski  # go to home directory
 cd stat243-fall-2014 # relative path
 ls
 ```
 ```{r cd2}
+pwd
 cd /home/oski/stat243-fall-2014 # absolute path to the same location
 ls
 ```
@@ -152,11 +155,12 @@ ls ~
 ```{r, filesystem5}
 ls ~oski
 ```
+Another useful directory is `/tmp`, which is a good place to put temporary files that you only need briefly and don't need to save. These will disappear when a machine is rebooted. 
+
 ```{r, filesystem6}
 ls /tmp
 ```
 
-Another useful directory is `/tmp`, which is a good place to put temporary files that you only need briefly and don't need to save. These will disappear when a machine is rebooted. 
 
 
 ## 3.3) Copying and removing files
@@ -167,9 +171,9 @@ You'll often want to make a copy of a file, move it between directories, or remo
 cd ~/stat243-fall-2014/units
 cp unit8-parallel.R unit8-parallel-new.R
 mv unit8-parallel-new.R /tmp/.
-cd /tmp
 ```
 ```{r, cp2}
+cd /tmp
 ls -lrt 
 rm unit8-parallel-new.R
 ```
