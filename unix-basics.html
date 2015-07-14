@@ -19,6 +19,9 @@ window.onload = function() {
 
 
 
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <style type="text/css">
@@ -217,16 +220,16 @@ hr {
 
 <pre><code class="bash">cd  # go to your home directory
 git clone https://github.com/berkeley-scf/tutorial-unix-basics
+# when you do this you&#39;ll see some text indicating the progress of the cloning
 </code></pre>
 
 <p>Next let&#39;s clone a more extensive repository - we&#39;ll get the materials for my Statistics 243 class from Fall 2014.  </p>
 
 <pre><code class="bash">cd  # go to your home directory
 git clone https://github.com/berkeley-stat243/stat243-fall-2014
-# when you do this you&#39;ll see some text indicating the progress of the cloning
 </code></pre>
 
-<p>Now suppose that whoever controls the repository makes some changes and you want an updated copy of the repository on your computer. Simply <code>cd</code> into the directory on your machine (or any subdirectories) and enter <code>git pull</code>.</p>
+<p>Now suppose that whoever controls the repository makes some changes and you want an updated copy of the repository on your computer. Simply <code>cd</code> into the directory on your machine (or any subdirectories of that directory) and enter <code>git pull</code>.</p>
 
 <pre><code class="bash">cd ~/stat243-fall-2014
 git pull
@@ -241,15 +244,17 @@ git pull
 
 <h2>3.1) Moving around and listing information</h2>
 
-<p>Anytime you are in a UNIX terminal, you have a <em>working directory</em> which is your current location in the file system. </p>
+<p>Anytime you are in a UNIX terminal, you have a <em>working directory</em>, which is your current location in the file system. </p>
 
-<p>Here&#39;s how you can see where you are (it will be the home directory for the <em>oski</em> user, where files specific to that user are stored) and list the files in the working directory:</p>
+<p>Here&#39;s how you can see where you are (it will be the home directory for the <em>oski</em> user, where files specific to that user are stored)&hellip;</p>
 
 <pre><code class="bash">pwd
 </code></pre>
 
 <pre><code>## /home/oski/tutorial-unix-basics
 </code></pre>
+
+<p>and here&#39;s how you list the files in the working directory&hellip;</p>
 
 <pre><code class="bash">ls
 </code></pre>
@@ -262,23 +267,25 @@ git pull
 ## unix-basics.Rmd~
 </code></pre>
 
-<pre><code class="bash">ls -l
+<pre><code class="bash">ls -l  # this lists files on &#39;long&#39; format
 </code></pre>
 
 <pre><code>## total 112
 ## -rw-rw-r-- 1 oski oski   357 Jul 14 15:01 README.md
-## -rw--w--w- 1 oski oski    22 Jul 14 16:13 tmp.txt
-## -rw-rw-r-- 1 oski oski 34205 Jul 14 16:13 unix-basics.html
-## -rw-rw-r-- 1 oski oski 28823 Jul 14 16:13 unix-basics.md
-## -rw-rw-r-- 1 oski oski 16562 Jul 14 16:14 unix-basics.Rmd
+## -rw--w--w- 1 oski oski    22 Jul 14 16:14 tmp.txt
+## -rw-rw-r-- 1 oski oski 34684 Jul 14 16:14 unix-basics.html
+## -rw-rw-r-- 1 oski oski 29302 Jul 14 16:14 unix-basics.md
+## -rw-rw-r-- 1 oski oski 16903 Jul 14 16:44 unix-basics.Rmd
 ## -rw-rw-r-- 1 oski oski 15944 Jul 14 15:09 unix-basics.Rmd~
 </code></pre>
 
-<p>Note the use of the -l flag to list the long-format information. As mentioned, options for UNIX commands are generally provided via this kind of syntax.</p>
+<p>Note the use of the <code>-l</code> flag to list the long-format information. As mentioned, options for UNIX commands are generally provided via this kind of syntax.</p>
+
+<p>Also note that anything that follows <code>#</code> is a comment and is ignored by UNIX.</p>
 
 <p>Notice that we have BCE set up so that your working directory is printed as part of the prompt. </p>
 
-<p>In the last command you&#39;ll see information on each file (or directory) on a number of things of which the most important are:</p>
+<p>When using the <code>-l</code> flag to <code>ls</code>, you&#39;ll see information about each file (or directory) on a number of things, of which the most important are:</p>
 
 <ul>
 <li>(column 1) file permissions (more later)</li>
@@ -290,56 +297,50 @@ git pull
 
 <p>Now suppose I want to be in a different directory so I can see what is there or do things to the files in that directory.</p>
 
-<p>The command you need is <code>cd</code> and the concept you need to become familiar with is the notion of relative and absolute paths. The path is the set of nested directories that specify a subdirectory of interest.</p>
+<p>The command you need is <code>cd</code> and the concept you need to become familiar with is the notion of relative and absolute *path*s. The path is the set of nested directories that specify a subdirectory of interest.</p>
 
 <pre><code class="bash">cd /home/oski  # go to home directory
-cd stat243-fall-2014 # relative path
-ls
+cd stat243-fall-2014 # go to subdirectory based on relative path
+pwd
 </code></pre>
 
-<pre><code>## data
-## data.tgz
-## howtos
-## literateProgramming
-## project
-## ps
-## README.md
-## section
-## syllabus
-## units
+<pre><code>## /home/oski/stat243-fall-2014
 </code></pre>
 
 <pre><code class="bash">cd /home/oski/stat243-fall-2014 # absolute path to the same location
-ls
+pwd
 </code></pre>
 
-<pre><code>## data
-## data.tgz
-## howtos
-## literateProgramming
-## project
-## ps
-## README.md
-## section
-## syllabus
-## units
+<pre><code>## /home/oski/stat243-fall-2014
 </code></pre>
 
 <pre><code class="bash">cd /home/oski/stat243-fall-2014/units
 cd ..  # go up a directory to the parent of the current directory
+pwd
+</code></pre>
+
+<pre><code>## /home/oski/stat243-fall-2014
 </code></pre>
 
 <pre><code class="bash">cd /home/oski/stat243-fall-2014/units
 cd ../data # go up a directory and then down to a different subdirectory
+pwd
+</code></pre>
+
+<pre><code>## /home/oski/stat243-fall-2014/data
 </code></pre>
 
 <pre><code class="bash">cd /home/oski/stat243-fall-2014/units
 cd ../../tutorial-unix-basics  # go up two directories and down
+pwd
+</code></pre>
+
+<pre><code>## /home/oski/tutorial-unix-basics
 </code></pre>
 
 <h2>3.2) The filesystem</h2>
 
-<p>The filesystem is basically a upside-down tree. The top, or root of the tree, is the <code>/</code> directory. Within <code>/</code> there are subdirectories, such as <code>/home</code> (which contains users home directories where all of the files owned by a user are stored). For the <em>oski</em> user, everything is stored in <code>/home/oski</code>. If you are the oski user, you can also refer to <code>/home/oski</code> by the shortcuts <code>~</code> and <code>~oski</code>. </p>
+<p>The filesystem is basically a upside-down tree. The top, or root of the tree, is the <code>/</code> directory. Within <code>/</code> there are subdirectories, such as <code>/home</code> (which contains users home directories where all of the files owned by a user are stored) and <code>/bin</code> (containing UNIX programs, aka &#39;binaries&#39;). For the <em>oski</em> user, everything is stored in <code>/home/oski</code>. If you are the oski user, you can also refer to <code>/home/oski</code> by the shortcuts <code>~</code> and <code>~oski</code>. </p>
 
 <pre><code class="bash">ls /
 </code></pre>
@@ -376,91 +377,25 @@ cd ../../tutorial-unix-basics  # go up two directories and down
 <pre><code>## oski
 </code></pre>
 
-<pre><code class="bash">ls /home/oski
+<pre><code class="bash">cd /home/oski
+pwd
 </code></pre>
 
-<pre><code>## credentials-scf.csv
-## Desktop
-## Documents
-## Downloads
-## file.py
-## make-thw-2015
-## modify-for-aws.sh
-## Music
-## parallelR-biostat-2015
-## parallel-thw-2015
-## ph290-spark-2015-spring
-## Pictures
-## Public
-## R
-## rng.ipynb
-## setup_ipython_notebook.sh
-## spark-1.3.0
-## spark-1.3.0.tgz
-## StarCluster-0.95.6
-## stat243-fall-2014
-## Templates
-## tmp
-## tutorial-unix-basics
-## Videos
+<pre><code>## /home/oski
 </code></pre>
 
-<pre><code class="bash">ls ~
+<pre><code class="bash">cd ~
+pwd
 </code></pre>
 
-<pre><code>## credentials-scf.csv
-## Desktop
-## Documents
-## Downloads
-## file.py
-## make-thw-2015
-## modify-for-aws.sh
-## Music
-## parallelR-biostat-2015
-## parallel-thw-2015
-## ph290-spark-2015-spring
-## Pictures
-## Public
-## R
-## rng.ipynb
-## setup_ipython_notebook.sh
-## spark-1.3.0
-## spark-1.3.0.tgz
-## StarCluster-0.95.6
-## stat243-fall-2014
-## Templates
-## tmp
-## tutorial-unix-basics
-## Videos
+<pre><code>## /home/oski
 </code></pre>
 
-<pre><code class="bash">ls ~oski
+<pre><code class="bash">cd ~oski
+pwd
 </code></pre>
 
-<pre><code>## credentials-scf.csv
-## Desktop
-## Documents
-## Downloads
-## file.py
-## make-thw-2015
-## modify-for-aws.sh
-## Music
-## parallelR-biostat-2015
-## parallel-thw-2015
-## ph290-spark-2015-spring
-## Pictures
-## Public
-## R
-## rng.ipynb
-## setup_ipython_notebook.sh
-## spark-1.3.0
-## spark-1.3.0.tgz
-## StarCluster-0.95.6
-## stat243-fall-2014
-## Templates
-## tmp
-## tutorial-unix-basics
-## Videos
+<pre><code>## /home/oski
 </code></pre>
 
 <p>Another useful directory is <code>/tmp</code>, which is a good place to put temporary files that you only need briefly and don&#39;t need to save. These will disappear when a machine is rebooted. </p>
@@ -469,7 +404,7 @@ cd ../../tutorial-unix-basics  # go up two directories and down
 </code></pre>
 
 <pre><code>## data.tgz
-## RtmpXbu2HM
+## RtmpT8Vz21
 ## stat243-fall-2014
 ## tutorial.tgz
 ## tutorial-unix-basics
@@ -477,113 +412,65 @@ cd ../../tutorial-unix-basics  # go up two directories and down
 
 <h2>3.3) Copying and removing files</h2>
 
-<p>You&#39;ll often want to make a copy of a file, move it between directories, or remove it.</p>
+<p>You&#39;ll often want to make a copy of a file or subdirectory, move it between directories, or remove it.</p>
 
 <pre><code class="bash">cd ~/stat243-fall-2014/units
 cp unit8-parallel.R unit8-parallel-new.R
 mv unit8-parallel-new.R /tmp/.
-</code></pre>
-
-<pre><code class="bash">cd /tmp
+cd /tmp
 ls -lrt 
-rm unit8-parallel-new.R
 </code></pre>
 
 <pre><code>## total 3652
 ## drwxrwxr-x 3 oski oski    4096 Jul 14 15:56 tutorial-unix-basics
 ## -rw-rw-r-- 1 oski oski  420525 Jul 14 15:56 tutorial.tgz
 ## drwxrwxr-x 3 oski oski    4096 Jul 14 16:02 stat243-fall-2014
-## -rw-rw-r-- 1 oski oski 3300821 Jul 14 16:13 data.tgz
-## drwx------ 2 oski oski    4096 Jul 14 16:14 RtmpXbu2HM
-## -rw-rw-r-- 1 oski oski    3312 Jul 14 16:14 unit8-parallel-new.R
+## -rw-rw-r-- 1 oski oski 3300820 Jul 14 16:14 data.tgz
+## drwx------ 2 oski oski    4096 Jul 14 16:44 RtmpT8Vz21
+## -rw-rw-r-- 1 oski oski    3312 Jul 14 16:44 unit8-parallel-new.R
+</code></pre>
+
+<pre><code class="bash">cd /tmp
+rm unit8-parallel-new.R
+ls -lrt
+</code></pre>
+
+<pre><code>## total 3648
+## drwxrwxr-x 3 oski oski    4096 Jul 14 15:56 tutorial-unix-basics
+## -rw-rw-r-- 1 oski oski  420525 Jul 14 15:56 tutorial.tgz
+## drwxrwxr-x 3 oski oski    4096 Jul 14 16:02 stat243-fall-2014
+## -rw-rw-r-- 1 oski oski 3300820 Jul 14 16:14 data.tgz
+## drwx------ 2 oski oski    4096 Jul 14 16:44 RtmpT8Vz21
 </code></pre>
 
 <p>We can copy and remove entire directories</p>
 
 <pre><code class="bash">cd ~/stat243-fall-2014
-cp -pr units /tmp/.
+cp -pr ps /tmp/.
 cd /tmp
 mkdir stat243
-mv units stat243
-ls -l stat243/units
+mv ps stat243
+ls -l stat243/ps
 </code></pre>
 
-<pre><code>## total 9328
-## -rw-rw-r-- 1 oski oski    2279 Jul 14 15:07 badCode.R
-## -rw-rw-r-- 1 oski oski   31603 Jul 14 15:07 best-practices.png
-## -rw-rw-r-- 1 oski oski    8057 Jul 14 15:07 branchcommit.png
-## -rw-rw-r-- 1 oski oski   61705 Jul 14 15:07 commit_anatomy.png
-## -rw-rw-r-- 1 oski oski    3120 Jul 14 15:07 example.bashrc
-## -rw-rw-r-- 1 oski oski  175396 Jul 14 15:07 exampleGraphic.png
-## -rwxrwxr-x 1 oski oski     417 Jul 14 15:07 exampleRscript.R
-## -rw-rw-r-- 1 oski oski    1144 Jul 14 15:07 forloopDownload.sh
-## -rw-rw-r-- 1 oski oski     390 Jul 14 15:07 forloopJobs.sh
-## -rw-rw-r-- 1 oski oski 1198473 Jul 14 15:07 gelmanUnwin2013.pdf
-## -rw-rw-r-- 1 oski oski   65477 Jul 14 15:07 git-index.png
-## -rw-rw-r-- 1 oski oski   81539 Jul 14 15:07 git-scientists.png
-## -rw-rw-r-- 1 oski oski    5382 Jul 14 15:07 goodCode.R
-## -rw-rw-r-- 1 oski oski   10176 Jul 14 15:07 HEAD_testing.png
-## -rw-rw-r-- 1 oski oski  110652 Jul 14 15:07 ipython_github_pull1.png
-## -rw-rw-r-- 1 oski oski   73613 Jul 14 15:07 ircr-book.png
-## -rw-rw-r-- 1 oski oski   59204 Jul 14 15:07 knitr-book.png
-## -rw-rw-r-- 1 oski oski   25156 Jul 14 15:07 masterbranch.png
-## -rw-rw-r-- 1 oski oski   13809 Jul 14 15:07 mergeaftermath.png
-## -rw-rw-r-- 1 oski oski   50800 Jul 14 15:07 mergescenario.png
-## -rw-rw-r-- 1 oski oski     436 Jul 14 15:07 niceR.sh
-## -rw-rw-r-- 1 oski oski  382570 Jul 14 15:07 panama-canal.png
-## -rw-rw-r-- 1 oski oski  135680 Jul 14 15:07 regexpr-Lang.pdf
-## -rw-rw-r-- 1 oski oski  253808 Jul 14 15:07 shell.pdf
-## -rw-rw-r-- 1 oski oski   57914 Jul 14 15:07 threecommits.png
-## -rw-rw-r-- 1 oski oski   33679 Jul 14 15:07 unit10-python.lyx
-## -rw-rw-r-- 1 oski oski   87622 Jul 14 15:07 unit10-python.pdf
-## -rw-rw-r-- 1 oski oski    6547 Jul 14 15:07 unit10-python.py
-## -rw-rw-r-- 1 oski oski  125420 Jul 14 15:07 unit11-linalg.lyx
-## -rw-rw-r-- 1 oski oski  287746 Jul 14 15:07 unit11-linalg.pdf
-## -rw-rw-r-- 1 oski oski    6724 Jul 14 15:07 unit11-linalg.R
-## -rw-rw-r-- 1 oski oski   68139 Jul 14 15:07 unit12-sim.lyx
-## -rw-rw-r-- 1 oski oski  245871 Jul 14 15:07 unit12-sim.pdf
-## -rw-rw-r-- 1 oski oski    7692 Jul 14 15:07 unit12-sim.R
-## -rw-rw-r-- 1 oski oski  135205 Jul 14 15:07 unit13-optim.lyx
-## -rw-rw-r-- 1 oski oski  540365 Jul 14 15:07 unit13-optim.pdf
-## -rw-rw-r-- 1 oski oski   19191 Jul 14 15:07 unit13-optim.R
-## -rw-rw-r-- 1 oski oski   31084 Jul 14 15:07 unit14-integ.lyx
-## -rw-rw-r-- 1 oski oski  192394 Jul 14 15:07 unit14-integ.pdf
-## -rw-rw-r-- 1 oski oski    3351 Jul 14 15:07 unit14-integ.R
-## -rw-rw-r-- 1 oski oski   58766 Jul 14 15:07 unit15-graphics.lyx
-## -rw-rw-r-- 1 oski oski 1244765 Jul 14 15:07 unit15-graphics.pdf
-## -rw-rw-r-- 1 oski oski   24239 Jul 14 15:07 unit15-graphics.R
-## -rw-rw-r-- 1 oski oski   20846 Jul 14 15:07 unit1-unix.lyx
-## -rw-rw-r-- 1 oski oski   88540 Jul 14 15:07 unit1-unix.pdf
-## -rw-rw-r-- 1 oski oski    1867 Jul 14 15:07 unit1-unix.sh
-## -rw-rw-r-- 1 oski oski   82849 Jul 14 15:07 unit2-bash.lyx
-## -rw-rw-r-- 1 oski oski  363915 Jul 14 15:07 unit2-bash.pdf
-## -rw-rw-r-- 1 oski oski   10222 Jul 14 15:07 unit2-bash.sh
-## -rw-rw-r-- 1 oski oski   27884 Jul 14 15:07 unit3-Rinput.lyx
-## -rw-rw-r-- 1 oski oski  129405 Jul 14 15:07 unit3-Rinput.pdf
-## -rw-rw-r-- 1 oski oski    4067 Jul 14 15:07 unit3-Rinput.R
-## -rw-rw-r-- 1 oski oski  127090 Jul 14 15:07 unit4-usingR.lyx
-## -rw-rw-r-- 1 oski oski  273457 Jul 14 15:07 unit4-usingR.pdf
-## -rw-rw-r-- 1 oski oski   19540 Jul 14 15:07 unit4-usingR.R
-## -rw-rw-r-- 1 oski oski   44736 Jul 14 15:07 unit5-debug.lyx
-## -rw-rw-r-- 1 oski oski  132630 Jul 14 15:07 unit5-debug.pdf
-## -rw-rw-r-- 1 oski oski    5114 Jul 14 15:07 unit5-debug.R
-## -rw-rw-r-- 1 oski oski  143213 Jul 14 15:07 unit6-Rprog.lyx
-## -rw-rw-r-- 1 oski oski  302950 Jul 14 15:07 unit6-Rprog.pdf
-## -rw-rw-r-- 1 oski oski   22421 Jul 14 15:07 unit6-Rprog.R
-## -rw-rw-r-- 1 oski oski   39540 Jul 14 15:07 unit7-numbers.lyx
-## -rw-rw-r-- 1 oski oski  207312 Jul 14 15:07 unit7-numbers.pdf
-## -rw-rw-r-- 1 oski oski    4381 Jul 14 15:07 unit7-numbers.R
-## -rw-rw-r-- 1 oski oski   38131 Jul 14 15:07 unit8-parallel.lyx
-## -rw-rw-r-- 1 oski oski  143157 Jul 14 15:07 unit8-parallel.pdf
-## -rw-rw-r-- 1 oski oski    3312 Jul 14 15:07 unit8-parallel.R
-## -rw-rw-r-- 1 oski oski   60250 Jul 14 15:07 unit9-bigData.lyx
-## -rw-rw-r-- 1 oski oski  234294 Jul 14 15:07 unit9-bigData.pdf
-## -rw-rw-r-- 1 oski oski   12198 Jul 14 15:07 unit9-bigData.py
-## -rw-rw-r-- 1 oski oski   12513 Jul 14 15:07 unit9-bigData.R
-## -rw-rw-r-- 1 oski oski  933838 Jul 14 15:07 wainer1984.pdf
+<pre><code>## total 864
+## -rw-rw-r-- 1 oski oski    181 Jul 14 15:07 helical.R
+## -rw-rw-r-- 1 oski oski   1580 Jul 14 15:07 knitrTest.Rtex
+## -rw-rw-r-- 1 oski oski 125745 Jul 14 15:07 practice.pdf
+## -rw-rw-r-- 1 oski oski  82341 Jul 14 15:07 ps1.pdf
+## -rw-rw-r-- 1 oski oski  74345 Jul 14 15:07 ps2.pdf
+## -rw-rw-r-- 1 oski oski  42056 Jul 14 15:07 ps3.pdf
+## -rw-rw-r-- 1 oski oski  92084 Jul 14 15:07 ps4.pdf
+## -rw-rw-r-- 1 oski oski  25468 Jul 14 15:07 ps4prob6.Rda
+## -rw-rw-r-- 1 oski oski   2398 Jul 14 15:07 ps4.R
+## -rw-rw-r-- 1 oski oski 106396 Jul 14 15:07 ps5.pdf
+## -rw-rw-r-- 1 oski oski  24485 Jul 14 15:07 ps5prob1.Rda
+## -rw-rw-r-- 1 oski oski  58242 Jul 14 15:07 ps6.pdf
+## -rw-rw-r-- 1 oski oski 112227 Jul 14 15:07 ps7.pdf
+## -rw-rw-r-- 1 oski oski 106406 Jul 14 15:07 ps8.pdf
 </code></pre>
 
-<pre><code class="bash">rm -r /tmp/stat243/units
+<pre><code class="bash">rm -r /tmp/stat243/ps
 ls /tmp/stat243
 </code></pre>
 
@@ -598,31 +485,25 @@ scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2014/data/.
 
 <p>Let&#39;s look at the first &ldquo;column&rdquo; of information returned by <code>ls -l</code>. The first column actually contains 10 individual single-character columns. The third column indicates the owner of each file and the fourth column the group of users the owner belongs to.</p>
 
-<pre><code class="bash">cd ~/stat243-fall-2014
-ls -l
+<pre><code class="bash">ls -l
 </code></pre>
 
-<pre><code>## total 3288
-## drwxrwxr-x 2 oski oski    4096 Jul 14 16:13 data
-## -rw-rw-r-- 1 oski oski 3328539 Jul 14 16:01 data.tgz
-## drwxrwxr-x 2 oski oski    4096 Jul 14 15:07 howtos
-## drwxrwxr-x 2 oski oski    4096 Jul 14 15:07 literateProgramming
-## drwxrwxr-x 2 oski oski    4096 Jul 14 15:07 project
-## drwxrwxr-x 2 oski oski    4096 Jul 14 15:07 ps
-## -rw-rw-r-- 1 oski oski     141 Jul 14 15:07 README.md
-## drwxrwxr-x 7 oski oski    4096 Jul 14 15:07 section
-## drwxrwxr-x 2 oski oski    4096 Jul 14 15:07 syllabus
-## drwxrwxr-x 2 oski oski    4096 Jul 14 16:14 units
+<pre><code>## total 112
+## -rw-rw-r-- 1 oski oski   357 Jul 14 15:01 README.md
+## -rw--w--w- 1 oski oski    11 Jul 14 16:44 tmp.txt
+## -rw-rw-r-- 1 oski oski 34684 Jul 14 16:14 unix-basics.html
+## -rw-rw-r-- 1 oski oski 29302 Jul 14 16:14 unix-basics.md
+## -rw-rw-r-- 1 oski oski 16903 Jul 14 16:44 unix-basics.Rmd
+## -rw-rw-r-- 1 oski oski 15944 Jul 14 15:09 unix-basics.Rmd~
 </code></pre>
 
-<p>Items marked with a <code>d</code> in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read&reg;, write(w) and execute(x) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.</p>
+<p>Items marked with a <code>d</code> in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read\(r\), write(w) and execute(x) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.</p>
 
-<p>E.g., for the <em>txt</em> file, all users can read the file but only the owner can modify the file by writing to it. </p>
+<p>E.g., for the <em>tmp.txt</em> file, all users can read the file but only the owner can modify the file by writing to it. </p>
 
 <p>If we want to change the permissions, e.g., allowing all users to write to the file, or preventing anyone from writing to it:</p>
 
-<pre><code class="bash">echo &quot;first line&quot; &gt; tmp.txt  # create a file
-chmod ugo+w tmp.txt  # anyone can write to it
+<pre><code class="bash">chmod ugo+w tmp.txt  # anyone can write to it
 echo &quot;added line&quot; &gt;&gt; tmp.txt
 cat tmp.txt
 </code></pre>
@@ -706,10 +587,9 @@ tar -cvf data.tar stat243-fall-2014/data
 
 <pre><code class="bash">cd ~
 ls -l data.tar
-rm data.tar
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 oski oski 7014400 Jul 14 16:14 data.tar
+<pre><code>## -rw-rw-r-- 1 oski oski 7014400 Jul 14 16:44 data.tar
 </code></pre>
 
 <pre><code class="bash">cd ~
@@ -733,7 +613,7 @@ tar -cvzf data.tgz stat243-fall-2014/data
 ls -l data.tgz
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 oski oski 3300820 Jul 14 16:14 data.tgz
+<pre><code>## -rw-rw-r-- 1 oski oski 3300820 Jul 14 16:44 data.tgz
 </code></pre>
 
 <pre><code class="bash">cd ~
@@ -807,6 +687,8 @@ which matlab
 ## /dev/sda1                 236M   82M  142M  37% /boot
 </code></pre>
 
+<p>In general, you&#39;ll want to look at the &#39;/&#39; line, and on standard UNIX machines possibly at &#39;/tmp&#39;, &#39;/home&#39;, and others. </p>
+
 <pre><code class="bash">cd ~/stat243-fall-2014
 du -h
 </code></pre>
@@ -844,8 +726,6 @@ du -h
 ## 3.8M ./howtos
 ## 45M  .
 </code></pre>
-
-<p>In general, you&#39;ll want to look at the &#39;/&#39; line, and on standard UNIX machines possibly at &#39;/tmp&#39;, &#39;/home&#39;, and others. </p>
 
 <h2>4.4) Machine information</h2>
 
@@ -890,41 +770,41 @@ du -h
 </code></pre>
 
 <pre><code>## MemTotal:        2049440 kB
-## MemFree:          957340 kB
-## MemAvailable:    1514144 kB
-## Buffers:           82556 kB
-## Cached:           567624 kB
+## MemFree:          947340 kB
+## MemAvailable:    1511400 kB
+## Buffers:           82872 kB
+## Cached:           574688 kB
 ## SwapCached:            0 kB
-## Active:           626720 kB
-## Inactive:         355376 kB
-## Active(anon):     332620 kB
+## Active:           631440 kB
+## Inactive:         360556 kB
+## Active(anon):     335288 kB
 ## Inactive(anon):     4056 kB
-## Active(file):     294100 kB
-## Inactive(file):   351320 kB
+## Active(file):     296152 kB
+## Inactive(file):   356500 kB
 ## Unevictable:           0 kB
 ## Mlocked:               0 kB
 ## SwapTotal:       1048572 kB
 ## SwapFree:        1048572 kB
-## Dirty:              8664 kB
+## Dirty:             16036 kB
 ## Writeback:             0 kB
-## AnonPages:        331936 kB
-## Mapped:           165596 kB
+## AnonPages:        334592 kB
+## Mapped:           165512 kB
 ## Shmem:              4764 kB
-## Slab:              64056 kB
-## SReclaimable:      48012 kB
-## SUnreclaim:        16044 kB
-## KernelStack:        4816 kB
-## PageTables:        16472 kB
+## Slab:              63984 kB
+## SReclaimable:      48064 kB
+## SUnreclaim:        15920 kB
+## KernelStack:        4720 kB
+## PageTables:        16532 kB
 ## NFS_Unstable:          0 kB
 ## Bounce:                0 kB
 ## WritebackTmp:          0 kB
 ## CommitLimit:     2073292 kB
-## Committed_AS:    1694420 kB
+## Committed_AS:    1695040 kB
 ## VmallocTotal:   34359738367 kB
 ## VmallocUsed:       29288 kB
 ## VmallocChunk:   34359703032 kB
 ## HardwareCorrupted:     0 kB
-## AnonHugePages:    108544 kB
+## AnonHugePages:    161792 kB
 ## HugePages_Total:       0
 ## HugePages_Free:        0
 ## HugePages_Rsvd:        0
@@ -991,28 +871,27 @@ rm -rf data
 
 <p>Then we can run the code in the file as follows. (Results not shown here.)</p>
 
-<pre><code class="bash">chmod ugo+x mvStat243.sh  # make the script an executable
+<pre><code class="bash">chmod ugo+x mvStat243.sh  # make the script executable by everyone
 ./mvStat243.sh  # run it
-ls -l /tmp/stat243-fall-2014 # check that it ran
-
-ls -l /tmp/stat243-fall-2014/data # check that it ran
 </code></pre>
+
+<p>The inital &#39;./&#39; is needed because UNIX is not expecting there to be an executable file in this particular directory. </p>
 
 <h1>6) Questions</h1>
 
-<p>1) Figure out how to print out free disk space in terms of megabytes. </p>
+<p>1) Try to run the following command <code>mkdir ~/projects/drought</code>. It will fail. Look in the help information on <code>mkdir</code> to figure out how to make it work without first creating the <em>projects</em> directory.</p>
 
-<p>2) Change the permissions on the file stat243-fall-2014/units/unit1-unix.sh to be readable by the user and the group, writeable by the user, and executable by all users.</p>
+<p>2) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space.</p>
 
-<p>3) Where is Python installed on the system? What are some other programs/executables are installed in the same directory.</p>
+<p>3) Change the permissions on the file stat243-fall-2014/units/unit1-unix.sh to be readable by the user and the group, writeable by the user, and executable by all users.</p>
 
-<p>4) The <code>ls</code> command is itself an executable installed on the system. Where is it located?</p>
+<p>4) Use both <code>zip</code> and <code>tar -xvzf</code> to compress the stat243-fall-2014 directory. Is one much smaller than the other?</p>
 
-<p>5) Use both <code>zip</code> and <code>tar -xvzf</code> to compress the stat243-fall-2014 directory. Is one much smaller than the other?</p>
+<p>5) Figure out how to print out free disk space in terms of megabytes. </p>
 
-<p>6) Try to run the following command <code>mkdir ~/projects/drought</code>. It will fail. Look in the help information on <code>mkdir</code> to figure out how to make it work without first creating the <em>projects</em> directory.</p>
+<p>6) The <code>ls</code> command is itself an executable installed on the system. Where is it located?</p>
 
-<p>7) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space.</p>
+<p>7) Where is Python installed on the system? What are some other programs/executables are installed in the same directory.</p>
 
 </body>
 
