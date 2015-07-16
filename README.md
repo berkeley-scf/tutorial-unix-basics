@@ -3,6 +3,8 @@ tutorial-unix-basics
 
 Tutorial on the basics of the UNIX command line using BCE.
 
+The video that accompanies this material is available here (on YouTube)[http://youtu.be/pAY6E0FdWUo].
+
 This tutorial covers:
 
 * navigating the filesystem
