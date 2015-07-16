@@ -186,6 +186,15 @@ rm unit8-parallel-new.R
 ls -lrt
 ```
 
+*I used `rm` above to remove the file. Be very careful about removing files - there is no Trash folder in UNIX - once a file is removed, it's gone for good.*
+
+The `mv` command is also used if you want to rename a file. 
+```{r, mv}
+cd ~/stat243-fall-2014/units
+mv unit8-parallel.R unit9-parallel-processing.R
+ls
+```
+
 We can copy and remove entire directories
 ```{r, cp-all1}
 cd ~/stat243-fall-2014
@@ -341,12 +350,19 @@ Linux machines (but not Macs) have system information provided in a few special 
 ```{r, infofiles1}
 head -n 30 /proc/cpuinfo
 ```
+This indicates there are at least two processors (numbered 0 and 1) [we'd need to see the whole file to see if there are more]. Each is an Intel Core i5. 
+
 ```{r, infofiles2}
 cat /proc/meminfo
 ```
+
+The key line is the *MemTotal* line, indicating 2 Gb RAM on the VM.
+
 ```{r, infofiles3}
 cat /etc/issue
 ```
+
+We're running Ubuntu version 14.10.
 
 We can also use utilities to get information:
 
