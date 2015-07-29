@@ -13,7 +13,7 @@ opts_chunk$set(engine='bash') # because we're using a lot of bash, let's set as 
 
 This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or Mac OS X) environment. In particular, it covers using the UNIX command line, a powerful way to carry out operations on a computer and to automate tasks.  Being familiar with operating on the command line will allow you (with some practice and training) to do things more quickly and in a way that can be reproduced later. That's hard or impossible to do if you are doing point-and-click or drag-and-drop operations in a File Manager or Finder window. 
 
-This document accompanies a screencast of the material and the end of this document has questions that test your understanding of the material. 
+A [screencast](http://youtu.be/pAY6E0FdWUo) of this material accompanies this document and the end of this document has questions that test your understanding of the material. 
 
 We'll use a virtual machine developed here at Berkeley, [the Berkeley Common Environment (BCE)](http://bce.berkeley.edu). BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us.
 
