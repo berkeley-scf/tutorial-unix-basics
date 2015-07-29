@@ -200,6 +200,8 @@ hr {
 
 <h1>1) Getting prepared</h1>
 
+<p>\(a=\theta 7\)</p>
+
 <p>First, you&#39;ll need to install the VirtualBox software on your local machine. BCE runs on VirtualBox. Please follow the <a href="http://bce.berkeley.edu/install">BCE installation instructions</a>. Once you&#39;ve done this, you&#39;ll have a Linux computer running within your own machine.</p>
 
 <p>Once you&#39;ve started the BCE VM, open a Terminal window by clicking on the icon of the black square with the dollar sign in the top left of the BCE window (or Click on <code>Applications -&gt; Accessories -&gt; Terminal Emulator</code> in the top left). </p>
@@ -262,17 +264,19 @@ git pull
 <pre><code>## README.md
 ## tmp.txt
 ## unix-basics.html
+## unix-basics.md
 ## unix-basics.Rmd
 </code></pre>
 
 <pre><code class="bash">ls -l  # this lists files on &#39;long&#39; format
 </code></pre>
 
-<pre><code>## total 60
+<pre><code>## total 88
 ## -rw-rw-r-- 1 oski oski   357 Jul 15 15:28 README.md
-## -rw--w--w- 1 oski oski    22 Jul 16 15:33 tmp.txt
-## -rw-rw-r-- 1 oski oski 30428 Jul 15 15:28 unix-basics.html
-## -rw-rw-r-- 1 oski oski 17482 Jul 16 16:15 unix-basics.Rmd
+## -rw--w--w- 1 oski oski    22 Jul 16 16:48 tmp.txt
+## -rw-rw-r-- 1 oski oski 32547 Jul 16 16:48 unix-basics.html
+## -rw-rw-r-- 1 oski oski 26718 Jul 16 16:48 unix-basics.md
+## -rw-rw-r-- 1 oski oski 17496 Jul 16 16:48 unix-basics.Rmd
 </code></pre>
 
 <p>Note the use of the <code>-l</code> flag to list the long-format information. As mentioned, options for UNIX commands are generally provided via this kind of syntax.</p>
@@ -400,7 +404,7 @@ pwd
 </code></pre>
 
 <pre><code>## data.tgz
-## Rtmpj2iJaZ
+## RtmpzNspAZ
 ## stat243-fall-2014
 ## unit1-unix.sh
 </code></pre>
@@ -416,12 +420,13 @@ cd /tmp
 ls -lrt 
 </code></pre>
 
-<pre><code>## total 3268
+<pre><code>## cp: cannot stat ‘unit8-parallel.R’: No such file or directory
+## mv: cannot stat ‘unit8-parallel-new.R’: No such file or directory
+## total 3236
 ## -rw-r--r-- 1 oski oski    1867 Jul 16 15:27 unit1-unix.sh
-## -rw-rw-r-- 1 oski oski 3328657 Jul 16 15:38 data.tgz
 ## drwxrwxr-x 3 oski oski    4096 Jul 16 15:39 stat243-fall-2014
-## drwx------ 2 oski oski    4096 Jul 16 16:15 Rtmpj2iJaZ
-## -rw-rw-r-- 1 oski oski    3312 Jul 16 16:15 unit8-parallel-new.R
+## -rw-rw-r-- 1 oski oski 3300827 Jul 16 16:48 data.tgz
+## drwx------ 2 oski oski    4096 Jul 16 16:48 RtmpzNspAZ
 </code></pre>
 
 <pre><code class="bash">cd /tmp
@@ -429,11 +434,12 @@ rm unit8-parallel-new.R
 ls -lrt
 </code></pre>
 
-<pre><code>## total 3264
+<pre><code>## rm: cannot remove ‘unit8-parallel-new.R’: No such file or directory
+## total 3236
 ## -rw-r--r-- 1 oski oski    1867 Jul 16 15:27 unit1-unix.sh
-## -rw-rw-r-- 1 oski oski 3328657 Jul 16 15:38 data.tgz
 ## drwxrwxr-x 3 oski oski    4096 Jul 16 15:39 stat243-fall-2014
-## drwx------ 2 oski oski    4096 Jul 16 16:15 Rtmpj2iJaZ
+## -rw-rw-r-- 1 oski oski 3300827 Jul 16 16:48 data.tgz
+## drwx------ 2 oski oski    4096 Jul 16 16:48 RtmpzNspAZ
 </code></pre>
 
 <p><em>I used <code>rm</code> above to remove the file. Be very careful about removing files - there is no Trash folder in UNIX - once a file is removed, it&#39;s gone for good.</em></p>
@@ -445,7 +451,8 @@ mv unit8-parallel.R unit9-parallel-processing.R
 ls
 </code></pre>
 
-<pre><code>## badCode.R
+<pre><code>## mv: cannot stat ‘unit8-parallel.R’: No such file or directory
+## badCode.R
 ## best-practices.png
 ## branchcommit.png
 ## commit_anatomy.png
@@ -564,11 +571,12 @@ scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2014/data/.
 <pre><code class="bash">ls -l
 </code></pre>
 
-<pre><code>## total 60
+<pre><code>## total 88
 ## -rw-rw-r-- 1 oski oski   357 Jul 15 15:28 README.md
-## -rw--w--w- 1 oski oski    11 Jul 16 16:15 tmp.txt
-## -rw-rw-r-- 1 oski oski 30428 Jul 15 15:28 unix-basics.html
-## -rw-rw-r-- 1 oski oski 17482 Jul 16 16:15 unix-basics.Rmd
+## -rw--w--w- 1 oski oski    11 Jul 16 16:48 tmp.txt
+## -rw-rw-r-- 1 oski oski 32547 Jul 16 16:48 unix-basics.html
+## -rw-rw-r-- 1 oski oski 26718 Jul 16 16:48 unix-basics.md
+## -rw-rw-r-- 1 oski oski 17496 Jul 16 16:48 unix-basics.Rmd
 </code></pre>
 
 <p>Items marked with a <code>d</code> in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read\(r\), write(w) and execute(x) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.</p>
@@ -663,7 +671,7 @@ tar -cvf data.tar stat243-fall-2014/data
 ls -l data.tar
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 oski oski 7014400 Jul 16 16:15 data.tar
+<pre><code>## -rw-rw-r-- 1 oski oski 7014400 Jul 16 16:48 data.tar
 </code></pre>
 
 <pre><code class="bash">cd ~
@@ -687,7 +695,7 @@ tar -cvzf data.tgz stat243-fall-2014/data
 ls -l data.tgz
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 oski oski 3300825 Jul 16 16:15 data.tgz
+<pre><code>## -rw-rw-r-- 1 oski oski 3300826 Jul 16 16:48 data.tgz
 </code></pre>
 
 <pre><code class="bash">cd ~
@@ -847,41 +855,41 @@ du -h
 </code></pre>
 
 <pre><code>## MemTotal:        2049440 kB
-## MemFree:         1028708 kB
-## MemAvailable:    1550332 kB
-## Buffers:           79492 kB
-## Cached:           542680 kB
+## MemFree:         1012632 kB
+## MemAvailable:    1550700 kB
+## Buffers:           80276 kB
+## Cached:           558268 kB
 ## SwapCached:            0 kB
-## Active:           495432 kB
-## Inactive:         431772 kB
-## Active(anon):     305700 kB
+## Active:           514100 kB
+## Inactive:         428508 kB
+## Active(anon):     304840 kB
 ## Inactive(anon):     4180 kB
-## Active(file):     189732 kB
-## Inactive(file):   427592 kB
+## Active(file):     209260 kB
+## Inactive(file):   424328 kB
 ## Unevictable:           0 kB
 ## Mlocked:               0 kB
 ## SwapTotal:       1048572 kB
 ## SwapFree:        1048572 kB
-## Dirty:              9496 kB
+## Dirty:             16212 kB
 ## Writeback:             0 kB
-## AnonPages:        304984 kB
-## Mapped:           166208 kB
+## AnonPages:        304068 kB
+## Mapped:           166128 kB
 ## Shmem:              4888 kB
-## Slab:              49052 kB
-## SReclaimable:      33844 kB
-## SUnreclaim:        15208 kB
-## KernelStack:        4608 kB
-## PageTables:        15936 kB
+## Slab:              49496 kB
+## SReclaimable:      34204 kB
+## SUnreclaim:        15292 kB
+## KernelStack:        4656 kB
+## PageTables:        15976 kB
 ## NFS_Unstable:          0 kB
 ## Bounce:                0 kB
 ## WritebackTmp:          0 kB
 ## CommitLimit:     2073292 kB
-## Committed_AS:    1611036 kB
+## Committed_AS:    1622912 kB
 ## VmallocTotal:   34359738367 kB
 ## VmallocUsed:       29092 kB
 ## VmallocChunk:   34359704056 kB
 ## HardwareCorrupted:     0 kB
-## AnonHugePages:     88064 kB
+## AnonHugePages:     63488 kB
 ## HugePages_Total:       0
 ## HugePages_Free:        0
 ## HugePages_Rsvd:        0

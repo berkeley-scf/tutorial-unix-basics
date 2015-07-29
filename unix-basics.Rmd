@@ -39,6 +39,8 @@ Rscript -e "library(knitr); knit2html('unix-basics.Rmd')"
 
 # 1) Getting prepared
 
+$a=\theta 7$
+
 First, you'll need to install the VirtualBox software on your local machine. BCE runs on VirtualBox. Please follow the [BCE installation instructions](http://bce.berkeley.edu/install). Once you've done this, you'll have a Linux computer running within your own machine.
 
 Once you've started the BCE VM, open a Terminal window by clicking on the icon of the black square with the dollar sign in the top left of the BCE window (or Click on `Applications -> Accessories -> Terminal Emulator` in the top left). 
