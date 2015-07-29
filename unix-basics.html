@@ -176,7 +176,7 @@ hr {
 
 <p>This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or Mac OS X) environment. In particular, it covers using the UNIX command line, a powerful way to carry out operations on a computer and to automate tasks.  Being familiar with operating on the command line will allow you (with some practice and training) to do things more quickly and in a way that can be reproduced later. That&#39;s hard or impossible to do if you are doing point-and-click or drag-and-drop operations in a File Manager or Finder window. </p>
 
-<p>This document accompanies a screencast of the material and the end of this document has questions that test your understanding of the material. </p>
+<p>A <a href="http://youtu.be/pAY6E0FdWUo">screencast</a> of this material accompanies this document and the end of this document has questions that test your understanding of the material. </p>
 
 <p>We&#39;ll use a virtual machine developed here at Berkeley, <a href="http://bce.berkeley.edu">the Berkeley Common Environment (BCE)</a>. BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us.</p>
 
@@ -261,7 +261,9 @@ git pull
 <pre><code class="bash">ls
 </code></pre>
 
-<pre><code>## README.md
+<pre><code>## jupyterhub_cookie_secret
+## jupyterhub.sqlite
+## README.md
 ## tmp.txt
 ## unix-basics.html
 ## unix-basics.md
@@ -271,12 +273,14 @@ git pull
 <pre><code class="bash">ls -l  # this lists files on &#39;long&#39; format
 </code></pre>
 
-<pre><code>## total 88
-## -rw-rw-r-- 1 oski oski   357 Jul 15 15:28 README.md
-## -rw--w--w- 1 oski oski    22 Jul 16 16:48 tmp.txt
-## -rw-rw-r-- 1 oski oski 32547 Jul 16 16:48 unix-basics.html
-## -rw-rw-r-- 1 oski oski 26718 Jul 16 16:48 unix-basics.md
-## -rw-rw-r-- 1 oski oski 17496 Jul 16 16:48 unix-basics.Rmd
+<pre><code>## total 104
+## -rw------- 1 oski oski  2733 Jul 16 16:56 jupyterhub_cookie_secret
+## -rw-r--r-- 1 oski oski 10240 Jul 28 17:00 jupyterhub.sqlite
+## -rw-rw-r-- 1 oski oski   460 Jul 17 14:21 README.md
+## -rw--w--w- 1 oski oski    22 Jul 17 14:25 tmp.txt
+## -rw-rw-r-- 1 oski oski 32354 Jul 17 14:25 unix-basics.html
+## -rw-rw-r-- 1 oski oski 26536 Jul 17 14:25 unix-basics.md
+## -rw-rw-r-- 1 oski oski 17528 Jul 28 17:04 unix-basics.Rmd
 </code></pre>
 
 <p>Note the use of the <code>-l</code> flag to list the long-format information. As mentioned, options for UNIX commands are generally provided via this kind of syntax.</p>
@@ -404,9 +408,14 @@ pwd
 </code></pre>
 
 <pre><code>## data.tgz
-## RtmpzNspAZ
+## Rtmp0dhXuj
+## Rtmpo7qf32
 ## stat243-fall-2014
-## unit1-unix.sh
+## unix-basics.Rmd
+## Untitled3.html
+## Untitled3.md
+## Untitled3.pdf
+## Untitled3.r
 </code></pre>
 
 <h2>3.3) Copying and removing files</h2>
@@ -422,11 +431,16 @@ ls -lrt
 
 <pre><code>## cp: cannot stat ‘unit8-parallel.R’: No such file or directory
 ## mv: cannot stat ‘unit8-parallel-new.R’: No such file or directory
-## total 3236
-## -rw-r--r-- 1 oski oski    1867 Jul 16 15:27 unit1-unix.sh
-## drwxrwxr-x 3 oski oski    4096 Jul 16 15:39 stat243-fall-2014
-## -rw-rw-r-- 1 oski oski 3300827 Jul 16 16:48 data.tgz
-## drwx------ 2 oski oski    4096 Jul 16 16:48 RtmpzNspAZ
+## total 3524
+## -rw-rw-r-- 1 oski oski 3300826 Jul 17 14:25 data.tgz
+## drwxrwxr-x 3 oski oski    4096 Jul 17 14:25 stat243-fall-2014
+## -r-------- 1 oski oski  197076 Jul 17 14:57 Untitled3.html
+## -r-------- 1 oski oski     116 Jul 17 14:57 Untitled3.md
+## -r-------- 1 oski oski      35 Jul 17 14:58 Untitled3.r
+## -r-------- 1 oski oski   61680 Jul 17 14:59 Untitled3.pdf
+## drwx------ 2 oski oski    4096 Jul 17 15:01 Rtmpo7qf32
+## -rw-rw-r-- 1 oski oski   17484 Jul 28 17:04 unix-basics.Rmd
+## drwx------ 2 oski oski    4096 Jul 28 17:05 Rtmp0dhXuj
 </code></pre>
 
 <pre><code class="bash">cd /tmp
@@ -435,11 +449,16 @@ ls -lrt
 </code></pre>
 
 <pre><code>## rm: cannot remove ‘unit8-parallel-new.R’: No such file or directory
-## total 3236
-## -rw-r--r-- 1 oski oski    1867 Jul 16 15:27 unit1-unix.sh
-## drwxrwxr-x 3 oski oski    4096 Jul 16 15:39 stat243-fall-2014
-## -rw-rw-r-- 1 oski oski 3300827 Jul 16 16:48 data.tgz
-## drwx------ 2 oski oski    4096 Jul 16 16:48 RtmpzNspAZ
+## total 3524
+## -rw-rw-r-- 1 oski oski 3300826 Jul 17 14:25 data.tgz
+## drwxrwxr-x 3 oski oski    4096 Jul 17 14:25 stat243-fall-2014
+## -r-------- 1 oski oski  197076 Jul 17 14:57 Untitled3.html
+## -r-------- 1 oski oski     116 Jul 17 14:57 Untitled3.md
+## -r-------- 1 oski oski      35 Jul 17 14:58 Untitled3.r
+## -r-------- 1 oski oski   61680 Jul 17 14:59 Untitled3.pdf
+## drwx------ 2 oski oski    4096 Jul 17 15:01 Rtmpo7qf32
+## -rw-rw-r-- 1 oski oski   17484 Jul 28 17:04 unix-basics.Rmd
+## drwx------ 2 oski oski    4096 Jul 28 17:05 Rtmp0dhXuj
 </code></pre>
 
 <p><em>I used <code>rm</code> above to remove the file. Be very careful about removing files - there is no Trash folder in UNIX - once a file is removed, it&#39;s gone for good.</em></p>
@@ -571,12 +590,14 @@ scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2014/data/.
 <pre><code class="bash">ls -l
 </code></pre>
 
-<pre><code>## total 88
-## -rw-rw-r-- 1 oski oski   357 Jul 15 15:28 README.md
-## -rw--w--w- 1 oski oski    11 Jul 16 16:48 tmp.txt
-## -rw-rw-r-- 1 oski oski 32547 Jul 16 16:48 unix-basics.html
-## -rw-rw-r-- 1 oski oski 26718 Jul 16 16:48 unix-basics.md
-## -rw-rw-r-- 1 oski oski 17496 Jul 16 16:48 unix-basics.Rmd
+<pre><code>## total 104
+## -rw------- 1 oski oski  2733 Jul 16 16:56 jupyterhub_cookie_secret
+## -rw-r--r-- 1 oski oski 10240 Jul 28 17:00 jupyterhub.sqlite
+## -rw-rw-r-- 1 oski oski   460 Jul 17 14:21 README.md
+## -rw--w--w- 1 oski oski    11 Jul 28 17:05 tmp.txt
+## -rw-rw-r-- 1 oski oski 32354 Jul 17 14:25 unix-basics.html
+## -rw-rw-r-- 1 oski oski 26536 Jul 17 14:25 unix-basics.md
+## -rw-rw-r-- 1 oski oski 17528 Jul 28 17:04 unix-basics.Rmd
 </code></pre>
 
 <p>Items marked with a <code>d</code> in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read\(r\), write(w) and execute(x) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.</p>
@@ -671,7 +692,7 @@ tar -cvf data.tar stat243-fall-2014/data
 ls -l data.tar
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 oski oski 7014400 Jul 16 16:48 data.tar
+<pre><code>## -rw-rw-r-- 1 oski oski 7014400 Jul 28 17:05 data.tar
 </code></pre>
 
 <pre><code class="bash">cd ~
@@ -695,7 +716,7 @@ tar -cvzf data.tgz stat243-fall-2014/data
 ls -l data.tgz
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 oski oski 3300826 Jul 16 16:48 data.tgz
+<pre><code>## -rw-rw-r-- 1 oski oski 3300827 Jul 28 17:05 data.tgz
 </code></pre>
 
 <pre><code class="bash">cd ~
@@ -720,18 +741,17 @@ tar -xvzf data.tgz
 <pre><code class="bash">ls -l /tmp/stat243-fall-2014/data
 </code></pre>
 
-<pre><code>## total 26172
-## -rw-rw-r-- 1 oski oski   242975 Jul 15 15:39 capeCod.zip
-## -rw-rw-r-- 1 oski oski 19777978 Jul 15 15:39 coop.txt
-## -rw-rw-r-- 1 oski oski  2128297 Jul 15 15:39 coop.txt.gz
-## -rw-rw-r-- 1 oski oski    41130 Jul 15 15:39 cpds.csv
-## -rw-rw-r-- 1 oski oski  1244094 Jul 15 15:39 hivSequ.csv
-## -rw-rw-r-- 1 oski oski   223004 Jul 15 15:39 IPs.RData
-## -rw-rw-r-- 1 oski oski    10965 Jul 15 15:39 precipData.txt
-## -rw-rw-r-- 1 oski oski  2766472 Jul 15 15:39 precip.txt
-## -rw-rw-r-- 1 oski oski   198876 Jul 15 15:39 prec.RData
-## -rw-rw-r-- 1 oski oski   139797 Jul 15 15:39 RTADataSub.csv
-## -rw-rw-r-- 1 oski oski      787 Jul 15 15:39 urls.txt
+<pre><code>## total 6856
+## -rw-rw-r-- 1 oski oski  242975 Jul 15 15:39 capeCod.zip
+## -rw-rw-r-- 1 oski oski 2128297 Jul 15 15:39 coop.txt.gz
+## -rw-rw-r-- 1 oski oski   41130 Jul 15 15:39 cpds.csv
+## -rw-rw-r-- 1 oski oski 1244094 Jul 15 15:39 hivSequ.csv
+## -rw-rw-r-- 1 oski oski  223004 Jul 15 15:39 IPs.RData
+## -rw-rw-r-- 1 oski oski   10965 Jul 15 15:39 precipData.txt
+## -rw-rw-r-- 1 oski oski 2766472 Jul 15 15:39 precip.txt
+## -rw-rw-r-- 1 oski oski  198876 Jul 15 15:39 prec.RData
+## -rw-rw-r-- 1 oski oski  139797 Jul 15 15:39 RTADataSub.csv
+## -rw-rw-r-- 1 oski oski     787 Jul 15 15:39 urls.txt
 </code></pre>
 
 <h2>4.2) Getting help with UNIX tools</h2>
@@ -763,10 +783,10 @@ which matlab
 ## /dev/mapper/BCE--vg-root   15G  6.1G  7.3G  46% /
 ## none                      4.0K     0  4.0K   0% /sys/fs/cgroup
 ## udev                      986M  4.0K  986M   1% /dev
-## tmpfs                     201M  792K  200M   1% /run
+## tmpfs                     201M  780K  200M   1% /run
 ## none                      5.0M  4.0K  5.0M   1% /run/lock
 ## none                     1001M   72K 1001M   1% /run/shm
-## none                      100M   24K  100M   1% /run/user
+## none                      100M   28K  100M   1% /run/user
 ## /dev/sda1                 236M   82M  142M  37% /boot
 </code></pre>
 
@@ -824,7 +844,7 @@ du -h
 ## model name   : Intel(R) Core(TM) i5-3210M CPU @ 2.50GHz
 ## stepping : 9
 ## microcode    : 0x19
-## cpu MHz      : 2449.371
+## cpu MHz      : 2583.447
 ## cache size   : 6144 KB
 ## physical id  : 0
 ## siblings : 2
@@ -837,7 +857,7 @@ du -h
 ## cpuid level  : 5
 ## wp       : yes
 ## flags        : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx rdtscp lm constant_tsc rep_good nopl pni ssse3 lahf_lm
-## bogomips : 4898.74
+## bogomips : 5166.89
 ## clflush size : 64
 ## cache_alignment  : 64
 ## address sizes    : 36 bits physical, 48 bits virtual
@@ -855,48 +875,48 @@ du -h
 </code></pre>
 
 <pre><code>## MemTotal:        2049440 kB
-## MemFree:         1012632 kB
-## MemAvailable:    1550700 kB
-## Buffers:           80276 kB
-## Cached:           558268 kB
+## MemFree:          832204 kB
+## MemAvailable:    1306832 kB
+## Buffers:           94488 kB
+## Cached:           489260 kB
 ## SwapCached:            0 kB
-## Active:           514100 kB
-## Inactive:         428508 kB
-## Active(anon):     304840 kB
-## Inactive(anon):     4180 kB
-## Active(file):     209260 kB
-## Inactive(file):   424328 kB
+## Active:           767944 kB
+## Inactive:         355884 kB
+## Active(anon):     540680 kB
+## Inactive(anon):     9988 kB
+## Active(file):     227264 kB
+## Inactive(file):   345896 kB
 ## Unevictable:           0 kB
 ## Mlocked:               0 kB
 ## SwapTotal:       1048572 kB
 ## SwapFree:        1048572 kB
-## Dirty:             16212 kB
+## Dirty:             15824 kB
 ## Writeback:             0 kB
-## AnonPages:        304068 kB
-## Mapped:           166128 kB
-## Shmem:              4888 kB
-## Slab:              49496 kB
-## SReclaimable:      34204 kB
-## SUnreclaim:        15292 kB
-## KernelStack:        4656 kB
-## PageTables:        15976 kB
+## AnonPages:        539896 kB
+## Mapped:           188040 kB
+## Shmem:             10688 kB
+## Slab:              44332 kB
+## SReclaimable:      28184 kB
+## SUnreclaim:        16148 kB
+## KernelStack:        5184 kB
+## PageTables:        18916 kB
 ## NFS_Unstable:          0 kB
 ## Bounce:                0 kB
 ## WritebackTmp:          0 kB
 ## CommitLimit:     2073292 kB
-## Committed_AS:    1622912 kB
+## Committed_AS:    2183256 kB
 ## VmallocTotal:   34359738367 kB
 ## VmallocUsed:       29092 kB
 ## VmallocChunk:   34359704056 kB
 ## HardwareCorrupted:     0 kB
-## AnonHugePages:     63488 kB
+## AnonHugePages:    165888 kB
 ## HugePages_Total:       0
 ## HugePages_Free:        0
 ## HugePages_Rsvd:        0
 ## HugePages_Surp:        0
 ## Hugepagesize:       2048 kB
-## DirectMap4k:       51136 kB
-## DirectMap2M:     2045952 kB
+## DirectMap4k:       65472 kB
+## DirectMap2M:     2031616 kB
 </code></pre>
 
 <p>The key line is the <em>MemTotal</em> line, indicating 2 Gb RAM on the VM.</p>
