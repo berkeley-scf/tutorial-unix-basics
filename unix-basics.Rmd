@@ -1,7 +1,7 @@
 The Basics of UNIX
 ======================================================================================
 Illustrated with the BCE Virtual Machine
-======================================================================================
+-------------------
 
 Chris Paciorek, Department of Statistics, UC Berkeley
 
@@ -38,8 +38,6 @@ Rscript -e "library(knitr); knit2html('unix-basics.Rmd')"
 
 
 # 1) Getting prepared
-
-$a=\theta 7$
 
 First, you'll need to install the VirtualBox software on your local machine. BCE runs on VirtualBox. Please follow the [BCE installation instructions](http://bce.berkeley.edu/install). Once you've done this, you'll have a Linux computer running within your own machine.
 
