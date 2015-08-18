@@ -29,6 +29,8 @@ To create this HTML document, simply compile the corresponding R Markdown file i
 Rscript -e "library(knitr); knit2html('unix-basics.Rmd')"
 ```
 
+This tutorial by Christopher Paciorek is licensed under a Creative Commons Attribution 3.0 Unported License.
+
 <!--
 #pandoc --number-sections spark.md -o spark.html
 #Rscript -e "library(knitr); knit('spark.Rmd')"
