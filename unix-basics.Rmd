@@ -17,7 +17,7 @@ A [screencast](http://youtu.be/pAY6E0FdWUo) of this material accompanies this do
 
 We'll use a virtual machine developed here at Berkeley, [the Berkeley Common Environment (BCE)](http://bce.berkeley.edu). BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us.
 
-Materials for this tutorial, including the R markdown file that was used to create this document are available on github at (https://github.com/berkeley-scf/tutorial-unix-basics).  You can download the files by doing a git clone from a terminal window on UNIX-like machine, as we'll demonstrate early in this document:
+Materials for this tutorial, including the R markdown file that was used to create this document are available on github at (https://github.com/berkeley-scf/tutorial-unix-basics).  You can download the files by doing a git clone from a terminal window on a UNIX-like machine, as shown here:
 ```{r, clone, eval=FALSE}
 git clone https://github.com/berkeley-scf/tutorial-unix-basics
 ```
