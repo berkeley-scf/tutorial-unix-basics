@@ -19,9 +19,6 @@ window.onload = function() {
 
 
 
-<!-- MathJax scripts -->
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
 
 
 <style type="text/css">
@@ -168,7 +165,7 @@ hr {
 <body>
 <h1>The Basics of UNIX</h1>
 
-<h1>Illustrated with the BCE Virtual Machine</h1>
+<h2>Illustrated with the BCE Virtual Machine</h2>
 
 <p>Chris Paciorek, Department of Statistics, UC Berkeley</p>
 
@@ -180,7 +177,7 @@ hr {
 
 <p>We&#39;ll use a virtual machine developed here at Berkeley, <a href="http://bce.berkeley.edu">the Berkeley Common Environment (BCE)</a>. BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us.</p>
 
-<p>Materials for this tutorial, including the R markdown file that was used to create this document are available on github at (<a href="https://github.com/berkeley-scf/tutorial-unix-basics">https://github.com/berkeley-scf/tutorial-unix-basics</a>).  You can download the files by doing a git clone from a terminal window on a UNIX-like machine, as we show here:</p>
+<p>Materials for this tutorial, including the R markdown file that was used to create this document are available on github at (<a href="https://github.com/berkeley-scf/tutorial-unix-basics">https://github.com/berkeley-scf/tutorial-unix-basics</a>).  You can download the files by doing a git clone from a terminal window on a UNIX-like machine, as shown here:</p>
 
 <pre><code class="bash">git clone https://github.com/berkeley-scf/tutorial-unix-basics
 </code></pre>
@@ -193,6 +190,7 @@ hr {
 </code></pre>
 
 <p>This tutorial by Christopher Paciorek is licensed under a Creative Commons Attribution 3.0 Unported License.</p>
+
 <!--
 #pandoc --number-sections spark.md -o spark.html
 #Rscript -e "library(knitr); knit('spark.Rmd')"
@@ -260,9 +258,7 @@ git pull
 <pre><code class="bash">ls
 </code></pre>
 
-<pre><code>## jupyterhub_cookie_secret
-## jupyterhub.sqlite
-## README.md
+<pre><code>## README.md
 ## tmp.txt
 ## unix-basics.html
 ## unix-basics.md
@@ -272,14 +268,12 @@ git pull
 <pre><code class="bash">ls -l  # this lists files on &#39;long&#39; format
 </code></pre>
 
-<pre><code>## total 104
-## -rw------- 1 oski oski  2733 Jul 16 16:56 jupyterhub_cookie_secret
-## -rw-r--r-- 1 oski oski 10240 Jul 28 17:00 jupyterhub.sqlite
-## -rw-rw-r-- 1 oski oski   460 Jul 17 14:21 README.md
-## -rw--w--w- 1 oski oski    22 Jul 17 14:25 tmp.txt
-## -rw-rw-r-- 1 oski oski 32354 Jul 17 14:25 unix-basics.html
-## -rw-rw-r-- 1 oski oski 26536 Jul 17 14:25 unix-basics.md
-## -rw-rw-r-- 1 oski oski 17528 Jul 28 17:04 unix-basics.Rmd
+<pre><code>## total 92
+## -rw-rw-r-- 1 oski oski   460 Aug 26 09:04 README.md
+## -rw--w--w- 1 oski oski    22 Aug 26 09:19 tmp.txt
+## -rw-rw-r-- 1 oski oski 33195 Aug 26 09:19 unix-basics.html
+## -rw-rw-r-- 1 oski oski 27415 Aug 26 09:19 unix-basics.md
+## -rw-rw-r-- 1 oski oski 17879 Aug 26 09:21 unix-basics.Rmd
 </code></pre>
 
 <p>Note the use of the <code>-l</code> flag to list the long-format information. As mentioned, options for UNIX commands are generally provided via this kind of syntax.</p>
@@ -406,15 +400,12 @@ pwd
 <pre><code class="bash">ls /tmp
 </code></pre>
 
-<pre><code>## data.tgz
-## Rtmp0dhXuj
-## Rtmpo7qf32
+<pre><code>## config-err-A7737K
+## data.tgz
+## RtmpPXBcJ1
 ## stat243-fall-2014
-## unix-basics.Rmd
-## Untitled3.html
-## Untitled3.md
-## Untitled3.pdf
-## Untitled3.r
+## systemd-private-6280064c7f734ec3ada8ddb28ef89445-rtkit-daemon.service-1k7HC5
+## systemd-private-6280064c7f734ec3ada8ddb28ef89445-systemd-timesyncd.service-60cW95
 </code></pre>
 
 <h2>3.3) Copying and removing files</h2>
@@ -428,18 +419,14 @@ cd /tmp
 ls -lrt 
 </code></pre>
 
-<pre><code>## cp: cannot stat ‘unit8-parallel.R’: No such file or directory
-## mv: cannot stat ‘unit8-parallel-new.R’: No such file or directory
-## total 3524
-## -rw-rw-r-- 1 oski oski 3300826 Jul 17 14:25 data.tgz
-## drwxrwxr-x 3 oski oski    4096 Jul 17 14:25 stat243-fall-2014
-## -r-------- 1 oski oski  197076 Jul 17 14:57 Untitled3.html
-## -r-------- 1 oski oski     116 Jul 17 14:57 Untitled3.md
-## -r-------- 1 oski oski      35 Jul 17 14:58 Untitled3.r
-## -r-------- 1 oski oski   61680 Jul 17 14:59 Untitled3.pdf
-## drwx------ 2 oski oski    4096 Jul 17 15:01 Rtmpo7qf32
-## -rw-rw-r-- 1 oski oski   17484 Jul 28 17:04 unix-basics.Rmd
-## drwx------ 2 oski oski    4096 Jul 28 17:05 Rtmp0dhXuj
+<pre><code>## total 3244
+## drwx------ 3 root root    4096 Aug 24 06:51 systemd-private-6280064c7f734ec3ada8ddb28ef89445-systemd-timesyncd.service-60cW95
+## -rw------- 1 oski oski       0 Aug 24 13:50 config-err-A7737K
+## drwx------ 3 root root    4096 Aug 24 13:51 systemd-private-6280064c7f734ec3ada8ddb28ef89445-rtkit-daemon.service-1k7HC5
+## drwxrwxr-x 3 oski oski    4096 Aug 26 09:09 stat243-fall-2014
+## -rw-rw-r-- 1 oski oski 3300012 Aug 26 09:19 data.tgz
+## drwx------ 2 oski oski    4096 Aug 26 09:21 RtmpPXBcJ1
+## -rw-rw-r-- 1 oski oski    3312 Aug 26 09:21 unit8-parallel-new.R
 </code></pre>
 
 <pre><code class="bash">cd /tmp
@@ -447,17 +434,13 @@ rm unit8-parallel-new.R
 ls -lrt
 </code></pre>
 
-<pre><code>## rm: cannot remove ‘unit8-parallel-new.R’: No such file or directory
-## total 3524
-## -rw-rw-r-- 1 oski oski 3300826 Jul 17 14:25 data.tgz
-## drwxrwxr-x 3 oski oski    4096 Jul 17 14:25 stat243-fall-2014
-## -r-------- 1 oski oski  197076 Jul 17 14:57 Untitled3.html
-## -r-------- 1 oski oski     116 Jul 17 14:57 Untitled3.md
-## -r-------- 1 oski oski      35 Jul 17 14:58 Untitled3.r
-## -r-------- 1 oski oski   61680 Jul 17 14:59 Untitled3.pdf
-## drwx------ 2 oski oski    4096 Jul 17 15:01 Rtmpo7qf32
-## -rw-rw-r-- 1 oski oski   17484 Jul 28 17:04 unix-basics.Rmd
-## drwx------ 2 oski oski    4096 Jul 28 17:05 Rtmp0dhXuj
+<pre><code>## total 3240
+## drwx------ 3 root root    4096 Aug 24 06:51 systemd-private-6280064c7f734ec3ada8ddb28ef89445-systemd-timesyncd.service-60cW95
+## -rw------- 1 oski oski       0 Aug 24 13:50 config-err-A7737K
+## drwx------ 3 root root    4096 Aug 24 13:51 systemd-private-6280064c7f734ec3ada8ddb28ef89445-rtkit-daemon.service-1k7HC5
+## drwxrwxr-x 3 oski oski    4096 Aug 26 09:09 stat243-fall-2014
+## -rw-rw-r-- 1 oski oski 3300012 Aug 26 09:19 data.tgz
+## drwx------ 2 oski oski    4096 Aug 26 09:21 RtmpPXBcJ1
 </code></pre>
 
 <p><em>I used <code>rm</code> above to remove the file. Be very careful about removing files - there is no Trash folder in UNIX - once a file is removed, it&#39;s gone for good.</em></p>
@@ -469,8 +452,7 @@ mv unit8-parallel.R unit9-parallel-processing.R
 ls
 </code></pre>
 
-<pre><code>## mv: cannot stat ‘unit8-parallel.R’: No such file or directory
-## badCode.R
+<pre><code>## badCode.R
 ## best-practices.png
 ## branchcommit.png
 ## commit_anatomy.png
@@ -555,20 +537,20 @@ ls -l stat243/ps
 </code></pre>
 
 <pre><code>## total 864
-## -rw-rw-r-- 1 oski oski    181 Jul 15 15:39 helical.R
-## -rw-rw-r-- 1 oski oski   1580 Jul 15 15:39 knitrTest.Rtex
-## -rw-rw-r-- 1 oski oski 125745 Jul 15 15:39 practice.pdf
-## -rw-rw-r-- 1 oski oski  82341 Jul 15 15:39 ps1.pdf
-## -rw-rw-r-- 1 oski oski  74345 Jul 15 15:39 ps2.pdf
-## -rw-rw-r-- 1 oski oski  42056 Jul 15 15:39 ps3.pdf
-## -rw-rw-r-- 1 oski oski  92084 Jul 15 15:39 ps4.pdf
-## -rw-rw-r-- 1 oski oski  25468 Jul 15 15:39 ps4prob6.Rda
-## -rw-rw-r-- 1 oski oski   2398 Jul 15 15:39 ps4.R
-## -rw-rw-r-- 1 oski oski 106396 Jul 15 15:39 ps5.pdf
-## -rw-rw-r-- 1 oski oski  24485 Jul 15 15:39 ps5prob1.Rda
-## -rw-rw-r-- 1 oski oski  58242 Jul 15 15:39 ps6.pdf
-## -rw-rw-r-- 1 oski oski 112227 Jul 15 15:39 ps7.pdf
-## -rw-rw-r-- 1 oski oski 106406 Jul 15 15:39 ps8.pdf
+## -rw-rw-r-- 1 oski oski    181 Aug 26 09:08 helical.R
+## -rw-rw-r-- 1 oski oski   1580 Aug 26 09:08 knitrTest.Rtex
+## -rw-rw-r-- 1 oski oski 125745 Aug 26 09:08 practice.pdf
+## -rw-rw-r-- 1 oski oski  82341 Aug 26 09:08 ps1.pdf
+## -rw-rw-r-- 1 oski oski  74345 Aug 26 09:08 ps2.pdf
+## -rw-rw-r-- 1 oski oski  42056 Aug 26 09:08 ps3.pdf
+## -rw-rw-r-- 1 oski oski  92084 Aug 26 09:08 ps4.pdf
+## -rw-rw-r-- 1 oski oski  25468 Aug 26 09:08 ps4prob6.Rda
+## -rw-rw-r-- 1 oski oski   2398 Aug 26 09:08 ps4.R
+## -rw-rw-r-- 1 oski oski 106396 Aug 26 09:08 ps5.pdf
+## -rw-rw-r-- 1 oski oski  24485 Aug 26 09:08 ps5prob1.Rda
+## -rw-rw-r-- 1 oski oski  58242 Aug 26 09:08 ps6.pdf
+## -rw-rw-r-- 1 oski oski 112227 Aug 26 09:08 ps7.pdf
+## -rw-rw-r-- 1 oski oski 106406 Aug 26 09:08 ps8.pdf
 </code></pre>
 
 <pre><code class="bash">rm -r /tmp/stat243/ps
@@ -589,17 +571,15 @@ scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2014/data/.
 <pre><code class="bash">ls -l
 </code></pre>
 
-<pre><code>## total 104
-## -rw------- 1 oski oski  2733 Jul 16 16:56 jupyterhub_cookie_secret
-## -rw-r--r-- 1 oski oski 10240 Jul 28 17:00 jupyterhub.sqlite
-## -rw-rw-r-- 1 oski oski   460 Jul 17 14:21 README.md
-## -rw--w--w- 1 oski oski    11 Jul 28 17:05 tmp.txt
-## -rw-rw-r-- 1 oski oski 32354 Jul 17 14:25 unix-basics.html
-## -rw-rw-r-- 1 oski oski 26536 Jul 17 14:25 unix-basics.md
-## -rw-rw-r-- 1 oski oski 17528 Jul 28 17:04 unix-basics.Rmd
+<pre><code>## total 92
+## -rw-rw-r-- 1 oski oski   460 Aug 26 09:04 README.md
+## -rw--w--w- 1 oski oski    11 Aug 26 09:21 tmp.txt
+## -rw-rw-r-- 1 oski oski 33195 Aug 26 09:19 unix-basics.html
+## -rw-rw-r-- 1 oski oski 27415 Aug 26 09:19 unix-basics.md
+## -rw-rw-r-- 1 oski oski 17879 Aug 26 09:21 unix-basics.Rmd
 </code></pre>
 
-<p>Items marked with a <code>d</code> in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read\(r\), write(w) and execute(x) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.</p>
+<p>Items marked with a <code>d</code> in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read(&#39;r&#39;), write(&#39;w&#39;) and execute(&#39;x&#39;) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.</p>
 
 <p>E.g., for the <em>tmp.txt</em> file, all users can read the file but only the owner can modify the file by writing to it. </p>
 
@@ -657,7 +637,7 @@ zip -r data.zip ~/stat243-fall-2014/data
 ls -l coop.txt
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 oski oski 19777978 Jul 15 15:39 coop.txt
+<pre><code>## -rw-rw-r-- 1 oski oski 19777978 Aug 26 09:08 coop.txt
 </code></pre>
 
 <pre><code class="bash">cd ~/stat243-fall-2014/data
@@ -665,7 +645,7 @@ gzip coop.txt
 ls -l coop.txt.gz
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 oski oski 2128297 Jul 15 15:39 coop.txt.gz
+<pre><code>## -rw-rw-r-- 1 oski oski 2128297 Aug 26 09:08 coop.txt.gz
 </code></pre>
 
 <p>Finally, the <em>tar</em> utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.</p>
@@ -675,23 +655,23 @@ tar -cvf data.tar stat243-fall-2014/data
 </code></pre>
 
 <pre><code>## stat243-fall-2014/data/
-## stat243-fall-2014/data/prec.RData
-## stat243-fall-2014/data/precip.txt
-## stat243-fall-2014/data/urls.txt
-## stat243-fall-2014/data/precipData.txt
-## stat243-fall-2014/data/IPs.RData
-## stat243-fall-2014/data/capeCod.zip
-## stat243-fall-2014/data/coop.txt.gz
 ## stat243-fall-2014/data/hivSequ.csv
+## stat243-fall-2014/data/IPs.RData
+## stat243-fall-2014/data/urls.txt
+## stat243-fall-2014/data/capeCod.zip
+## stat243-fall-2014/data/precip.txt
 ## stat243-fall-2014/data/RTADataSub.csv
+## stat243-fall-2014/data/precipData.txt
 ## stat243-fall-2014/data/cpds.csv
+## stat243-fall-2014/data/prec.RData
+## stat243-fall-2014/data/coop.txt.gz
 </code></pre>
 
 <pre><code class="bash">cd ~
 ls -l data.tar
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 oski oski 7014400 Jul 28 17:05 data.tar
+<pre><code>## -rw-rw-r-- 1 oski oski 7014400 Aug 26 09:21 data.tar
 </code></pre>
 
 <pre><code class="bash">cd ~
@@ -699,23 +679,23 @@ tar -cvzf data.tgz stat243-fall-2014/data
 </code></pre>
 
 <pre><code>## stat243-fall-2014/data/
-## stat243-fall-2014/data/prec.RData
-## stat243-fall-2014/data/precip.txt
-## stat243-fall-2014/data/urls.txt
-## stat243-fall-2014/data/precipData.txt
-## stat243-fall-2014/data/IPs.RData
-## stat243-fall-2014/data/capeCod.zip
-## stat243-fall-2014/data/coop.txt.gz
 ## stat243-fall-2014/data/hivSequ.csv
+## stat243-fall-2014/data/IPs.RData
+## stat243-fall-2014/data/urls.txt
+## stat243-fall-2014/data/capeCod.zip
+## stat243-fall-2014/data/precip.txt
 ## stat243-fall-2014/data/RTADataSub.csv
+## stat243-fall-2014/data/precipData.txt
 ## stat243-fall-2014/data/cpds.csv
+## stat243-fall-2014/data/prec.RData
+## stat243-fall-2014/data/coop.txt.gz
 </code></pre>
 
 <pre><code class="bash">cd ~
 ls -l data.tgz
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 oski oski 3300827 Jul 28 17:05 data.tgz
+<pre><code>## -rw-rw-r-- 1 oski oski 3300013 Aug 26 09:21 data.tgz
 </code></pre>
 
 <pre><code class="bash">cd ~
@@ -725,32 +705,32 @@ tar -xvzf data.tgz
 </code></pre>
 
 <pre><code>## stat243-fall-2014/data/
-## stat243-fall-2014/data/prec.RData
-## stat243-fall-2014/data/precip.txt
-## stat243-fall-2014/data/urls.txt
-## stat243-fall-2014/data/precipData.txt
-## stat243-fall-2014/data/IPs.RData
-## stat243-fall-2014/data/capeCod.zip
-## stat243-fall-2014/data/coop.txt.gz
 ## stat243-fall-2014/data/hivSequ.csv
+## stat243-fall-2014/data/IPs.RData
+## stat243-fall-2014/data/urls.txt
+## stat243-fall-2014/data/capeCod.zip
+## stat243-fall-2014/data/precip.txt
 ## stat243-fall-2014/data/RTADataSub.csv
+## stat243-fall-2014/data/precipData.txt
 ## stat243-fall-2014/data/cpds.csv
+## stat243-fall-2014/data/prec.RData
+## stat243-fall-2014/data/coop.txt.gz
 </code></pre>
 
 <pre><code class="bash">ls -l /tmp/stat243-fall-2014/data
 </code></pre>
 
 <pre><code>## total 6856
-## -rw-rw-r-- 1 oski oski  242975 Jul 15 15:39 capeCod.zip
-## -rw-rw-r-- 1 oski oski 2128297 Jul 15 15:39 coop.txt.gz
-## -rw-rw-r-- 1 oski oski   41130 Jul 15 15:39 cpds.csv
-## -rw-rw-r-- 1 oski oski 1244094 Jul 15 15:39 hivSequ.csv
-## -rw-rw-r-- 1 oski oski  223004 Jul 15 15:39 IPs.RData
-## -rw-rw-r-- 1 oski oski   10965 Jul 15 15:39 precipData.txt
-## -rw-rw-r-- 1 oski oski 2766472 Jul 15 15:39 precip.txt
-## -rw-rw-r-- 1 oski oski  198876 Jul 15 15:39 prec.RData
-## -rw-rw-r-- 1 oski oski  139797 Jul 15 15:39 RTADataSub.csv
-## -rw-rw-r-- 1 oski oski     787 Jul 15 15:39 urls.txt
+## -rw-rw-r-- 1 oski oski  242975 Aug 26 09:08 capeCod.zip
+## -rw-rw-r-- 1 oski oski 2128297 Aug 26 09:08 coop.txt.gz
+## -rw-rw-r-- 1 oski oski   41130 Aug 26 09:08 cpds.csv
+## -rw-rw-r-- 1 oski oski 1244094 Aug 26 09:08 hivSequ.csv
+## -rw-rw-r-- 1 oski oski  223004 Aug 26 09:08 IPs.RData
+## -rw-rw-r-- 1 oski oski   10965 Aug 26 09:08 precipData.txt
+## -rw-rw-r-- 1 oski oski 2766472 Aug 26 09:08 precip.txt
+## -rw-rw-r-- 1 oski oski  198876 Aug 26 09:08 prec.RData
+## -rw-rw-r-- 1 oski oski  139797 Aug 26 09:08 RTADataSub.csv
+## -rw-rw-r-- 1 oski oski     787 Aug 26 09:08 urls.txt
 </code></pre>
 
 <h2>4.2) Getting help with UNIX tools</h2>
@@ -768,7 +748,7 @@ which matlab
 </code></pre>
 
 <pre><code>## /usr/bin/R
-## /usr/bin/python
+## /home/oski/miniconda/bin/python
 </code></pre>
 
 <h2>4.3) Disk usage</h2>
@@ -779,14 +759,15 @@ which matlab
 </code></pre>
 
 <pre><code>## Filesystem                Size  Used Avail Use% Mounted on
-## /dev/mapper/BCE--vg-root   15G  6.1G  7.3G  46% /
-## none                      4.0K     0  4.0K   0% /sys/fs/cgroup
-## udev                      986M  4.0K  986M   1% /dev
-## tmpfs                     201M  780K  200M   1% /run
-## none                      5.0M  4.0K  5.0M   1% /run/lock
-## none                     1001M   72K 1001M   1% /run/shm
-## none                      100M   28K  100M   1% /run/user
-## /dev/sda1                 236M   82M  142M  37% /boot
+## udev                      481M     0  481M   0% /dev
+## tmpfs                     100M  4.9M   95M   5% /run
+## /dev/mapper/BCE--vg-root   15G  7.4G  6.0G  56% /
+## tmpfs                     497M   76K  497M   1% /dev/shm
+## tmpfs                     5.0M  4.0K  5.0M   1% /run/lock
+## tmpfs                     497M     0  497M   0% /sys/fs/cgroup
+## /dev/sda1                 236M   88M  136M  40% /boot
+## cgmfs                     100K     0  100K   0% /run/cgmanager/fs
+## tmpfs                     100M   28K  100M   1% /run/user/1000
 </code></pre>
 
 <p>In general, you&#39;ll want to look at the &#39;/&#39; line, and on standard UNIX machines possibly at &#39;/tmp&#39;, &#39;/home&#39;, and others. </p>
@@ -795,37 +776,37 @@ which matlab
 du -h
 </code></pre>
 
-<pre><code>## 120K ./syllabus
+<pre><code>## 6.7M ./data
+## 8.0K ./.git/info
+## 8.0K ./.git/logs/refs/heads
+## 8.0K ./.git/logs/refs/remotes/origin
+## 12K  ./.git/logs/refs/remotes
+## 24K  ./.git/logs/refs
+## 32K  ./.git/logs
+## 4.0K ./.git/refs/tags
+## 8.0K ./.git/refs/heads
+## 8.0K ./.git/refs/remotes/origin
+## 12K  ./.git/refs/remotes
+## 28K  ./.git/refs
+## 44K  ./.git/hooks
+## 4.0K ./.git/objects/info
+## 19M  ./.git/objects/pack
+## 19M  ./.git/objects
+## 4.0K ./.git/branches
+## 19M  ./.git
+## 128K ./literateProgramming
 ## 872K ./ps
+## 9.2M ./units
+## 3.8M ./howtos
+## 120K ./syllabus
+## 488K ./project
+## 44K  ./section/w11
+## 100K ./section/w13/fig
+## 140K ./section/w13
 ## 152K ./section/ps0
 ## 116K ./section/w10
 ## 56K  ./section/ps3
-## 100K ./section/w13/fig
-## 140K ./section/w13
-## 44K  ./section/w11
 ## 1.4M ./section
-## 6.7M ./data
-## 44K  ./.git/hooks
-## 8.0K ./.git/refs/remotes/origin
-## 12K  ./.git/refs/remotes
-## 4.0K ./.git/refs/tags
-## 8.0K ./.git/refs/heads
-## 28K  ./.git/refs
-## 8.0K ./.git/info
-## 4.0K ./.git/branches
-## 8.0K ./.git/logs/refs/remotes/origin
-## 12K  ./.git/logs/refs/remotes
-## 8.0K ./.git/logs/refs/heads
-## 24K  ./.git/logs/refs
-## 32K  ./.git/logs
-## 19M  ./.git/objects/pack
-## 4.0K ./.git/objects/info
-## 19M  ./.git/objects
-## 19M  ./.git
-## 128K ./literateProgramming
-## 488K ./project
-## 9.2M ./units
-## 3.8M ./howtos
 ## 42M  .
 </code></pre>
 
@@ -843,29 +824,25 @@ du -h
 ## model name   : Intel(R) Core(TM) i5-3210M CPU @ 2.50GHz
 ## stepping : 9
 ## microcode    : 0x19
-## cpu MHz      : 2583.447
+## cpu MHz      : 2503.075
 ## cache size   : 6144 KB
 ## physical id  : 0
-## siblings : 2
+## siblings : 1
 ## core id      : 0
-## cpu cores    : 2
+## cpu cores    : 1
 ## apicid       : 0
 ## initial apicid   : 0
 ## fpu      : yes
 ## fpu_exception    : yes
 ## cpuid level  : 5
 ## wp       : yes
-## flags        : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx rdtscp lm constant_tsc rep_good nopl pni ssse3 lahf_lm
-## bogomips : 5166.89
+## flags        : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx rdtscp lm constant_tsc rep_good nopl pni monitor ssse3 lahf_lm
+## bugs     :
+## bogomips : 5006.15
 ## clflush size : 64
 ## cache_alignment  : 64
 ## address sizes    : 36 bits physical, 48 bits virtual
 ## power management:
-## 
-## processor    : 1
-## vendor_id    : GenuineIntel
-## cpu family   : 6
-## model        : 58
 </code></pre>
 
 <p>This indicates there are at least two processors (numbered 0 and 1) [we&#39;d need to see the whole file to see if there are more]. Each is an Intel Core i5. </p>
@@ -873,49 +850,51 @@ du -h
 <pre><code class="bash">cat /proc/meminfo
 </code></pre>
 
-<pre><code>## MemTotal:        2049440 kB
-## MemFree:          832204 kB
-## MemAvailable:    1306832 kB
-## Buffers:           94488 kB
-## Cached:           489260 kB
+<pre><code>## MemTotal:        1016920 kB
+## MemFree:          205124 kB
+## MemAvailable:     504636 kB
+## Buffers:           39032 kB
+## Cached:           370028 kB
 ## SwapCached:            0 kB
-## Active:           767944 kB
-## Inactive:         355884 kB
-## Active(anon):     540680 kB
-## Inactive(anon):     9988 kB
-## Active(file):     227264 kB
-## Inactive(file):   345896 kB
+## Active:           531272 kB
+## Inactive:         214048 kB
+## Active(anon):     337020 kB
+## Inactive(anon):     7588 kB
+## Active(file):     194252 kB
+## Inactive(file):   206460 kB
 ## Unevictable:           0 kB
 ## Mlocked:               0 kB
 ## SwapTotal:       1048572 kB
 ## SwapFree:        1048572 kB
-## Dirty:             15824 kB
+## Dirty:             15908 kB
 ## Writeback:             0 kB
-## AnonPages:        539896 kB
-## Mapped:           188040 kB
-## Shmem:             10688 kB
-## Slab:              44332 kB
-## SReclaimable:      28184 kB
-## SUnreclaim:        16148 kB
-## KernelStack:        5184 kB
-## PageTables:        18916 kB
+## AnonPages:        336236 kB
+## Mapped:           157144 kB
+## Shmem:              8372 kB
+## Slab:              36828 kB
+## SReclaimable:      22844 kB
+## SUnreclaim:        13984 kB
+## KernelStack:        4176 kB
+## PageTables:        14764 kB
 ## NFS_Unstable:          0 kB
 ## Bounce:                0 kB
 ## WritebackTmp:          0 kB
-## CommitLimit:     2073292 kB
-## Committed_AS:    2183256 kB
+## CommitLimit:     1557032 kB
+## Committed_AS:    1551060 kB
 ## VmallocTotal:   34359738367 kB
-## VmallocUsed:       29092 kB
-## VmallocChunk:   34359704056 kB
+## VmallocUsed:       21356 kB
+## VmallocChunk:   34359713600 kB
 ## HardwareCorrupted:     0 kB
-## AnonHugePages:    165888 kB
+## AnonHugePages:    135168 kB
+## CmaTotal:              0 kB
+## CmaFree:               0 kB
 ## HugePages_Total:       0
 ## HugePages_Free:        0
 ## HugePages_Rsvd:        0
 ## HugePages_Surp:        0
 ## Hugepagesize:       2048 kB
-## DirectMap4k:       65472 kB
-## DirectMap2M:     2031616 kB
+## DirectMap4k:       61376 kB
+## DirectMap2M:      987136 kB
 </code></pre>
 
 <p>The key line is the <em>MemTotal</em> line, indicating 2 Gb RAM on the VM.</p>
@@ -923,17 +902,17 @@ du -h
 <pre><code class="bash">cat /etc/issue
 </code></pre>
 
-<pre><code>## Ubuntu 14.10 \n \l
+<pre><code>## Ubuntu 15.04 \n \l
 </code></pre>
 
-<p>We&#39;re running Ubuntu version 14.10.</p>
+<p>We&#39;re running Ubuntu version 15.04.</p>
 
 <p>We can also use utilities to get information:</p>
 
 <pre><code class="bash">nproc  # how many processors
 </code></pre>
 
-<pre><code>## 2
+<pre><code>## 1
 </code></pre>
 
 <h1>5) The shell</h1>
@@ -959,6 +938,7 @@ du -h
 <li>Ctrl-e moves to the end of the line</li>
 <li>Ctrl-k deletes the rest of the line starting at the cursor</li>
 <li>Ctrl-y pastes in whatever was deleted previously with Ctrl-k</li>
+<li>Ctrl-r enables an <a href="http://www.techrepublic.com/article/keyboard-shortcuts-in-bash-and-zsh/">interactive history search</a></li>
 </ul>
 
 <h2>5.3) Saving your code as a shell script</h2>
@@ -989,11 +969,11 @@ rm -rf data
 
 <p>1) Try to run the following command <code>mkdir ~/projects/drought</code>. It will fail. Look in the help information on <code>mkdir</code> to figure out how to make it work without first creating the <em>projects</em> directory.</p>
 
-<p>2) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space.</p>
+<p>2) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space. Modify this command to get the ascending order.</p>
 
 <p>3) Change the permissions on the file stat243-fall-2014/units/unit1-unix.sh to be readable by the user and the group, writeable by the user, and executable by all users.</p>
 
-<p>4) Use both <code>zip</code> and <code>tar -xvzf</code> to compress the stat243-fall-2014 directory. Is one much smaller than the other?</p>
+<p>4) Use both <code>zip</code> and <code>tar -cvzf</code> to compress the stat243-fall-2014 directory. Is one much smaller than the other?</p>
 
 <p>5) Figure out how to print out free disk space in terms of megabytes. </p>
 
