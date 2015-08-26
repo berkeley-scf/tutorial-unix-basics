@@ -394,6 +394,7 @@ You can navigate within a line using the usual arrows but also:
 * Ctrl-e moves to the end of the line
 * Ctrl-k deletes the rest of the line starting at the cursor
 * Ctrl-y pastes in whatever was deleted previously with Ctrl-k
+* Ctrl-r enables an [interactive history search](http://www.techrepublic.com/article/keyboard-shortcuts-in-bash-and-zsh/)
 
 ## 5.3) Saving your code as a shell script
 
