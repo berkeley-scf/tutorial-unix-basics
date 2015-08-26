@@ -231,7 +231,7 @@ echo "first line" > tmp.txt  # create a file
 ls -l
 ```
 
-Items marked with a `d` in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read\(r\), write(w) and execute(x) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.
+Items marked with a `d` in the first column are directories. Following that column are three triplets of file permission information. Each triplet contains read(r), write(w) and execute(x) information. The first rwx triplet indicates if the owner of the file can read, write, and execute a file. The second rwx triplet indicates if anyone in the group that the user belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.
 
 E.g., for the *tmp.txt* file, all users can read the file but only the owner can modify the file by writing to it. 
 
@@ -426,7 +426,7 @@ The inital './' is needed because UNIX is not expecting there to be an executabl
 
 2) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space. Modify this command to get the ascending order.
 
-3) Change the permissions on the file stat243-fall-2014/units/unit1-unix.sh to be readable by the owner and the group, writeable by the owner, and executable by all users.
+3) Change the permissions on the file stat243-fall-2014/units/unit1-unix.sh to be readable by the user and the group, writeable by the user, and executable by all users.
 
 4) Use both `zip` and `tar -xvzf` to compress the stat243-fall-2014 directory. Is one much smaller than the other?
 
