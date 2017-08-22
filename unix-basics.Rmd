@@ -358,7 +358,7 @@ du -h
 
 If we only want a summary of usage for each subdirectory, rather than showing all files in all subdirectories:
 
-```{r, df2}
+```{r, df3}
 cd ~/stat243-fall-2015
 du -h -d 1
 ```
