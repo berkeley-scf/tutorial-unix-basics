@@ -216,7 +216,7 @@ You can use a variant of `cp` to copy files between different UNIX-like machines
 
 ```{r, scp, eval=FALSE}
 cd ~/stat243-fall-2015/units
-# copy the file to Desktop subdirectory of the scf1 home directory on the remote machine:
+# copy the file to the Desktop subdirectory of the scf1 home directory on the remote machine:
 scp unit1-unix.sh scf1@radagast.berkeley.edu:~/Desktop/.
 # copy a file from the /tmp directory of the remote machine 
 scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2015/data/.
@@ -235,7 +235,7 @@ cd ~/stat243-fall-2015
 ls -l
 ```
 
-Now let's focus on the 10 characters in the first column. Items marked with a `d` as the first character directories. Following that first character are three triplets of file permission information. Each triplet contains read ('r'), write ('w') and execute ('x') information. The first `rwx` triplet indicates if the owner of the file can read, write, and execute a file. The second `rwx` triplet indicates if anyone in the group that the owner belongs to can read, write and execute a file. The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.
+Now let's focus on the 10 characters in the first column. Items marked with a `d` as the first character are directories. Following that first character are three triplets of file permission information. Each triplet contains read ('r'), write ('w') and execute ('x') information. The first `rwx` triplet indicates if the owner of the file can read, write, and execute a file (or directory). The second `rwx` triplet indicates if anyone in the group that the owner belongs to can read, write and execute a file (or directory). The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.
 
 E.g., for the *tmp.txt* file, all users can read the file but only the owner can modify the file by writing to it. 
 
@@ -265,10 +265,12 @@ Here are some other useful variants on commands we've already seen
 # preserve timestamp and other useful info
 # (e.g., if you want to know when the original file was last modified):
 cp -p
-ls -lrt  # list files in order of when last modified, most recent at the bottom
+# list files in order of when last modified, most recent at the bottom
+ls -lrt  
 # remove a file without prompting for whether you are sure:
-rm -f file.txt  
-cd -  # go back to the most recent directory you were in
+rm -f file.txt
+# go back to the most recent directory you were in
+cd -  
 ```
 
 # 4) Other useful tools and information
@@ -285,12 +287,12 @@ zip -r data.zip ~/stat243-fall-2015/data
 gzip is a standard UNIX compression utility to compress individual files
 ```{r, gzip1}
 cd ~/stat243-fall-2015/data
-ls -l coop.txt
+ls -l precip.txt
 ```
 ```{r, gzip2}
 cd ~/stat243-fall-2015/data
-gzip coop.txt
-ls -l coop.txt.gz
+gzip precip.txt
+ls -l precip.txt.gz
 ```
 
 Finally, the *tar* utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.
@@ -461,7 +463,7 @@ The inital './' is needed because UNIX is not expecting there to be an executabl
 
 
 ```{r, cleanup, echo=FALSE}
-if [ -f ~/stat243-fall-2015/data/coop.txt.gz ]; then gunzip ~/stat243-fall-2015/data/coop.txt.gz 
+if [ -f ~/stat243-fall-2015/data/precip.txt.gz ]; then gunzip ~/stat243-fall-2015/data/precip.txt.gz 
 fi
 if [ -f ~/data.tar ]; then rm -rf ~/data.tar
 fi
