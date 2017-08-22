@@ -321,7 +321,7 @@ mv data.tgz /tmp
 cd /tmp
 tar -xvzf data.tgz
 ```
-You can see the whole directory structure of what was archived has been recovered in the new location. 
+You can see the whole directory structure of what was archived has been recovered in the new location:
 ```{r, tar4}
 ls -l /tmp/stat243-fall-2015/data
 ```
@@ -360,7 +360,7 @@ cd ~/stat243-fall-2015
 du -h
 ```
 
-If we only want a summary of usage for each subdirectory, rather than showing all files in all subdirectories:
+If we only want a summary of usage for each top-level subdirectory, rather than showing all nested subdirectories:
 
 ```{r, df3}
 cd ~/stat243-fall-2015
@@ -382,7 +382,7 @@ This indicates there are at least two processors (numbered 0 and 1) [we'd need t
 head -n 10 /proc/meminfo
 ```
 
-The key line is the *MemTotal* line, indicating 2 Gb RAM on the VM.
+The key line is the *MemTotal* line, indicating 1 GB of RAM on the VM.
 
 ```{r, infofiles3}
 cat /etc/issue
