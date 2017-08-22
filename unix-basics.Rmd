@@ -13,7 +13,7 @@ This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or Mac
 
 A [screencast](http://youtu.be/pAY6E0FdWUo) of this material accompanies this document and the end of this document has questions that test your understanding of the material. Note that the screencast was based on an earlier version of this material (the version tagged 'version1' in the Github repository). It will not exactly match what is seen here, but it should hopefully be close enough to still be helpful.
 
-This tutorial was originally developed in a virtual machine developed here at Berkeley, [the Berkeley Common Environment (BCE)](http://bce.berkeley.edu). BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us. BCE has not been updated recently, and you should be able to replicate most of the steps in this tutorial in other UNIX-like environments. 
+This tutorial was originally developed in a virtual machine developed here at Berkeley, [the Berkeley Common Environment (BCE)](http://bce.berkeley.edu). BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us. However you should be able to replicate most of the steps in this tutorial in other UNIX-like environments. 
 
 Materials for this tutorial, including the R markdown file that was used to create this document are available on github at (https://github.com/berkeley-scf/tutorial-unix-basics).  You can download the files by doing a git clone from a terminal window on a UNIX-like machine, as shown here:
 ```{r, clone, eval=FALSE}
@@ -71,6 +71,7 @@ git clone https://github.com/berkeley-stat243/stat243-fall-2015
 
 Now suppose that whoever controls the repository makes some changes and you want an updated copy of the repository on your computer. Simply `cd` (for change directory) into any directory in the repository and enter `git pull`. 
 ```{r, git-pull} 
+cd # go to your home directory
 cd stat243-fall-2015
 git pull
 ```
@@ -469,6 +470,6 @@ if [ -d /tmp/stat243 ]; then rm -rf /tmp/stat243
 fi
 if [ -d /tmp/units ]; then rm -rf /tmp/units 
 fi
-if [ -f ~/stat243-fall-2014/units/unit9-parallel-processing.R ]; then mv -f ~/stat243-fall-2014/units/unit9-parallel-processing.R ~/stat243-fall-2014/units/unit8-parallel.R
+if [ -f ~/stat243-fall-2015/units/unit9-bigData-processing.R ]; then mv -f ~/stat243-fall-2015/units/unit9-bigData-processing.R ~/stat243-fall-2015/units/unit8-bigData.R
 fi
 ```
