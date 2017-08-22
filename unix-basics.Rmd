@@ -86,7 +86,8 @@ To be able to compare what we see in the Terminal to a graphical view of the fil
 
 Anytime you are at the UNIX command line, you have a *working directory*, which is your current location in the file system. 
 
-Here's how you can see where you are (on BCE it will be the home directory for the *ubuntu* user, where files specific to that user are stored)...
+Here's how you can see where you are:
+
 ```{r, engine='bash', pwd1}
 pwd
 ```
@@ -125,7 +126,7 @@ cd /home/ubuntu/stat243-fall-2015 # absolute path to the same location
 pwd
 ```
 ```{r cd3}
-cd /home/ubuntu/stat243-fall-2015/units
+cd /home/ubuntu/stat243-fall-2015
 cd ..  # go up a directory to the parent of the current directory
 pwd
 ```
@@ -177,14 +178,14 @@ You'll often want to make a copy of a file or subdirectory, move it between dire
 
 ```{r, cp1}
 cd ~/stat243-fall-2015/units
-cp unit8-bigData.R unit8-bigData-new.R
-mv unit8-bigData-new.R /tmp/.
+cp unit7-bigData.R unit7-bigData-new.R
+mv unit7-bigData-new.R /tmp/.
 cd /tmp
 ls -lrt 
 ```
 ```{r, cp3}
 cd /tmp
-rm unit8-bigData-new.R
+rm unit7-bigData-new.R
 ls -lrt
 ```
 
@@ -193,7 +194,7 @@ ls -lrt
 The `mv` command is also used if you want to rename a file. 
 ```{r, mv}
 cd ~/stat243-fall-2015/units
-mv unit8-bigData.R unit9-bigData-processing.R
+mv unit7-bigData.R unit9-bigData-processing.R
 ls
 ```
 
@@ -470,6 +471,6 @@ if [ -d /tmp/stat243 ]; then rm -rf /tmp/stat243
 fi
 if [ -d /tmp/units ]; then rm -rf /tmp/units 
 fi
-if [ -f ~/stat243-fall-2015/units/unit9-bigData-processing.R ]; then mv -f ~/stat243-fall-2015/units/unit9-bigData-processing.R ~/stat243-fall-2015/units/unit8-bigData.R
+if [ -f ~/stat243-fall-2015/units/unit9-bigData-processing.R ]; then mv -f ~/stat243-fall-2015/units/unit9-bigData-processing.R ~/stat243-fall-2015/units/unit7-bigData.R
 fi
 ```
