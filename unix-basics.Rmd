@@ -13,7 +13,7 @@ This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or Mac
 
 A [screencast](http://youtu.be/pAY6E0FdWUo) of this material accompanies this document and the end of this document has questions that test your understanding of the material. Note that the screencast was based on an earlier version of this material (the version tagged 'version1' in the Github repository). It will not exactly match what is seen here, but it should hopefully be close enough to still be helpful.
 
-This tutorial was originally developed in a virtual machine developed here at Berkeley, [the Berkeley Common Environment (BCE)](http://bce.berkeley.edu). BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us. However you should be able to replicate most of the steps in this tutorial in other UNIX-like environments. 
+This tutorial was originally developed in a virtual machine developed here at Berkeley, [the Berkeley Common Environment (BCE)](http://bce.berkeley.edu). BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us. However. BCE is quite old and largely unsupported at this time. You should be able to replicate most of the steps in this tutorial in other UNIX-like environments. 
 
 Materials for this tutorial, including the R markdown file that was used to create this document are available on github at (https://github.com/berkeley-scf/tutorial-unix-basics).  You can download the files by doing a git clone from a terminal window on a UNIX-like machine, as shown here:
 ```{r, clone, eval=FALSE}
@@ -41,9 +41,9 @@ This tutorial by Christopher Paciorek is licensed under a Creative Commons Attri
 
 You'll need to open a UNIX-style command line window, ideally running a bash shell.
 
-If you'd like to use BCE, you'll first need to install the VirtualBox software on your local machine. BCE runs on VirtualBox. Please follow the [BCE installation instructions](http://bce.berkeley.edu/install). Once you've done this, you'll have a Linux computer running within your own machine. Once you've started the BCE VM, open a Terminal window by clicking on the icon of the black square with the dollar sign in the top left of the BCE window (or Click on `Applications -> Accessories -> Terminal Emulator` in the top left). 
-
 If you'd like to work in a Terminal window on your own Mac, you'll find the Terminal under `Applications -> Utilities -> Terminal`). On Windows, if you have a sufficiently new version of Windows 10, you can use the [Windows Subsystem for Linux](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide), which will provide you with an Ubuntu shell running bash. You could also install Cygwin to get a UNIX environment on your Windows machine. 
+
+If you'd like to use BCE (not recommended as of 2018), you'll first need to install the VirtualBox software on your local machine. BCE runs on VirtualBox. Please follow the [BCE installation instructions](http://bce.berkeley.edu/install). Once you've done this, you'll have a Linux computer running within your own machine. Once you've started the BCE VM, open a Terminal window by clicking on the icon of the black square with the dollar sign in the top left of the BCE window (or Click on `Applications -> Accessories -> Terminal Emulator` in the top left). 
 
 Once you're in a Terminal window, you can enter UNIX commands to get information and work with the system. Commands often have optional arguments (flags) that are specified with a minus in front of them, as we'll see. 
 
@@ -143,7 +143,7 @@ pwd
 
 ## 3.2) The filesystem
 
-The filesystem is basically a upside-down tree. The top, or root of the tree, is the `/` directory. Within `/` there are subdirectories, such as `/home` (which contains users' home directories where all of the files owned by a user are stored) and `/bin` (containing UNIX programs, aka 'binaries'). For the *ubuntu* user, everything specific to that user is stored in `/home/ubuntu`. If you are the *ubuntu* user, you can also refer to `/home/ubuntu` by the shortcuts `~` and `~ubuntu`. 
+The filesystem is basically a upside-down tree. The top, or root of the tree, is the `/` directory. Within `/` there are subdirectories, such as `/home` (which contains users' home directories where all of the files owned by a user are stored) and `/bin` (containing UNIX programs, aka 'binaries'). If there is a user named *ubuntu*, everything specific to that user is stored in `/home/ubuntu`. If you are the *ubuntu* user, you can also refer to `/home/ubuntu` by the shortcuts `~` and `~ubuntu`. 
 
 
 ```{r, filesystem1}
@@ -255,7 +255,7 @@ chmod u+r tmp.txt  # add read permission only for the user (i.e., owner)
 cat tmp.txt
 ```
 
-Confusingly, 'u' refers to the owner (user), while 'o' refers to others.
+Confusingly, 'u' refers to the owner ('user'), while 'o' refers to 'others'.
 
 ## 3.5) Some additional useful syntax
 
@@ -458,11 +458,10 @@ The inital './' is needed because UNIX is not expecting there to be an executabl
 
 6) The `ls` command is itself an executable installed on the system. Where is it located?
 
-7) Where is Python installed on the system? What are some other programs/executables that are installed in the same directory.
+7) Where is Python installed on the system? What are some other programs/executables that are installed in the same directory?
 
 
-
-```{r, cleanup, echo=FALSE}
+```{r, cleanup, echo=FALSE, eval=FALSE}
 if [ -f ~/stat243-fall-2015/data/precip.txt.gz ]; then gunzip ~/stat243-fall-2015/data/precip.txt.gz 
 fi
 if [ -f ~/data.tar ]; then rm -rf ~/data.tar
