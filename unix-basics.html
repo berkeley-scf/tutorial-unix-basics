@@ -173,7 +173,7 @@ hr {
 
 <p>A <a href="http://youtu.be/pAY6E0FdWUo">screencast</a> of this material accompanies this document and the end of this document has questions that test your understanding of the material. Note that the screencast was based on an earlier version of this material (the version tagged &#39;version1&#39; in the Github repository). It will not exactly match what is seen here, but it should hopefully be close enough to still be helpful.</p>
 
-<p>This tutorial was originally developed in a virtual machine developed here at Berkeley, <a href="http://bce.berkeley.edu">the Berkeley Common Environment (BCE)</a>. BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us. However you should be able to replicate most of the steps in this tutorial in other UNIX-like environments. </p>
+<p>This tutorial was originally developed in a virtual machine developed here at Berkeley, <a href="http://bce.berkeley.edu">the Berkeley Common Environment (BCE)</a>. BCE is a virtual Linux machine - basically it is a Linux computer that you can run within your own computer, regardless of whether you are using Windows, Mac, or Linux. This provides a common environment so that things behave the same for all of us. However. BCE is quite old and largely unsupported at this time. You should be able to replicate most of the steps in this tutorial in other UNIX-like environments. </p>
 
 <p>Materials for this tutorial, including the R markdown file that was used to create this document are available on github at (<a href="https://github.com/berkeley-scf/tutorial-unix-basics">https://github.com/berkeley-scf/tutorial-unix-basics</a>).  You can download the files by doing a git clone from a terminal window on a UNIX-like machine, as shown here:</p>
 
@@ -199,9 +199,9 @@ hr {
 
 <p>You&#39;ll need to open a UNIX-style command line window, ideally running a bash shell.</p>
 
-<p>If you&#39;d like to use BCE, you&#39;ll first need to install the VirtualBox software on your local machine. BCE runs on VirtualBox. Please follow the <a href="http://bce.berkeley.edu/install">BCE installation instructions</a>. Once you&#39;ve done this, you&#39;ll have a Linux computer running within your own machine. Once you&#39;ve started the BCE VM, open a Terminal window by clicking on the icon of the black square with the dollar sign in the top left of the BCE window (or Click on <code>Applications -&gt; Accessories -&gt; Terminal Emulator</code> in the top left). </p>
-
 <p>If you&#39;d like to work in a Terminal window on your own Mac, you&#39;ll find the Terminal under <code>Applications -&gt; Utilities -&gt; Terminal</code>). On Windows, if you have a sufficiently new version of Windows 10, you can use the <a href="https://msdn.microsoft.com/en-us/commandline/wsl/install_guide">Windows Subsystem for Linux</a>, which will provide you with an Ubuntu shell running bash. You could also install Cygwin to get a UNIX environment on your Windows machine. </p>
+
+<p>If you&#39;d like to use BCE (not recommended as of 2018), you&#39;ll first need to install the VirtualBox software on your local machine. BCE runs on VirtualBox. Please follow the <a href="http://bce.berkeley.edu/install">BCE installation instructions</a>. Once you&#39;ve done this, you&#39;ll have a Linux computer running within your own machine. Once you&#39;ve started the BCE VM, open a Terminal window by clicking on the icon of the black square with the dollar sign in the top left of the BCE window (or Click on <code>Applications -&gt; Accessories -&gt; Terminal Emulator</code> in the top left). </p>
 
 <p>Once you&#39;re in a Terminal window, you can enter UNIX commands to get information and work with the system. Commands often have optional arguments (flags) that are specified with a minus in front of them, as we&#39;ll see. </p>
 
@@ -269,12 +269,12 @@ git pull
 <pre><code class="bash">ls -l  # this lists files in &#39;long&#39; format
 </code></pre>
 
-<pre><code>## total 92
-## -rw-rw-r-- 1 ubuntu ubuntu   460 Aug 22 08:55 README.md
-## -rw--w--w- 1 ubuntu ubuntu    22 Aug 22 09:14 tmp.txt
-## -rw-rw-r-- 1 ubuntu ubuntu 33647 Aug 22 09:14 unix-basics.html
-## -rw-rw-r-- 1 ubuntu ubuntu 27647 Aug 22 09:14 unix-basics.md
-## -rw-rw-r-- 1 ubuntu ubuntu 19577 Aug 22 09:17 unix-basics.Rmd
+<pre><code>## total 88
+## -rw-rw-r-- 1 ubuntu ubuntu   460 Aug 21 14:31 README.md
+## -rw--w--w- 1 ubuntu ubuntu    22 Aug 21 14:31 tmp.txt
+## -rw-rw-r-- 1 ubuntu ubuntu 31824 Aug 21 14:31 unix-basics.html
+## -rw-rw-r-- 1 ubuntu ubuntu 25822 Aug 21 14:31 unix-basics.md
+## -rw-rw-r-- 1 ubuntu ubuntu 19689 Aug 21 14:31 unix-basics.Rmd
 </code></pre>
 
 <p>Note the use of the <code>-l</code> flag to list the long-format information. As mentioned, options for UNIX commands are generally provided via this kind of syntax.</p>
@@ -338,7 +338,7 @@ pwd
 
 <h2>3.2) The filesystem</h2>
 
-<p>The filesystem is basically a upside-down tree. The top, or root of the tree, is the <code>/</code> directory. Within <code>/</code> there are subdirectories, such as <code>/home</code> (which contains users&#39; home directories where all of the files owned by a user are stored) and <code>/bin</code> (containing UNIX programs, aka &#39;binaries&#39;). For the <em>ubuntu</em> user, everything specific to that user is stored in <code>/home/ubuntu</code>. If you are the <em>ubuntu</em> user, you can also refer to <code>/home/ubuntu</code> by the shortcuts <code>~</code> and <code>~ubuntu</code>. </p>
+<p>The filesystem is basically a upside-down tree. The top, or root of the tree, is the <code>/</code> directory. Within <code>/</code> there are subdirectories, such as <code>/home</code> (which contains users&#39; home directories where all of the files owned by a user are stored) and <code>/bin</code> (containing UNIX programs, aka &#39;binaries&#39;). If there is a user named <em>ubuntu</em>, everything specific to that user is stored in <code>/home/ubuntu</code>. If you are the <em>ubuntu</em> user, you can also refer to <code>/home/ubuntu</code> by the shortcuts <code>~</code> and <code>~ubuntu</code>. </p>
 
 <pre><code class="bash">ls /
 </code></pre>
@@ -401,13 +401,13 @@ pwd
 <pre><code class="bash">ls /tmp
 </code></pre>
 
-<pre><code>## config-err-EZHTfN
+<pre><code>## config-err-6RvlbP
 ## data.tgz
 ## rstudio-rsession
-## RtmpBwRJld
-## stat243-fall-2015
-## systemd-private-26613e0c01aa445d8dee568a2f525214-rtkit-daemon.service-T7ghpM
-## systemd-private-26613e0c01aa445d8dee568a2f525214-systemd-timesyncd.service-GX3SK5
+## RtmpaAnbCv
+## stat243
+## systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-rtkit-daemon.service-XyM4P9
+## systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-systemd-timesyncd.service-xJz1IP
 </code></pre>
 
 <h2>3.3) Copying and removing files</h2>
@@ -421,15 +421,15 @@ cd /tmp
 ls -lrt 
 </code></pre>
 
-<pre><code>## total 800
-## drwx------ 3 root   root     4096 Aug 22 01:54 systemd-private-26613e0c01aa445d8dee568a2f525214-systemd-timesyncd.service-GX3SK5
-## drwxrwxrwt 2 root   root     4096 Aug 22 08:54 rstudio-rsession
-## -rw------- 1 ubuntu ubuntu      0 Aug 22 08:54 config-err-EZHTfN
-## drwx------ 3 root   root     4096 Aug 22 08:54 systemd-private-26613e0c01aa445d8dee568a2f525214-rtkit-daemon.service-T7ghpM
-## drwxrwxr-x 3 ubuntu ubuntu   4096 Aug 22 09:04 stat243-fall-2015
-## -rw-rw-r-- 1 ubuntu ubuntu 778501 Aug 22 09:14 data.tgz
-## drwx------ 2 ubuntu ubuntu   4096 Aug 22 09:17 RtmpBwRJld
-## -rw-rw-r-- 1 ubuntu ubuntu  13721 Aug 22 09:17 unit7-bigData-new.R
+<pre><code>## total 40
+## drwx------ 3 root   root    4096 Aug 21 07:30 systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-systemd-timesyncd.service-xJz1IP
+## drwxrwxrwt 2 root   root    4096 Aug 21 14:30 rstudio-rsession
+## -rw------- 1 ubuntu ubuntu     0 Aug 21 14:30 config-err-6RvlbP
+## drwx------ 3 root   root    4096 Aug 21 14:30 systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-rtkit-daemon.service-XyM4P9
+## drwxrwxr-x 2 ubuntu ubuntu  4096 Aug 21 14:31 stat243
+## -rw-rw-r-- 1 ubuntu ubuntu    45 Aug 21 14:31 data.tgz
+## drwx------ 2 ubuntu ubuntu  4096 Aug 21 14:33 RtmpaAnbCv
+## -rw-rw-r-- 1 ubuntu ubuntu 13721 Aug 21 14:33 unit7-bigData-new.R
 </code></pre>
 
 <pre><code class="bash">cd /tmp
@@ -437,14 +437,14 @@ rm unit7-bigData-new.R
 ls -lrt
 </code></pre>
 
-<pre><code>## total 784
-## drwx------ 3 root   root     4096 Aug 22 01:54 systemd-private-26613e0c01aa445d8dee568a2f525214-systemd-timesyncd.service-GX3SK5
-## drwxrwxrwt 2 root   root     4096 Aug 22 08:54 rstudio-rsession
-## -rw------- 1 ubuntu ubuntu      0 Aug 22 08:54 config-err-EZHTfN
-## drwx------ 3 root   root     4096 Aug 22 08:54 systemd-private-26613e0c01aa445d8dee568a2f525214-rtkit-daemon.service-T7ghpM
-## drwxrwxr-x 3 ubuntu ubuntu   4096 Aug 22 09:04 stat243-fall-2015
-## -rw-rw-r-- 1 ubuntu ubuntu 778501 Aug 22 09:14 data.tgz
-## drwx------ 2 ubuntu ubuntu   4096 Aug 22 09:17 RtmpBwRJld
+<pre><code>## total 24
+## drwx------ 3 root   root   4096 Aug 21 07:30 systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-systemd-timesyncd.service-xJz1IP
+## drwxrwxrwt 2 root   root   4096 Aug 21 14:30 rstudio-rsession
+## -rw------- 1 ubuntu ubuntu    0 Aug 21 14:30 config-err-6RvlbP
+## drwx------ 3 root   root   4096 Aug 21 14:30 systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-rtkit-daemon.service-XyM4P9
+## drwxrwxr-x 2 ubuntu ubuntu 4096 Aug 21 14:31 stat243
+## -rw-rw-r-- 1 ubuntu ubuntu   45 Aug 21 14:31 data.tgz
+## drwx------ 2 ubuntu ubuntu 4096 Aug 21 14:33 RtmpaAnbCv
 </code></pre>
 
 <p><em>I used <code>rm</code> above to remove the file. Be very careful about removing files - there is no Trash folder in UNIX - once a file is removed, it&#39;s gone for good.</em></p>
@@ -517,16 +517,17 @@ mv ps stat243     # move the ps directory into the stat243 directory
 ls -l stat243/ps
 </code></pre>
 
-<pre><code>## total 704
-## -rw-rw-r-- 1 ubuntu ubuntu    181 Aug 22 09:04 helical.R
-## -rw-rw-r-- 1 ubuntu ubuntu  77019 Aug 22 09:04 ps1.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu  53314 Aug 22 09:04 ps2.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu  66279 Aug 22 09:04 ps3.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu 139397 Aug 22 09:04 ps4.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu  82500 Aug 22 09:04 ps5.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu  57438 Aug 22 09:04 ps6.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu  92238 Aug 22 09:04 ps7.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu 124691 Aug 22 09:04 ps8.pdf
+<pre><code>## mkdir: cannot create directory ‘stat243’: File exists
+## total 704
+## -rw-rw-r-- 1 ubuntu ubuntu    181 Aug 21 14:32 helical.R
+## -rw-rw-r-- 1 ubuntu ubuntu  77019 Aug 21 14:32 ps1.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu  53314 Aug 21 14:32 ps2.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu  66279 Aug 21 14:32 ps3.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu 139397 Aug 21 14:32 ps4.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu  82500 Aug 21 14:32 ps5.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu  57438 Aug 21 14:32 ps6.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu  92238 Aug 21 14:32 ps7.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu 124691 Aug 21 14:32 ps8.pdf
 </code></pre>
 
 <pre><code class="bash">rm -r /tmp/stat243/ps   # remove the ps directory and anything contained within it
@@ -551,15 +552,15 @@ ls -l
 </code></pre>
 
 <pre><code>## total 36
-## -rw-rw-r--  1 ubuntu ubuntu 1764 Aug 22 09:04 assignments.txt
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 22 09:14 data
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 22 09:04 howtos
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 22 09:04 project
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 22 09:04 ps
-## -rw-rw-r--  1 ubuntu ubuntu  124 Aug 22 09:04 README.md
-## drwxrwxr-x 13 ubuntu ubuntu 4096 Aug 22 09:04 section
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 22 09:04 syllabus
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 22 09:17 units
+## -rw-rw-r--  1 ubuntu ubuntu 1764 Aug 21 14:32 assignments.txt
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 data
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 howtos
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 project
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 ps
+## -rw-rw-r--  1 ubuntu ubuntu  124 Aug 21 14:32 README.md
+## drwxrwxr-x 13 ubuntu ubuntu 4096 Aug 21 14:32 section
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 syllabus
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:33 units
 </code></pre>
 
 <p>Now let&#39;s focus on the 10 characters in the first column. Items marked with a <code>d</code> as the first character are directories. Following that first character are three triplets of file permission information. Each triplet contains read (&#39;r&#39;), write (&#39;w&#39;) and execute (&#39;x&#39;) information. The first <code>rwx</code> triplet indicates if the owner of the file can read, write, and execute a file (or directory). The second <code>rwx</code> triplet indicates if anyone in the group that the owner belongs to can read, write and execute a file (or directory). The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.</p>
@@ -592,7 +593,7 @@ cat tmp.txt
 ## added line
 </code></pre>
 
-<p>Confusingly, &#39;u&#39; refers to the owner (user), while &#39;o&#39; refers to others.</p>
+<p>Confusingly, &#39;u&#39; refers to the owner (&#39;user&#39;), while &#39;o&#39; refers to &#39;others&#39;.</p>
 
 <h2>3.5) Some additional useful syntax</h2>
 
@@ -625,7 +626,7 @@ zip -r data.zip ~/stat243-fall-2015/data
 ls -l precip.txt
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 2766472 Aug 22 09:04 precip.txt
+<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 2766472 Aug 21 14:32 precip.txt
 </code></pre>
 
 <pre><code class="bash">cd ~/stat243-fall-2015/data
@@ -633,7 +634,7 @@ gzip precip.txt
 ls -l precip.txt.gz
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 356923 Aug 22 09:04 precip.txt.gz
+<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 356923 Aug 21 14:32 precip.txt.gz
 </code></pre>
 
 <p>Finally, the <em>tar</em> utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.</p>
@@ -645,6 +646,7 @@ tar -cvf data.tar stat243-fall-2015/data
 <pre><code>## stat243-fall-2015/data/
 ## stat243-fall-2015/data/hivSequ.csv
 ## stat243-fall-2015/data/precip.txt.gz
+## stat243-fall-2015/data/coop.txt.gz
 ## stat243-fall-2015/data/urls.txt
 ## stat243-fall-2015/data/RTADataSub.csv
 ## stat243-fall-2015/data/cpds.csv
@@ -656,7 +658,7 @@ tar -cvf data.tar stat243-fall-2015/data
 ls -l data.tar
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 2027520 Aug 22 09:17 data.tar
+<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 4157440 Aug 21 14:33 data.tar
 </code></pre>
 
 <pre><code class="bash">cd ~
@@ -666,6 +668,7 @@ tar -cvzf data.tgz stat243-fall-2015/data
 <pre><code>## stat243-fall-2015/data/
 ## stat243-fall-2015/data/hivSequ.csv
 ## stat243-fall-2015/data/precip.txt.gz
+## stat243-fall-2015/data/coop.txt.gz
 ## stat243-fall-2015/data/urls.txt
 ## stat243-fall-2015/data/RTADataSub.csv
 ## stat243-fall-2015/data/cpds.csv
@@ -677,7 +680,7 @@ tar -cvzf data.tgz stat243-fall-2015/data
 ls -l data.tgz
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 778501 Aug 22 09:17 data.tgz
+<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 2877608 Aug 21 14:33 data.tgz
 </code></pre>
 
 <p>Now let&#39;s move that <em>tarball</em> (as it is called) to a new directory and unzip and expand it using the -x flag. </p>
@@ -691,6 +694,7 @@ tar -xvzf data.tgz
 <pre><code>## stat243-fall-2015/data/
 ## stat243-fall-2015/data/hivSequ.csv
 ## stat243-fall-2015/data/precip.txt.gz
+## stat243-fall-2015/data/coop.txt.gz
 ## stat243-fall-2015/data/urls.txt
 ## stat243-fall-2015/data/RTADataSub.csv
 ## stat243-fall-2015/data/cpds.csv
@@ -703,15 +707,15 @@ tar -xvzf data.tgz
 <pre><code class="bash">ls -l /tmp/stat243-fall-2015/data
 </code></pre>
 
-<pre><code>## total 4692
-## -rw-rw-r-- 1 ubuntu ubuntu   41130 Aug 22 09:04 cpds.csv
-## -rw-rw-r-- 1 ubuntu ubuntu 1244094 Aug 22 09:04 hivSequ.csv
-## -rw-rw-r-- 1 ubuntu ubuntu  223004 Aug 22 09:04 IPs.RData
-## -rw-rw-r-- 1 ubuntu ubuntu   10965 Aug 22 09:04 precipData.txt
-## -rw-rw-r-- 1 ubuntu ubuntu 2766472 Aug 22 09:04 precip.txt
-## -rw-rw-r-- 1 ubuntu ubuntu  356923 Aug 22 09:04 precip.txt.gz
-## -rw-rw-r-- 1 ubuntu ubuntu  139797 Aug 22 09:04 RTADataSub.csv
-## -rw-rw-r-- 1 ubuntu ubuntu     787 Aug 22 09:04 urls.txt
+<pre><code>## total 4068
+## -rw-rw-r-- 1 ubuntu ubuntu 2128297 Aug 21 14:32 coop.txt.gz
+## -rw-rw-r-- 1 ubuntu ubuntu   41130 Aug 21 14:32 cpds.csv
+## -rw-rw-r-- 1 ubuntu ubuntu 1244094 Aug 21 14:32 hivSequ.csv
+## -rw-rw-r-- 1 ubuntu ubuntu  223004 Aug 21 14:32 IPs.RData
+## -rw-rw-r-- 1 ubuntu ubuntu   10965 Aug 21 14:32 precipData.txt
+## -rw-rw-r-- 1 ubuntu ubuntu  356923 Aug 21 14:32 precip.txt.gz
+## -rw-rw-r-- 1 ubuntu ubuntu  139797 Aug 21 14:32 RTADataSub.csv
+## -rw-rw-r-- 1 ubuntu ubuntu     787 Aug 21 14:32 urls.txt
 </code></pre>
 
 <h2>4.2) Getting help with UNIX tools</h2>
@@ -743,13 +747,13 @@ which matlab
 <pre><code>## Filesystem                Size  Used Avail Use% Mounted on
 ## udev                      481M     0  481M   0% /dev
 ## tmpfs                     100M  4.9M   95M   5% /run
-## /dev/mapper/BCE--vg-root   15G   11G  2.8G  80% /
-## tmpfs                     497M   80K  497M   1% /dev/shm
+## /dev/mapper/BCE--vg-root   15G  6.4G  7.0G  48% /
+## tmpfs                     497M   76K  497M   1% /dev/shm
 ## tmpfs                     5.0M  4.0K  5.0M   1% /run/lock
 ## tmpfs                     497M     0  497M   0% /sys/fs/cgroup
-## /dev/sda1                 236M  172M   52M  77% /boot
+## /dev/sda1                 236M   88M  136M  40% /boot
 ## cgmfs                     100K     0  100K   0% /run/cgmanager/fs
-## tmpfs                     100M   28K  100M   1% /run/user/1000
+## tmpfs                     100M   32K  100M   1% /run/user/1000
 </code></pre>
 
 <p>In general, you&#39;ll want to look at the &#39;/&#39; line, and on standard UNIX machines possibly at &#39;/tmp&#39;, &#39;/home&#39;, and others.</p>
@@ -783,19 +787,19 @@ du -h
 ## 32K  ./.git/logs
 ## 4.0K ./.git/branches
 ## 4.0K ./.git/objects/info
-## 21M  ./.git/objects/pack
-## 21M  ./.git/objects
+## 24M  ./.git/objects/pack
+## 24M  ./.git/objects
 ## 44K  ./.git/hooks
 ## 8.0K ./.git/refs/remotes/origin
 ## 12K  ./.git/refs/remotes
 ## 4.0K ./.git/refs/tags
 ## 8.0K ./.git/refs/heads
 ## 28K  ./.git/refs
-## 21M  ./.git
+## 24M  ./.git
 ## 52K  ./howtos
 ## 17M  ./units
-## 2.0M ./data
-## 42M  .
+## 4.0M ./data
+## 48M  .
 </code></pre>
 
 <p>If we only want a summary of usage for each top-level subdirectory, rather than showing all nested subdirectories:</p>
@@ -808,11 +812,11 @@ du -h -d 1
 ## 128K ./syllabus
 ## 1.1M ./project
 ## 1.2M ./section
-## 21M  ./.git
+## 24M  ./.git
 ## 52K  ./howtos
 ## 17M  ./units
-## 2.0M ./data
-## 42M  .
+## 4.0M ./data
+## 48M  .
 </code></pre>
 
 <h2>4.4) Machine information</h2>
@@ -828,7 +832,7 @@ du -h -d 1
 ## model        : 42
 ## model name   : Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz
 ## stepping : 7
-## cpu MHz      : 3392.763
+## cpu MHz      : 3379.146
 ## cache size   : 8192 KB
 ## physical id  : 0
 ## siblings : 1
@@ -840,9 +844,9 @@ du -h -d 1
 ## fpu_exception    : yes
 ## cpuid level  : 13
 ## wp       : yes
-## flags        : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc pni pclmulqdq monitor ssse3 cx16 sse4_1 sse4_2 popcnt aes xsave avx lahf_lm
+## flags        : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc pni pclmulqdq monitor ssse3 cx16 sse4_1 sse4_2 popcnt aes xsave avx hypervisor lahf_lm
 ## bugs     :
-## bogomips : 6785.52
+## bogomips : 6758.29
 ## clflush size : 64
 ## cache_alignment  : 64
 ## address sizes    : 36 bits physical, 48 bits virtual
@@ -854,16 +858,16 @@ du -h -d 1
 <pre><code class="bash">head -n 10 /proc/meminfo
 </code></pre>
 
-<pre><code>## MemTotal:        1016868 kB
-## MemFree:          409020 kB
-## MemAvailable:     640820 kB
-## Buffers:           37404 kB
-## Cached:           315000 kB
+<pre><code>## MemTotal:        1016888 kB
+## MemFree:          122216 kB
+## MemAvailable:     472672 kB
+## Buffers:           36220 kB
+## Cached:           422940 kB
 ## SwapCached:            0 kB
-## Active:           353556 kB
-## Inactive:         186336 kB
-## Active(anon):     190520 kB
-## Inactive(anon):    15856 kB
+## Active:           551108 kB
+## Inactive:         271920 kB
+## Active(anon):     364612 kB
+## Inactive(anon):     7080 kB
 </code></pre>
 
 <p>The key line is the <em>MemTotal</em> line, indicating 1 GB of RAM on the VM.</p>
@@ -948,7 +952,7 @@ rm -rf data
 
 <p>6) The <code>ls</code> command is itself an executable installed on the system. Where is it located?</p>
 
-<p>7) Where is Python installed on the system? What are some other programs/executables that are installed in the same directory.</p>
+<p>7) Where is Python installed on the system? What are some other programs/executables that are installed in the same directory?</p>
 
 </body>
 
