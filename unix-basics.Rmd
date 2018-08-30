@@ -339,6 +339,7 @@ man ls
 You can see if a utility or program is installed (and where it is installed) using `which`.
 
 ```{r, which}
+which grep
 which R
 which python
 which matlab
@@ -450,7 +451,7 @@ The inital './' is needed because UNIX is not expecting there to be an executabl
 
 2) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space. Modify this command to get the ascending order.
 
-3) Change the permissions on the file stat243-fall-2015/units/unit1-unix.sh to be readable by the user and the group, writeable by the user, and executable by all users.
+3) Change the permissions on the file `stat243-fall-2015/units/unit2-bash.sh` to be readable by the user and the group, writeable by the user, and executable by all users.
 
 4) Use both `zip` and `tar -cvzf` to compress the stat243-fall-2015 directory. Is one much smaller than the other?
 
@@ -458,7 +459,7 @@ The inital './' is needed because UNIX is not expecting there to be an executabl
 
 6) The `ls` command is itself an executable installed on the system. Where is it located?
 
-7) Where is Python installed on the system? What are some other programs/executables that are installed in the same directory?
+7) Where is *grep* installed on the system? What are some other programs/executables that are installed in the same directory?
 
 
 ```{r, cleanup, echo=FALSE, eval=FALSE}
