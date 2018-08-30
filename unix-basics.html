@@ -269,12 +269,12 @@ git pull
 <pre><code class="bash">ls -l  # this lists files in &#39;long&#39; format
 </code></pre>
 
-<pre><code>## total 88
+<pre><code>## total 92
 ## -rw-rw-r-- 1 ubuntu ubuntu   460 Aug 21 14:31 README.md
-## -rw--w--w- 1 ubuntu ubuntu    22 Aug 21 14:31 tmp.txt
-## -rw-rw-r-- 1 ubuntu ubuntu 31824 Aug 21 14:31 unix-basics.html
-## -rw-rw-r-- 1 ubuntu ubuntu 25822 Aug 21 14:31 unix-basics.md
-## -rw-rw-r-- 1 ubuntu ubuntu 19689 Aug 21 14:31 unix-basics.Rmd
+## -rw--w--w- 1 ubuntu ubuntu    22 Aug 21 14:33 tmp.txt
+## -rw-rw-r-- 1 ubuntu ubuntu 33904 Aug 21 14:33 unix-basics.html
+## -rw-rw-r-- 1 ubuntu ubuntu 27887 Aug 21 14:33 unix-basics.md
+## -rw-rw-r-- 1 ubuntu ubuntu 19702 Aug 30 16:35 unix-basics.Rmd
 </code></pre>
 
 <p>Note the use of the <code>-l</code> flag to list the long-format information. As mentioned, options for UNIX commands are generally provided via this kind of syntax.</p>
@@ -401,13 +401,11 @@ pwd
 <pre><code class="bash">ls /tmp
 </code></pre>
 
-<pre><code>## config-err-6RvlbP
-## data.tgz
+<pre><code>## config-err-Fq0S8G
 ## rstudio-rsession
-## RtmpaAnbCv
-## stat243
-## systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-rtkit-daemon.service-XyM4P9
-## systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-systemd-timesyncd.service-xJz1IP
+## RtmpLRh091
+## systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-rtkit-daemon.service-GhqaT6
+## systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-systemd-timesyncd.service-fm7Xp7
 </code></pre>
 
 <h2>3.3) Copying and removing files</h2>
@@ -421,15 +419,14 @@ cd /tmp
 ls -lrt 
 </code></pre>
 
-<pre><code>## total 40
-## drwx------ 3 root   root    4096 Aug 21 07:30 systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-systemd-timesyncd.service-xJz1IP
-## drwxrwxrwt 2 root   root    4096 Aug 21 14:30 rstudio-rsession
-## -rw------- 1 ubuntu ubuntu     0 Aug 21 14:30 config-err-6RvlbP
-## drwx------ 3 root   root    4096 Aug 21 14:30 systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-rtkit-daemon.service-XyM4P9
-## drwxrwxr-x 2 ubuntu ubuntu  4096 Aug 21 14:31 stat243
-## -rw-rw-r-- 1 ubuntu ubuntu    45 Aug 21 14:31 data.tgz
-## drwx------ 2 ubuntu ubuntu  4096 Aug 21 14:33 RtmpaAnbCv
-## -rw-rw-r-- 1 ubuntu ubuntu 13721 Aug 21 14:33 unit7-bigData-new.R
+<pre><code>## cp: cannot stat ‘unit7-bigData.R’: No such file or directory
+## mv: cannot stat ‘unit7-bigData-new.R’: No such file or directory
+## total 16
+## drwx------ 3 root   root   4096 Aug 30 09:35 systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-systemd-timesyncd.service-fm7Xp7
+## drwxrwxrwt 2 root   root   4096 Aug 30 16:35 rstudio-rsession
+## -rw------- 1 ubuntu ubuntu    0 Aug 30 16:35 config-err-Fq0S8G
+## drwx------ 3 root   root   4096 Aug 30 16:35 systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-rtkit-daemon.service-GhqaT6
+## drwx------ 2 ubuntu ubuntu 4096 Aug 30 16:37 RtmpLRh091
 </code></pre>
 
 <pre><code class="bash">cd /tmp
@@ -437,14 +434,13 @@ rm unit7-bigData-new.R
 ls -lrt
 </code></pre>
 
-<pre><code>## total 24
-## drwx------ 3 root   root   4096 Aug 21 07:30 systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-systemd-timesyncd.service-xJz1IP
-## drwxrwxrwt 2 root   root   4096 Aug 21 14:30 rstudio-rsession
-## -rw------- 1 ubuntu ubuntu    0 Aug 21 14:30 config-err-6RvlbP
-## drwx------ 3 root   root   4096 Aug 21 14:30 systemd-private-d1c0cbdd3d524c4eab8f88abbe3398d5-rtkit-daemon.service-XyM4P9
-## drwxrwxr-x 2 ubuntu ubuntu 4096 Aug 21 14:31 stat243
-## -rw-rw-r-- 1 ubuntu ubuntu   45 Aug 21 14:31 data.tgz
-## drwx------ 2 ubuntu ubuntu 4096 Aug 21 14:33 RtmpaAnbCv
+<pre><code>## rm: cannot remove ‘unit7-bigData-new.R’: No such file or directory
+## total 16
+## drwx------ 3 root   root   4096 Aug 30 09:35 systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-systemd-timesyncd.service-fm7Xp7
+## drwxrwxrwt 2 root   root   4096 Aug 30 16:35 rstudio-rsession
+## -rw------- 1 ubuntu ubuntu    0 Aug 30 16:35 config-err-Fq0S8G
+## drwx------ 3 root   root   4096 Aug 30 16:35 systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-rtkit-daemon.service-GhqaT6
+## drwx------ 2 ubuntu ubuntu 4096 Aug 30 16:37 RtmpLRh091
 </code></pre>
 
 <p><em>I used <code>rm</code> above to remove the file. Be very careful about removing files - there is no Trash folder in UNIX - once a file is removed, it&#39;s gone for good.</em></p>
@@ -456,7 +452,8 @@ mv unit7-bigData.R unit9-bigData-processing.R
 ls
 </code></pre>
 
-<pre><code>## exampleGraphic.png
+<pre><code>## mv: cannot stat ‘unit7-bigData.R’: No such file or directory
+## exampleGraphic.png
 ## exampleRscript.R
 ## exons.Rda
 ## gelmanUnwin2013.pdf
@@ -517,8 +514,7 @@ mv ps stat243     # move the ps directory into the stat243 directory
 ls -l stat243/ps
 </code></pre>
 
-<pre><code>## mkdir: cannot create directory ‘stat243’: File exists
-## total 704
+<pre><code>## total 704
 ## -rw-rw-r-- 1 ubuntu ubuntu    181 Aug 21 14:32 helical.R
 ## -rw-rw-r-- 1 ubuntu ubuntu  77019 Aug 21 14:32 ps1.pdf
 ## -rw-rw-r-- 1 ubuntu ubuntu  53314 Aug 21 14:32 ps2.pdf
@@ -553,7 +549,7 @@ ls -l
 
 <pre><code>## total 36
 ## -rw-rw-r--  1 ubuntu ubuntu 1764 Aug 21 14:32 assignments.txt
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 data
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:33 data
 ## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 howtos
 ## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 project
 ## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 ps
@@ -626,7 +622,7 @@ zip -r data.zip ~/stat243-fall-2015/data
 ls -l precip.txt
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 2766472 Aug 21 14:32 precip.txt
+<pre><code>## ls: cannot access precip.txt: No such file or directory
 </code></pre>
 
 <pre><code class="bash">cd ~/stat243-fall-2015/data
@@ -634,7 +630,8 @@ gzip precip.txt
 ls -l precip.txt.gz
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 356923 Aug 21 14:32 precip.txt.gz
+<pre><code>## gzip: precip.txt: No such file or directory
+## -rw-rw-r-- 1 ubuntu ubuntu 356923 Aug 21 14:32 precip.txt.gz
 </code></pre>
 
 <p>Finally, the <em>tar</em> utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.</p>
@@ -658,7 +655,7 @@ tar -cvf data.tar stat243-fall-2015/data
 ls -l data.tar
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 4157440 Aug 21 14:33 data.tar
+<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 4157440 Aug 30 16:37 data.tar
 </code></pre>
 
 <pre><code class="bash">cd ~
@@ -680,7 +677,7 @@ tar -cvzf data.tgz stat243-fall-2015/data
 ls -l data.tgz
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 2877608 Aug 21 14:33 data.tgz
+<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 2877608 Aug 30 16:37 data.tgz
 </code></pre>
 
 <p>Now let&#39;s move that <em>tarball</em> (as it is called) to a new directory and unzip and expand it using the -x flag. </p>
@@ -728,12 +725,14 @@ man ls
 
 <p>You can see if a utility or program is installed (and where it is installed) using <code>which</code>.</p>
 
-<pre><code class="bash">which R
+<pre><code class="bash">which grep
+which R
 which python
 which matlab
 </code></pre>
 
-<pre><code>## /usr/bin/R
+<pre><code>## /bin/grep
+## /usr/bin/R
 ## /home/ubuntu/miniconda/bin/python
 </code></pre>
 
@@ -747,13 +746,13 @@ which matlab
 <pre><code>## Filesystem                Size  Used Avail Use% Mounted on
 ## udev                      481M     0  481M   0% /dev
 ## tmpfs                     100M  4.9M   95M   5% /run
-## /dev/mapper/BCE--vg-root   15G  6.4G  7.0G  48% /
+## /dev/mapper/BCE--vg-root   15G  6.5G  6.9G  49% /
 ## tmpfs                     497M   76K  497M   1% /dev/shm
 ## tmpfs                     5.0M  4.0K  5.0M   1% /run/lock
 ## tmpfs                     497M     0  497M   0% /sys/fs/cgroup
 ## /dev/sda1                 236M   88M  136M  40% /boot
 ## cgmfs                     100K     0  100K   0% /run/cgmanager/fs
-## tmpfs                     100M   32K  100M   1% /run/user/1000
+## tmpfs                     100M   28K  100M   1% /run/user/1000
 </code></pre>
 
 <p>In general, you&#39;ll want to look at the &#39;/&#39; line, and on standard UNIX machines possibly at &#39;/tmp&#39;, &#39;/home&#39;, and others.</p>
@@ -859,15 +858,15 @@ du -h -d 1
 </code></pre>
 
 <pre><code>## MemTotal:        1016888 kB
-## MemFree:          122216 kB
-## MemAvailable:     472672 kB
-## Buffers:           36220 kB
-## Cached:           422940 kB
+## MemFree:          472884 kB
+## MemAvailable:     653656 kB
+## Buffers:           33220 kB
+## Cached:           256736 kB
 ## SwapCached:            0 kB
-## Active:           551108 kB
-## Inactive:         271920 kB
-## Active(anon):     364612 kB
-## Inactive(anon):     7080 kB
+## Active:           316048 kB
+## Inactive:         163720 kB
+## Active(anon):     190648 kB
+## Inactive(anon):     5664 kB
 </code></pre>
 
 <p>The key line is the <em>MemTotal</em> line, indicating 1 GB of RAM on the VM.</p>
@@ -944,7 +943,7 @@ rm -rf data
 
 <p>2) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space. Modify this command to get the ascending order.</p>
 
-<p>3) Change the permissions on the file stat243-fall-2015/units/unit1-unix.sh to be readable by the user and the group, writeable by the user, and executable by all users.</p>
+<p>3) Change the permissions on the file <code>stat243-fall-2015/units/unit2-bash.sh</code> to be readable by the user and the group, writeable by the user, and executable by all users.</p>
 
 <p>4) Use both <code>zip</code> and <code>tar -cvzf</code> to compress the stat243-fall-2015 directory. Is one much smaller than the other?</p>
 
@@ -952,7 +951,7 @@ rm -rf data
 
 <p>6) The <code>ls</code> command is itself an executable installed on the system. Where is it located?</p>
 
-<p>7) Where is Python installed on the system? What are some other programs/executables that are installed in the same directory?</p>
+<p>7) Where is <em>grep</em> installed on the system? What are some other programs/executables that are installed in the same directory?</p>
 
 </body>
 
