@@ -223,13 +223,13 @@ git clone https://github.com/berkeley-scf/tutorial-unix-basics
 <p>Next let&#39;s clone a more extensive repository - we&#39;ll get the materials for my Statistics 243 class from Fall 2015.  </p>
 
 <pre><code class="bash">cd  # go to your home directory
-git clone https://github.com/berkeley-stat243/stat243-fall-2015
+git clone https://github.com/berkeley-stat243/stat243-fall-2018
 </code></pre>
 
 <p>Now suppose that whoever controls the repository makes some changes and you want an updated copy of the repository on your computer. Simply <code>cd</code> (for change directory) into any directory in the repository and enter <code>git pull</code>. </p>
 
 <pre><code class="bash">cd # go to your home directory
-cd stat243-fall-2015
+cd stat243-fall-2018
 git pull
 </code></pre>
 
@@ -270,11 +270,11 @@ git pull
 </code></pre>
 
 <pre><code>## total 92
-## -rw-rw-r-- 1 ubuntu ubuntu   460 Aug 21 14:31 README.md
-## -rw--w--w- 1 ubuntu ubuntu    22 Aug 21 14:33 tmp.txt
-## -rw-rw-r-- 1 ubuntu ubuntu 33904 Aug 21 14:33 unix-basics.html
-## -rw-rw-r-- 1 ubuntu ubuntu 27887 Aug 21 14:33 unix-basics.md
-## -rw-rw-r-- 1 ubuntu ubuntu 19702 Aug 30 16:35 unix-basics.Rmd
+## -rw-rw-r-- 1 ubuntu ubuntu   892 Jan 25 16:19 README.md
+## -rw--w--w- 1 ubuntu ubuntu    22 Jan 25 16:29 tmp.txt
+## -rw-rw-r-- 1 ubuntu ubuntu 33286 Jan 25 16:29 unix-basics.html
+## -rw-rw-r-- 1 ubuntu ubuntu 27258 Jan 25 16:29 unix-basics.md
+## -rw-rw-r-- 1 ubuntu ubuntu 19711 Jan 25 16:29 unix-basics.Rmd
 </code></pre>
 
 <p>Note the use of the <code>-l</code> flag to list the long-format information. As mentioned, options for UNIX commands are generally provided via this kind of syntax.</p>
@@ -298,21 +298,21 @@ git pull
 <p>The command you need is <code>cd</code> and the concept you need to become familiar with is the notion of relative and absolute <em>path</em>. The path is the set of nested directories that specify a subdirectory of interest. </p>
 
 <pre><code class="bash">cd  # go to home directory 
-cd stat243-fall-2015 # go to subdirectory based on relative path
+cd stat243-fall-2018 # go to subdirectory based on relative path
 pwd
 </code></pre>
 
-<pre><code>## /home/ubuntu/stat243-fall-2015
+<pre><code>## /home/ubuntu/stat243-fall-2018
 </code></pre>
 
-<pre><code class="bash">cd /home/ubuntu/stat243-fall-2015 # absolute path to the same location
+<pre><code class="bash">cd /home/ubuntu/stat243-fall-2018 # absolute path to the same location
 pwd
 </code></pre>
 
-<pre><code>## /home/ubuntu/stat243-fall-2015
+<pre><code>## /home/ubuntu/stat243-fall-2018
 </code></pre>
 
-<pre><code class="bash">cd /home/ubuntu/stat243-fall-2015
+<pre><code class="bash">cd /home/ubuntu/stat243-fall-2018
 cd ..  # go up a directory to the parent of the current directory
 pwd
 </code></pre>
@@ -320,15 +320,15 @@ pwd
 <pre><code>## /home/ubuntu
 </code></pre>
 
-<pre><code class="bash">cd /home/ubuntu/stat243-fall-2015/units
+<pre><code class="bash">cd /home/ubuntu/stat243-fall-2018/units
 cd ../data # go up a directory and then down to a different subdirectory
 pwd
 </code></pre>
 
-<pre><code>## /home/ubuntu/stat243-fall-2015/data
+<pre><code>## /home/ubuntu/stat243-fall-2018/data
 </code></pre>
 
-<pre><code class="bash">cd /home/ubuntu/stat243-fall-2015/units
+<pre><code class="bash">cd /home/ubuntu/stat243-fall-2018/units
 cd ../../tutorial-unix-basics  # go up two directories and down
 pwd
 </code></pre>
@@ -401,67 +401,82 @@ pwd
 <pre><code class="bash">ls /tmp
 </code></pre>
 
-<pre><code>## config-err-Fq0S8G
+<pre><code>## config-err-wCdFkQ
+## data.tgz
 ## rstudio-rsession
-## RtmpLRh091
-## systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-rtkit-daemon.service-GhqaT6
-## systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-systemd-timesyncd.service-fm7Xp7
+## RtmpjL14iV
+## stat243
+## stat243-fall-2015
+## systemd-private-f2d4faab14e54fe5bdca4a068962d901-rtkit-daemon.service-oteQAR
+## systemd-private-f2d4faab14e54fe5bdca4a068962d901-systemd-timesyncd.service-uGFN10
 </code></pre>
 
 <h2>3.3) Copying and removing files</h2>
 
 <p>You&#39;ll often want to make a copy of a file or subdirectory, move it between directories, or remove it.</p>
 
-<pre><code class="bash">cd ~/stat243-fall-2015/units
-cp unit7-bigData.R unit7-bigData-new.R
-mv unit7-bigData-new.R /tmp/.
+<pre><code class="bash">cd ~/stat243-fall-2018/units
+cp unit7-bigData.py unit7-bigData-new.py
+mv unit7-bigData-new.py /tmp/.
 cd /tmp
 ls -lrt 
 </code></pre>
 
-<pre><code>## cp: cannot stat ‘unit7-bigData.R’: No such file or directory
-## mv: cannot stat ‘unit7-bigData-new.R’: No such file or directory
-## total 16
-## drwx------ 3 root   root   4096 Aug 30 09:35 systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-systemd-timesyncd.service-fm7Xp7
-## drwxrwxrwt 2 root   root   4096 Aug 30 16:35 rstudio-rsession
-## -rw------- 1 ubuntu ubuntu    0 Aug 30 16:35 config-err-Fq0S8G
-## drwx------ 3 root   root   4096 Aug 30 16:35 systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-rtkit-daemon.service-GhqaT6
-## drwx------ 2 ubuntu ubuntu 4096 Aug 30 16:37 RtmpLRh091
+<pre><code>## total 36
+## drwx------ 3 root   root   4096 Jan 25 08:19 systemd-private-f2d4faab14e54fe5bdca4a068962d901-systemd-timesyncd.service-uGFN10
+## drwxrwxrwt 2 root   root   4096 Jan 25 16:19 rstudio-rsession
+## -rw------- 1 ubuntu ubuntu    0 Jan 25 16:19 config-err-wCdFkQ
+## drwx------ 3 root   root   4096 Jan 25 16:19 systemd-private-f2d4faab14e54fe5bdca4a068962d901-rtkit-daemon.service-oteQAR
+## drwxrwxr-x 2 ubuntu ubuntu 4096 Jan 25 16:21 stat243
+## drwxrwxr-x 3 ubuntu ubuntu 4096 Jan 25 16:21 stat243-fall-2015
+## -rw-rw-r-- 1 ubuntu ubuntu   45 Jan 25 16:29 data.tgz
+## drwx------ 2 ubuntu ubuntu 4096 Jan 25 16:31 RtmpjL14iV
+## -rw-rw-r-- 1 ubuntu ubuntu 5965 Jan 25 16:31 unit7-bigData-new.py
 </code></pre>
 
 <pre><code class="bash">cd /tmp
-rm unit7-bigData-new.R
+rm unit7-bigData-new.py
 ls -lrt
 </code></pre>
 
-<pre><code>## rm: cannot remove ‘unit7-bigData-new.R’: No such file or directory
-## total 16
-## drwx------ 3 root   root   4096 Aug 30 09:35 systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-systemd-timesyncd.service-fm7Xp7
-## drwxrwxrwt 2 root   root   4096 Aug 30 16:35 rstudio-rsession
-## -rw------- 1 ubuntu ubuntu    0 Aug 30 16:35 config-err-Fq0S8G
-## drwx------ 3 root   root   4096 Aug 30 16:35 systemd-private-cd2c14d5705d4f0e9673d1a2b30c5324-rtkit-daemon.service-GhqaT6
-## drwx------ 2 ubuntu ubuntu 4096 Aug 30 16:37 RtmpLRh091
+<pre><code>## total 28
+## drwx------ 3 root   root   4096 Jan 25 08:19 systemd-private-f2d4faab14e54fe5bdca4a068962d901-systemd-timesyncd.service-uGFN10
+## drwxrwxrwt 2 root   root   4096 Jan 25 16:19 rstudio-rsession
+## -rw------- 1 ubuntu ubuntu    0 Jan 25 16:19 config-err-wCdFkQ
+## drwx------ 3 root   root   4096 Jan 25 16:19 systemd-private-f2d4faab14e54fe5bdca4a068962d901-rtkit-daemon.service-oteQAR
+## drwxrwxr-x 2 ubuntu ubuntu 4096 Jan 25 16:21 stat243
+## drwxrwxr-x 3 ubuntu ubuntu 4096 Jan 25 16:21 stat243-fall-2015
+## -rw-rw-r-- 1 ubuntu ubuntu   45 Jan 25 16:29 data.tgz
+## drwx------ 2 ubuntu ubuntu 4096 Jan 25 16:31 RtmpjL14iV
 </code></pre>
 
 <p><em>I used <code>rm</code> above to remove the file. Be very careful about removing files - there is no Trash folder in UNIX - once a file is removed, it&#39;s gone for good.</em></p>
 
 <p>The <code>mv</code> command is also used if you want to rename a file. </p>
 
-<pre><code class="bash">cd ~/stat243-fall-2015/units
-mv unit7-bigData.R unit9-bigData-processing.R
+<pre><code class="bash">cd ~/stat243-fall-2018/units
+mv unit7-bigData.py unit9-bigData-processing.py
 ls
 </code></pre>
 
-<pre><code>## mv: cannot stat ‘unit7-bigData.R’: No such file or directory
-## exampleGraphic.png
+<pre><code>## badCode.R
+## class1_shell_history.sh
+## class2_shell_history.sh
+## class3_shell_history.sh
 ## exampleRscript.R
-## exons.Rda
+## example_spark_job.sh
 ## gelmanUnwin2013.pdf
+## get_wikipedia_data.sh
 ## goodCode.R
-## likLoops.Rda
+## gordonFinch2015.pdf
 ## mixedMember.Rda
-## piCalc.py
+## obama_plot.R
+## obamaTraffic.pdf
+## preprocess_wikipedia.py
 ## shell.pdf
+## simulation_tutorial_miratrix.pdf
+## simulation_tutorial_miratrix.R
+## test_batch.py
 ## unit10-sim.lyx
 ## unit10-sim.pdf
 ## unit10-sim.R
@@ -479,25 +494,26 @@ ls
 ## unit2-bash.lyx
 ## unit2-bash.pdf
 ## unit2-bash.sh
-## unit2-bash-sol.sh
-## unit3-Rinput.lyx
-## unit3-Rinput.pdf
-## unit3-Rinput.R
-## unit4-effic-challenges-sol-2015.R
+## unit3-dataIO.lyx
+## unit3-dataIO.pdf
+## unit3-dataIO.R
 ## unit4-programming.lyx
+## unit4-programming-partial.pdf
 ## unit4-programming.pdf
 ## unit4-programming.R
-## unit5-debug.lyx
-## unit5-debug.pdf
+## unit5-goodPractices.lyx
+## unit5-goodPractices.pdf
 ## unit6-numbers.lyx
 ## unit6-numbers.pdf
 ## unit6-numbers.R
 ## unit7-bigData.lyx
 ## unit7-bigData.pdf
-## unit7-bigData.py
+## unit7-bigData.R
+## unit7-bigData.sh
 ## unit8-parallel.lyx
 ## unit8-parallel.pdf
-## unit9-bigData-processing.R
+## unit8-parallel.R
+## unit9-bigData-processing.py
 ## unit9-linalg.lyx
 ## unit9-linalg.pdf
 ## unit9-linalg.R
@@ -506,7 +522,7 @@ ls
 
 <p>We can copy and remove entire directories</p>
 
-<pre><code class="bash">cd ~/stat243-fall-2015
+<pre><code class="bash">cd ~/stat243-fall-2018
 cp -pr ps /tmp/.  # copy the ps directory into /tmp
 cd /tmp
 mkdir stat243
@@ -514,16 +530,20 @@ mv ps stat243     # move the ps directory into the stat243 directory
 ls -l stat243/ps
 </code></pre>
 
-<pre><code>## total 704
-## -rw-rw-r-- 1 ubuntu ubuntu    181 Aug 21 14:32 helical.R
-## -rw-rw-r-- 1 ubuntu ubuntu  77019 Aug 21 14:32 ps1.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu  53314 Aug 21 14:32 ps2.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu  66279 Aug 21 14:32 ps3.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu 139397 Aug 21 14:32 ps4.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu  82500 Aug 21 14:32 ps5.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu  57438 Aug 21 14:32 ps6.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu  92238 Aug 21 14:32 ps7.pdf
-## -rw-rw-r-- 1 ubuntu ubuntu 124691 Aug 21 14:32 ps8.pdf
+<pre><code>## mkdir: cannot create directory ‘stat243’: File exists
+## total 3352
+## -rw-rw-r-- 1 ubuntu ubuntu 2225446 Jan 25 16:31 clm.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu  461719 Jan 25 16:31 lo_etal_2001.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu   61906 Jan 25 16:31 ps1.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu   85432 Jan 25 16:31 ps2.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu   60620 Jan 25 16:31 ps3.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu    1892 Jan 25 16:31 ps3prob2.R
+## -rw-rw-r-- 1 ubuntu ubuntu  139286 Jan 25 16:31 ps4.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu  113946 Jan 25 16:31 ps5.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu   53248 Jan 25 16:31 ps6.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu   95389 Jan 25 16:31 ps7.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu  110391 Jan 25 16:31 ps8.pdf
+## -rw-rw-r-- 1 ubuntu ubuntu     204 Jan 25 16:31 ps8.R
 </code></pre>
 
 <pre><code class="bash">rm -r /tmp/stat243/ps   # remove the ps directory and anything contained within it
@@ -532,31 +552,31 @@ ls /tmp/stat243
 
 <p>You can use a variant of <code>cp</code> to copy files between different UNIX-like machines. Suppose I have access to the machine <em>radagast.berkeley.edu</em> and that my user name on that machine is <em>scf1</em>. I can copy a file to that machine or from that machine as follows. </p>
 
-<pre><code class="bash">cd ~/stat243-fall-2015/units
+<pre><code class="bash">cd ~/stat243-fall-2018/units
 # copy the file to the Desktop subdirectory of the scf1 home directory on the remote machine:
 scp unit1-unix.sh scf1@radagast.berkeley.edu:~/Desktop/.
 # copy a file from the /tmp directory of the remote machine 
-scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2015/data/.
+scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2018/data/.
 </code></pre>
 
 <h2>3.4) File permissions</h2>
 
 <p>Let&#39;s look in detail at the information returned by <code>ls -l</code>. The first column actually contains 10 individual single-character columns. The third column indicates the owner of each file and the fourth column the group of users the owner belongs to.</p>
 
-<pre><code class="bash">cd ~/stat243-fall-2015
+<pre><code class="bash">cd ~/stat243-fall-2018
 ls -l
 </code></pre>
 
 <pre><code>## total 36
-## -rw-rw-r--  1 ubuntu ubuntu 1764 Aug 21 14:32 assignments.txt
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:33 data
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 howtos
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 project
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 ps
-## -rw-rw-r--  1 ubuntu ubuntu  124 Aug 21 14:32 README.md
-## drwxrwxr-x 13 ubuntu ubuntu 4096 Aug 21 14:32 section
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:32 syllabus
-## drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 21 14:33 units
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Jan 25 16:31 assignments
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Jan 25 16:31 data
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Jan 25 16:31 howtos
+## drwxrwxr-x 13 ubuntu ubuntu 4096 Jan 25 16:31 lab
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Jan 25 16:31 project
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Jan 25 16:31 ps
+## -rw-rw-r--  1 ubuntu ubuntu 3032 Jan 25 16:31 README.md
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Jan 25 16:31 syllabus
+## drwxrwxr-x  2 ubuntu ubuntu 4096 Jan 25 16:31 units
 </code></pre>
 
 <p>Now let&#39;s focus on the 10 characters in the first column. Items marked with a <code>d</code> as the first character are directories. Following that first character are three triplets of file permission information. Each triplet contains read (&#39;r&#39;), write (&#39;w&#39;) and execute (&#39;x&#39;) information. The first <code>rwx</code> triplet indicates if the owner of the file can read, write, and execute a file (or directory). The second <code>rwx</code> triplet indicates if anyone in the group that the owner belongs to can read, write and execute a file (or directory). The third triplet pertains to any user. Dashes mean that a given user does not have that kind of access to the given file.</p>
@@ -613,71 +633,66 @@ cd -
 <p>The zip utility compresses in a format compatible with zip files for Windows</p>
 
 <pre><code class="bash">cd ~
-zip -r data.zip ~/stat243-fall-2015/data
+zip -r data.zip ~/stat243-fall-2018/data
 </code></pre>
 
 <p>gzip is a standard UNIX compression utility to compress individual files</p>
 
-<pre><code class="bash">cd ~/stat243-fall-2015/data
+<pre><code class="bash">cd ~/stat243-fall-2018/data
 ls -l precip.txt
 </code></pre>
 
-<pre><code>## ls: cannot access precip.txt: No such file or directory
+<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 2766472 Jan 25 16:31 precip.txt
 </code></pre>
 
-<pre><code class="bash">cd ~/stat243-fall-2015/data
+<pre><code class="bash">cd ~/stat243-fall-2018/data
 gzip precip.txt
 ls -l precip.txt.gz
 </code></pre>
 
-<pre><code>## gzip: precip.txt: No such file or directory
-## -rw-rw-r-- 1 ubuntu ubuntu 356923 Aug 21 14:32 precip.txt.gz
+<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 356923 Jan 25 16:31 precip.txt.gz
 </code></pre>
 
 <p>Finally, the <em>tar</em> utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.</p>
 
 <pre><code class="bash">cd ~
-tar -cvf data.tar stat243-fall-2015/data
+tar -cvf data.tar stat243-fall-2018/data
 </code></pre>
 
-<pre><code>## stat243-fall-2015/data/
-## stat243-fall-2015/data/hivSequ.csv
-## stat243-fall-2015/data/precip.txt.gz
-## stat243-fall-2015/data/coop.txt.gz
-## stat243-fall-2015/data/urls.txt
-## stat243-fall-2015/data/RTADataSub.csv
-## stat243-fall-2015/data/cpds.csv
-## stat243-fall-2015/data/IPs.RData
-## stat243-fall-2015/data/precipData.txt
+<pre><code>## stat243-fall-2018/data/
+## stat243-fall-2018/data/hivSequ.csv
+## stat243-fall-2018/data/precip.txt.gz
+## stat243-fall-2018/data/RTADataSub.csv
+## stat243-fall-2018/data/cpds.csv
+## stat243-fall-2018/data/IPs.RData
+## stat243-fall-2018/data/precipData.txt
 </code></pre>
 
 <pre><code class="bash">cd ~
 ls -l data.tar
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 4157440 Aug 30 16:37 data.tar
+<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 2027520 Jan 25 16:31 data.tar
 </code></pre>
 
 <pre><code class="bash">cd ~
-tar -cvzf data.tgz stat243-fall-2015/data
+tar -cvzf data.tgz stat243-fall-2018/data
 </code></pre>
 
-<pre><code>## stat243-fall-2015/data/
-## stat243-fall-2015/data/hivSequ.csv
-## stat243-fall-2015/data/precip.txt.gz
-## stat243-fall-2015/data/coop.txt.gz
-## stat243-fall-2015/data/urls.txt
-## stat243-fall-2015/data/RTADataSub.csv
-## stat243-fall-2015/data/cpds.csv
-## stat243-fall-2015/data/IPs.RData
-## stat243-fall-2015/data/precipData.txt
+<pre><code>## stat243-fall-2018/data/
+## stat243-fall-2018/data/hivSequ.csv
+## stat243-fall-2018/data/precip.txt.gz
+## stat243-fall-2018/data/RTADataSub.csv
+## stat243-fall-2018/data/cpds.csv
+## stat243-fall-2018/data/IPs.RData
+## stat243-fall-2018/data/precipData.txt
 </code></pre>
 
 <pre><code class="bash">cd ~
 ls -l data.tgz
 </code></pre>
 
-<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 2877608 Aug 30 16:37 data.tgz
+<pre><code>## -rw-rw-r-- 1 ubuntu ubuntu 778177 Jan 25 16:31 data.tgz
 </code></pre>
 
 <p>Now let&#39;s move that <em>tarball</em> (as it is called) to a new directory and unzip and expand it using the -x flag. </p>
@@ -688,31 +703,27 @@ cd /tmp
 tar -xvzf data.tgz
 </code></pre>
 
-<pre><code>## stat243-fall-2015/data/
-## stat243-fall-2015/data/hivSequ.csv
-## stat243-fall-2015/data/precip.txt.gz
-## stat243-fall-2015/data/coop.txt.gz
-## stat243-fall-2015/data/urls.txt
-## stat243-fall-2015/data/RTADataSub.csv
-## stat243-fall-2015/data/cpds.csv
-## stat243-fall-2015/data/IPs.RData
-## stat243-fall-2015/data/precipData.txt
+<pre><code>## stat243-fall-2018/data/
+## stat243-fall-2018/data/hivSequ.csv
+## stat243-fall-2018/data/precip.txt.gz
+## stat243-fall-2018/data/RTADataSub.csv
+## stat243-fall-2018/data/cpds.csv
+## stat243-fall-2018/data/IPs.RData
+## stat243-fall-2018/data/precipData.txt
 </code></pre>
 
 <p>You can see the whole directory structure of what was archived has been recovered in the new location:</p>
 
-<pre><code class="bash">ls -l /tmp/stat243-fall-2015/data
+<pre><code class="bash">ls -l /tmp/stat243-fall-2018/data
 </code></pre>
 
-<pre><code>## total 4068
-## -rw-rw-r-- 1 ubuntu ubuntu 2128297 Aug 21 14:32 coop.txt.gz
-## -rw-rw-r-- 1 ubuntu ubuntu   41130 Aug 21 14:32 cpds.csv
-## -rw-rw-r-- 1 ubuntu ubuntu 1244094 Aug 21 14:32 hivSequ.csv
-## -rw-rw-r-- 1 ubuntu ubuntu  223004 Aug 21 14:32 IPs.RData
-## -rw-rw-r-- 1 ubuntu ubuntu   10965 Aug 21 14:32 precipData.txt
-## -rw-rw-r-- 1 ubuntu ubuntu  356923 Aug 21 14:32 precip.txt.gz
-## -rw-rw-r-- 1 ubuntu ubuntu  139797 Aug 21 14:32 RTADataSub.csv
-## -rw-rw-r-- 1 ubuntu ubuntu     787 Aug 21 14:32 urls.txt
+<pre><code>## total 1984
+## -rw-rw-r-- 1 ubuntu ubuntu   41130 Jan 25 16:31 cpds.csv
+## -rw-rw-r-- 1 ubuntu ubuntu 1244094 Jan 25 16:31 hivSequ.csv
+## -rw-rw-r-- 1 ubuntu ubuntu  223004 Jan 25 16:31 IPs.RData
+## -rw-rw-r-- 1 ubuntu ubuntu   10965 Jan 25 16:31 precipData.txt
+## -rw-rw-r-- 1 ubuntu ubuntu  356923 Jan 25 16:31 precip.txt.gz
+## -rw-rw-r-- 1 ubuntu ubuntu  139797 Jan 25 16:31 RTADataSub.csv
 </code></pre>
 
 <h2>4.2) Getting help with UNIX tools</h2>
@@ -759,25 +770,13 @@ which matlab
 
 <p>We can see usage in specific directories like this:</p>
 
-<pre><code class="bash">cd ~/stat243-fall-2015
+<pre><code class="bash">cd ~/stat243-fall-2018
 du -h
 </code></pre>
 
-<pre><code>## 708K ./ps
-## 128K ./syllabus
+<pre><code>## 3.3M ./ps
+## 88K  ./syllabus
 ## 1.1M ./project
-## 240K ./section/s09
-## 8.0K ./section/s05
-## 8.0K ./section/s01
-## 16K  ./section/s11
-## 8.0K ./section/s03
-## 12K  ./section/s13
-## 36K  ./section/s08
-## 8.0K ./section/s02
-## 152K ./section/ps0
-## 96K  ./section/s12
-## 48K  ./section/s06
-## 1.2M ./section
 ## 8.0K ./.git/info
 ## 8.0K ./.git/logs/refs/remotes/origin
 ## 12K  ./.git/logs/refs/remotes
@@ -794,28 +793,44 @@ du -h
 ## 4.0K ./.git/refs/tags
 ## 8.0K ./.git/refs/heads
 ## 28K  ./.git/refs
-## 24M  ./.git
+## 25M  ./.git
+## 8.0K ./assignments
 ## 52K  ./howtos
-## 17M  ./units
-## 4.0M ./data
-## 48M  .
+## 76K  ./lab/S05
+## 96K  ./lab/S02
+## 32K  ./lab/S09
+## 24K  ./lab/S03
+## 28K  ./lab/S01/introGitKnitr_files/figure-markdown_github
+## 32K  ./lab/S01/introGitKnitr_files
+## 68K  ./lab/S01
+## 8.0K ./lab/S10
+## 144K ./lab/S00
+## 20K  ./lab/S04
+## 8.0K ./lab/S07
+## 100K ./lab/S08
+## 12K  ./lab/S06
+## 592K ./lab
+## 19M  ./units
+## 2.0M ./data
+## 50M  .
 </code></pre>
 
 <p>If we only want a summary of usage for each top-level subdirectory, rather than showing all nested subdirectories:</p>
 
-<pre><code class="bash">cd ~/stat243-fall-2015
+<pre><code class="bash">cd ~/stat243-fall-2018
 du -h -d 1
 </code></pre>
 
-<pre><code>## 708K ./ps
-## 128K ./syllabus
+<pre><code>## 3.3M ./ps
+## 88K  ./syllabus
 ## 1.1M ./project
-## 1.2M ./section
-## 24M  ./.git
+## 25M  ./.git
+## 8.0K ./assignments
 ## 52K  ./howtos
-## 17M  ./units
-## 4.0M ./data
-## 48M  .
+## 592K ./lab
+## 19M  ./units
+## 2.0M ./data
+## 50M  .
 </code></pre>
 
 <h2>4.4) Machine information</h2>
@@ -858,15 +873,15 @@ du -h -d 1
 </code></pre>
 
 <pre><code>## MemTotal:        1016888 kB
-## MemFree:          472884 kB
-## MemAvailable:     653656 kB
-## Buffers:           33220 kB
-## Cached:           256736 kB
+## MemFree:          198048 kB
+## MemAvailable:     510244 kB
+## Buffers:           34824 kB
+## Cached:           386212 kB
 ## SwapCached:            0 kB
-## Active:           316048 kB
-## Inactive:         163720 kB
-## Active(anon):     190648 kB
-## Inactive(anon):     5664 kB
+## Active:           491256 kB
+## Inactive:         257068 kB
+## Active(anon):     328076 kB
+## Inactive(anon):     6776 kB
 </code></pre>
 
 <p>The key line is the <em>MemTotal</em> line, indicating 1 GB of RAM on the VM.</p>
@@ -920,7 +935,7 @@ du -h -d 1
 <p>For example, suppose you often need to do the following series of steps:</p>
 
 <pre><code class="bash">cd 
-tar -cvzf stat243.tgz stat243-fall-2015
+tar -cvzf stat243.tgz stat243-fall-2018
 mv stat243.tgz /tmp
 cd /tmp
 tar -xvzf stat243.tgz
@@ -943,9 +958,9 @@ rm -rf data
 
 <p>2) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space. Modify this command to get the ascending order.</p>
 
-<p>3) Change the permissions on the file <code>stat243-fall-2015/units/unit2-bash.sh</code> to be readable by the user and the group, writeable by the user, and executable by all users.</p>
+<p>3) Change the permissions on the file <code>stat243-fall-2018/units/unit2-bash.sh</code> to be readable by the user and the group, writeable by the user, and executable by all users.</p>
 
-<p>4) Use both <code>zip</code> and <code>tar -cvzf</code> to compress the stat243-fall-2015 directory. Is one much smaller than the other?</p>
+<p>4) Use both <code>zip</code> and <code>tar -cvzf</code> to compress the stat243-fall-2018 directory. Is one much smaller than the other?</p>
 
 <p>5) Figure out how to print out free disk space in terms of megabytes. </p>
 
