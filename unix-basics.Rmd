@@ -66,13 +66,13 @@ Next let's clone a more extensive repository - we'll get the materials for my St
 
 ```{r, git-clone2, eval=FALSE}
 cd  # go to your home directory
-git clone https://github.com/berkeley-stat243/stat243-fall-2015
+git clone https://github.com/berkeley-stat243/stat243-fall-2018
 ```
 
 Now suppose that whoever controls the repository makes some changes and you want an updated copy of the repository on your computer. Simply `cd` (for change directory) into any directory in the repository and enter `git pull`. 
 ```{r, git-pull} 
 cd # go to your home directory
-cd stat243-fall-2015
+cd stat243-fall-2018
 git pull
 ```
 
@@ -118,25 +118,25 @@ The command you need is `cd` and the concept you need to become familiar with is
 
 ```{r cd1}
 cd  # go to home directory 
-cd stat243-fall-2015 # go to subdirectory based on relative path
+cd stat243-fall-2018 # go to subdirectory based on relative path
 pwd
 ```
 ```{r cd2}
-cd /home/ubuntu/stat243-fall-2015 # absolute path to the same location
+cd /home/ubuntu/stat243-fall-2018 # absolute path to the same location
 pwd
 ```
 ```{r cd3}
-cd /home/ubuntu/stat243-fall-2015
+cd /home/ubuntu/stat243-fall-2018
 cd ..  # go up a directory to the parent of the current directory
 pwd
 ```
 ```{r cd5}
-cd /home/ubuntu/stat243-fall-2015/units
+cd /home/ubuntu/stat243-fall-2018/units
 cd ../data # go up a directory and then down to a different subdirectory
 pwd
 ```
 ```{r cd6}
-cd /home/ubuntu/stat243-fall-2015/units
+cd /home/ubuntu/stat243-fall-2018/units
 cd ../../tutorial-unix-basics  # go up two directories and down
 pwd
 ```
@@ -177,7 +177,7 @@ ls /tmp
 You'll often want to make a copy of a file or subdirectory, move it between directories, or remove it.
 
 ```{r, cp1}
-cd ~/stat243-fall-2015/units
+cd ~/stat243-fall-2018/units
 cp unit7-bigData.py unit7-bigData-new.py
 mv unit7-bigData-new.py /tmp/.
 cd /tmp
@@ -193,14 +193,14 @@ ls -lrt
 
 The `mv` command is also used if you want to rename a file. 
 ```{r, mv}
-cd ~/stat243-fall-2015/units
+cd ~/stat243-fall-2018/units
 mv unit7-bigData.py unit9-bigData-processing.py
 ls
 ```
 
 We can copy and remove entire directories
 ```{r, cp-all1}
-cd ~/stat243-fall-2015
+cd ~/stat243-fall-2018
 cp -pr ps /tmp/.  # copy the ps directory into /tmp
 cd /tmp
 mkdir stat243
@@ -215,11 +215,11 @@ ls /tmp/stat243
 You can use a variant of `cp` to copy files between different UNIX-like machines. Suppose I have access to the machine *radagast.berkeley.edu* and that my user name on that machine is *scf1*. I can copy a file to that machine or from that machine as follows. 
 
 ```{r, scp, eval=FALSE}
-cd ~/stat243-fall-2015/units
+cd ~/stat243-fall-2018/units
 # copy the file to the Desktop subdirectory of the scf1 home directory on the remote machine:
 scp unit1-unix.sh scf1@radagast.berkeley.edu:~/Desktop/.
 # copy a file from the /tmp directory of the remote machine 
-scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2015/data/.
+scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2018/data/.
 ```
 
 ## 3.4) File permissions
@@ -231,7 +231,7 @@ echo "first line" > tmp.txt  # create a file
 ```
 
 ```{r, perm}
-cd ~/stat243-fall-2015
+cd ~/stat243-fall-2018
 ls -l
 ```
 
@@ -281,16 +281,16 @@ The zip utility compresses in a format compatible with zip files for Windows
 
 ```{r, zip, eval=FALSE}
 cd ~
-zip -r data.zip ~/stat243-fall-2015/data
+zip -r data.zip ~/stat243-fall-2018/data
 ```
 
 gzip is a standard UNIX compression utility to compress individual files
 ```{r, gzip1}
-cd ~/stat243-fall-2015/data
+cd ~/stat243-fall-2018/data
 ls -l precip.txt
 ```
 ```{r, gzip2}
-cd ~/stat243-fall-2015/data
+cd ~/stat243-fall-2018/data
 gzip precip.txt
 ls -l precip.txt.gz
 ```
@@ -298,7 +298,7 @@ ls -l precip.txt.gz
 Finally, the *tar* utility will combine multiple files and directories into a single archive. The -z flag also gzips the result.
 ```{r, tar1}
 cd ~
-tar -cvf data.tar stat243-fall-2015/data
+tar -cvf data.tar stat243-fall-2018/data
 ```
 ```{r, tar1a}
 cd ~
@@ -306,7 +306,7 @@ ls -l data.tar
 ```
 ```{r, tar2}
 cd ~
-tar -cvzf data.tgz stat243-fall-2015/data
+tar -cvzf data.tgz stat243-fall-2018/data
 ```
 ```{r, tar2a}
 cd ~
@@ -323,7 +323,7 @@ tar -xvzf data.tgz
 ```
 You can see the whole directory structure of what was archived has been recovered in the new location:
 ```{r, tar4}
-ls -l /tmp/stat243-fall-2015/data
+ls -l /tmp/stat243-fall-2018/data
 ```
 
 
@@ -357,14 +357,14 @@ In general, you'll want to look at the '/' line, and on standard UNIX machines p
 We can see usage in specific directories like this:
 
 ```{r, df2}
-cd ~/stat243-fall-2015
+cd ~/stat243-fall-2018
 du -h
 ```
 
 If we only want a summary of usage for each top-level subdirectory, rather than showing all nested subdirectories:
 
 ```{r, df3}
-cd ~/stat243-fall-2015
+cd ~/stat243-fall-2018
 du -h -d 1
 ```
 
@@ -428,7 +428,7 @@ Often (particularly as you learn more sophisticated shell functionality) you wil
 For example, suppose you often need to do the following series of steps:
 ```{r, script, eval=FALSE}
 cd 
-tar -cvzf stat243.tgz stat243-fall-2015
+tar -cvzf stat243.tgz stat243-fall-2018
 mv stat243.tgz /tmp
 cd /tmp
 tar -xvzf stat243.tgz
@@ -451,9 +451,9 @@ The inital './' is needed because UNIX is not expecting there to be an executabl
 
 2) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space. Modify this command to get the ascending order.
 
-3) Change the permissions on the file `stat243-fall-2015/units/unit2-bash.sh` to be readable by the user and the group, writeable by the user, and executable by all users.
+3) Change the permissions on the file `stat243-fall-2018/units/unit2-bash.sh` to be readable by the user and the group, writeable by the user, and executable by all users.
 
-4) Use both `zip` and `tar -cvzf` to compress the stat243-fall-2015 directory. Is one much smaller than the other?
+4) Use both `zip` and `tar -cvzf` to compress the stat243-fall-2018 directory. Is one much smaller than the other?
 
 5) Figure out how to print out free disk space in terms of megabytes. 
 
@@ -463,7 +463,7 @@ The inital './' is needed because UNIX is not expecting there to be an executabl
 
 
 ```{r, cleanup, echo=FALSE, eval=FALSE}
-if [ -f ~/stat243-fall-2015/data/precip.txt.gz ]; then gunzip ~/stat243-fall-2015/data/precip.txt.gz 
+if [ -f ~/stat243-fall-2018/data/precip.txt.gz ]; then gunzip ~/stat243-fall-2018/data/precip.txt.gz 
 fi
 if [ -f ~/data.tar ]; then rm -rf ~/data.tar
 fi
@@ -473,6 +473,6 @@ if [ -d /tmp/stat243 ]; then rm -rf /tmp/stat243
 fi
 if [ -d /tmp/units ]; then rm -rf /tmp/units 
 fi
-if [ -f ~/stat243-fall-2015/units/unit9-bigData-processing.py ]; then mv -f ~/stat243-fall-2015/units/unit9-bigData-processing.py ~/stat243-fall-2015/units/unit7-bigData.py
+if [ -f ~/stat243-fall-2018/units/unit9-bigData-processing.py ]; then mv -f ~/stat243-fall-2018/units/unit9-bigData-processing.py ~/stat243-fall-2018/units/unit7-bigData.py
 fi
 ```
