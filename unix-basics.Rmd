@@ -178,14 +178,14 @@ You'll often want to make a copy of a file or subdirectory, move it between dire
 
 ```{r, cp1}
 cd ~/stat243-fall-2015/units
-cp unit7-bigData.R unit7-bigData-new.R
-mv unit7-bigData-new.R /tmp/.
+cp unit7-bigData.py unit7-bigData-new.py
+mv unit7-bigData-new.py /tmp/.
 cd /tmp
 ls -lrt 
 ```
 ```{r, cp3}
 cd /tmp
-rm unit7-bigData-new.R
+rm unit7-bigData-new.py
 ls -lrt
 ```
 
@@ -194,7 +194,7 @@ ls -lrt
 The `mv` command is also used if you want to rename a file. 
 ```{r, mv}
 cd ~/stat243-fall-2015/units
-mv unit7-bigData.R unit9-bigData-processing.R
+mv unit7-bigData.py unit9-bigData-processing.py
 ls
 ```
 
@@ -473,6 +473,6 @@ if [ -d /tmp/stat243 ]; then rm -rf /tmp/stat243
 fi
 if [ -d /tmp/units ]; then rm -rf /tmp/units 
 fi
-if [ -f ~/stat243-fall-2015/units/unit9-bigData-processing.R ]; then mv -f ~/stat243-fall-2015/units/unit9-bigData-processing.R ~/stat243-fall-2015/units/unit7-bigData.R
+if [ -f ~/stat243-fall-2015/units/unit9-bigData-processing.py ]; then mv -f ~/stat243-fall-2015/units/unit9-bigData-processing.py ~/stat243-fall-2015/units/unit7-bigData.py
 fi
 ```
