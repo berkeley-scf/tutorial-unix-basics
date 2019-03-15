@@ -1,7 +1,7 @@
 tutorial-unix-basics
 =====================
 
-Tutorial on the basics of the UNIX command line using BCE.
+Tutorial on the basics of the UNIX command line.
 
 The video that accompanies this material is available here [on YouTube](http://youtu.be/pAY6E0FdWUo).
 
