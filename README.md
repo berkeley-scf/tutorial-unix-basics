@@ -3,7 +3,7 @@ tutorial-unix-basics
 
 Tutorial on the basics of the UNIX command line.
 
-The video that accompanies this material is available here [on YouTube](http://youtu.be/pAY6E0FdWUo).
+The video that accompanies this material is available here [on YouTube](http://youtu.be/pAY6E0FdWUo). NOTE that the video refers to and uses an outdated virtual Linux machine called BCE that is likely to be hard for you to install and use at this point in time. You should be able to follow the video despite this while accessing a UNIX command line environment in some other fashion (e.g., the Terminal on a Mac, use of a Linux server/cluster at your institution or use of the Windows Subsystem for Linux).
 
 This tutorial covers:
 

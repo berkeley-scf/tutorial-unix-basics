@@ -11,11 +11,11 @@ opts_chunk$set(engine='bash') # because we're using a lot of bash, let's set as 
 
 This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or Mac OS X) environment. In particular, it covers using the UNIX command line, a powerful way to carry out operations on a computer and to automate tasks.  Being familiar with operating on the command line will allow you (with some practice and training) to do things more quickly and in a way that can be reproduced later. That's hard or impossible to do if you are doing point-and-click or drag-and-drop operations in a File Manager or Finder window. 
 
-A [screencast](http://youtu.be/pAY6E0FdWUo) of this material accompanies this document and the end of this document has questions that test your understanding of the material. Note that the screencast was based on an earlier version of this material (the version tagged 'version1' in the Github repository). It will not exactly match what is seen here, but it should hopefully be close enough to still be helpful.
+A [screencast](http://youtu.be/pAY6E0FdWUo) of this material accompanies this document and the end of this document has questions that test your understanding of the material. Note that the screencast was based on an earlier version of this material (the version tagged 'version1' in the Github repository). It will not exactly match what is seen here, but it should hopefully be close enough to still be helpful. Furthermore the screencast uses an outdated virtual Linux machine. You should be able to follow the screencast and replicate what is demonstrated in the screencast from other UNIX-like environments, such as the Terminal on a Mac or the Windows Subsystem for Linux. 
 
 I've generated this document based on using the bash shell on an Ubuntu Linux version 20.04 machine, but you should be able to replicate most of the steps in this tutorial in other UNIX-like environments, in particular when using the bash or zsh shells. (zsh is the default shell on recent MacOS versions.)
 
-Materials for this tutorial, including the R markdown file that was used to create this document are available on github at (https://github.com/berkeley-scf/tutorial-unix-basics).  You can download the files by doing a git clone from a terminal window on a UNIX-like machine, as shown here:
+Materials for this tutorial, including the R Markdown file that was used to create this document are available on github at (https://github.com/berkeley-scf/tutorial-unix-basics).  You can download the files by doing a git clone from a terminal window on a UNIX-like machine, as shown here:
 ```{r, clone, eval=FALSE}
 git clone https://github.com/berkeley-scf/tutorial-unix-basics
 ```
