@@ -53,7 +53,7 @@ Once we are in a terminal, we'll see the "prompt", which indicates that the shel
 $
 ```
 
-but often it contains information about the username of the current user and the directory on the filesystem that we are in, e.g., showing that the current user is 'scflocal', on the machine named 'gandalf' in the 'stat243-fall-2020' (sub)directory in the user's home directory (indicated by `~`).
+but often it contains information about the username of the current user and the directory on the filesystem that we are in. For example, here a prompt that shows that the current user is 'scflocal', on the machine named 'gandalf' in the 'stat243-fall-2020' (sub)directory in the user's home directory (indicated by `~`).
 
 ```
 scflocal@gandalf:~/stat243-fall-2020>
@@ -61,7 +61,7 @@ scflocal@gandalf:~/stat243-fall-2020>
 
 In the remainder of this tutorial, we'll show the default `$` prompt in front of commands to distinguish between commands and output that gets printed to the screen. If you're copying and pasting, you'll need to omit the `$`.
 
-Note that if you see `>` instead of the usual prompt, that means the shell thinks you haven't finished entering your command and is expecting more input from you. If you're not sure what to do, type <Ctrl-c> (the control key and 'c' at the same time) to get back to the usual prompt.
+Note that if you see `>` instead of the usual prompt, that means the shell thinks you haven't finished entering your command and is expecting more input from you. If you're not sure what to do, type `<Ctrl-c>` (the control key and 'c' at the same time) to get back to the usual prompt.
 
 Let's start by running a command, `whoami`, that prints out the username of the current user:
 ```bash
