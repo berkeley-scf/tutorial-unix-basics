@@ -1,0 +1,6 @@
+remote_theme: pages-themes/minimal@v0.2.0
+plugins:
+- jekyll-remote-theme # add this line to the plugins list if you already have one
+title: UNIX basics tutorial
+description: Introductory training materials for working on the UNIX command line.
+show_downloads: false

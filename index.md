@@ -1,13 +1,13 @@
-The Basics of UNIX
-======================================================================================
+---
+title: The basics of working on the UNIX command line
+layout: default
+author: Christopher Paciorek
+---
 
-Chris Paciorek, Department of Statistics, UC Berkeley
 
-```{r setup, include=FALSE}
-opts_chunk$set(engine='bash', eval=FALSE) 
-```
+## 1 Introduction
 
-# 0) This Tutorial
+### 1.1 This Tutorial
 
 This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or Mac OS X) environment. In particular, it covers using the UNIX command line interface, a powerful way to carry out operations on a computer and to automate tasks.  Being familiar with operating on the command line will allow you (with some practice and training) to do things more quickly and in a way that can be reproduced later. That's hard or impossible to do if you are doing point-and-click or drag-and-drop operations in a File Manager or Finder window.
 
@@ -27,9 +27,7 @@ This tutorial by Christopher Paciorek is licensed under a Creative Commons Attri
 Build this under the scflocal account on gandalf
 -->
 
-# 1) Getting prepared
-
-## 1.1 The shell
+### 1.2 The shell
 
 Operating on the UNIX command line is also known as "using the terminal" and "using the shell".
 
@@ -37,7 +35,7 @@ The shell is the UNIX program that you interact with when in a terminal window i
 
 I've generated this document based on using the bash shell on a computer running the Ubuntu Linux version 20.04 operating system, but you should be able to replicate most of the steps in this tutorial in other UNIX command line environments, ideally using the bash or zsh shells. 
 
-## 1.2 Accessing a UNIX command line interface
+### 1.3 Accessing a UNIX command line interface
 
 Here are some options for accessing a UNIX command line interface:
 
@@ -52,7 +50,7 @@ Note that you probably shouldn't use `Git Bash` as its functionality is limited.
 
 Once you're in a Terminal window, you'll be interacting with the shell and you can enter commands to get information and work with the system. Commands often have optional arguments (flags) that are specified with a minus in front of them, as we'll see. 
 
-# 2) Using `git` for version control
+## 2 Using `git` for version control
 
 We'll discuss `git` briefly, both because it is an important and useful tool, and because it's the easiest way for us to get a set of files to work with in this tutorial. 
 
@@ -114,9 +112,9 @@ In this case, since no changes had been made, git simply reports that things are
 
 We'll discuss how to use `cd` in more detail in the next section.
 
-# 3) Files and directories
+## 3 Files and directories
 
-## 3.1) Getting started
+### 3.1 Getting started
 
 Once we are in a terminal, we'll see the "prompt", which indicates that the shell is waiting for us to enter commands. Sometimes the prompt is just `$`:
 
@@ -142,7 +140,7 @@ scflocal
 ```
 
 
-## 3.2) Moving around and listing information
+### 3.2 Moving around and listing information
 
 We'll start by thinking about the filesystem, which organizes our information/data into files on the computer's disk.
 
@@ -250,7 +248,7 @@ pwd
 
 Note that using absolute paths in scripts is generally a bad idea because the script wouldn't generally work correctly if run on a different machine (which will generally have a different filesystem structure).
 
-## 3.3) The filesystem
+### 3.3 The filesystem
 
 The filesystem is basically a upside-down tree.
 
@@ -357,9 +355,9 @@ pwd
 /home/scflocal
 ```
 
-# 4) Using commands
+## 4 Using commands
 
-## 4.1) Overview
+### 4.1 Overview
 
 Let's look more at various ways to use commands. We just saw the `ls` command. Here's one way we can modify the behavior of the command by passing a command option. Here the `-F` option (also called a 'flag') shows directories by appending `/` to anything that is a directory (rather than a file) and a `*` to anything that is an executable (i.e., a program).
 
@@ -427,7 +425,7 @@ without either options or arguments.
 
 Arguments are usually one or more files or directories.
 
-## 4.2) Options
+### 4.2 Options
 
 Often we can specify an option either in short form (as with `-l` here)
 or long form (`--lines` here), as seen in the following equivalent invocations:
@@ -468,7 +466,7 @@ Hello there.
 This is a file
 ```
 
-## 4.3) Comments
+### 4.3 Comments
 
 Anything that follows `#` is a comment and is ignored.
 
@@ -481,7 +479,7 @@ example.txt  myfile  README.md  stat243-fall-2020  tmp.txt  unix-basics.html  un
 ```
 
 
-## 4.4) Getting help with UNIX commands
+### 4.4 Getting help with UNIX commands
 
 Essentially all UNIX commands have  help information (called a man page), accessed using `man`.
 
@@ -499,7 +497,7 @@ Also, UNIX commands as well as other programs run from the command line often pr
 ls --help
 ```
 
-## 4.5) Seeing if a command or program is available
+### 4.5 Seeing if a command or program is available
 
 You can see if a command or program is installed (and where it is installed) using `which`.
 
@@ -515,9 +513,9 @@ which python
 /usr/local/linux/anaconda3.8/bin/python
 ```
 
-# 5) Working with files
+## 5 Working with files
 
-## 5.1) Copying and removing files
+### 5.1 Copying and removing files
 
 You'll often want to make a copy of a file, move it between directories, or remove it. When we move the file, the use of `/.` means to use the same name as the original file.
 
@@ -616,7 +614,7 @@ scp unit1-unix.sh scf1@radagast.berkeley.edu:~/Desktop/.
 scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2020/data/.
 ```
 
-## 5.2) File permissions
+### 5.2 File permissions
 
 ```{bash, lsl}
 cd ~/stat243-fall-2020
@@ -734,7 +732,7 @@ first line
 added line
 ```
 
-## 5.3) File names and extensions
+### 5.3 File names and extensions
 
 The format a file is in is deterined by the actual content of the file. In many cases, files have extensions such as `.csv` (for comma-separated text files), `.pdf` for PDFs, `.jpg` for JPEG files. The extension is a convention that helps us and programs distinguish different kinds of files and therefore know how to manipulate/interpret the files.
 
@@ -755,9 +753,9 @@ hello
 
 However, changing the extension may prevent a program from using the file simply because the program was written to assume that files in a certain format have a certain extension.
 
-# 6) Other useful tools and information
+## 6 Other useful tools and information
 
-## 6.1) Compressing and uncompressing files
+### 6.1 Compressing and uncompressing files
 
 The `zip` utility compresses in a format compatible with zip files for Windows:
 
@@ -892,7 +890,7 @@ total 4064
 ```
 
 
-## 6.2) Disk usage
+### 6.2 Disk usage
 
 You can can see how much disk space is being used versus available as follows. The 'Mounted' column will generally identify the parts of the filesystem in a more user-friendly way than the 'Filesystem' column.
 
@@ -962,7 +960,7 @@ du -h -d 1
 44M	.
 ```
 
-## 6.3) Machine information
+### 6.3 Machine information
 
 Linux machines (but not Macs) have system information provided in a few special files.
 
@@ -1050,15 +1048,15 @@ nproc  # how many processors?
 8
 ```
 
-# 7) The shell
+## 7 The shell
 
 The shell provides a number of useful shortcuts, of which we highlight a couple here.
 
-## 7.1) Tab completion
+### 7.1 Tab completion
 
 The shell will try to auto-complete the names of commands/programs or of files when you type part of the name and then hit <Tab>. This can save quite a bit of typing, particularly for long file names. 
 
-## 7.2) Command history
+### 7.2 Command history
 
 The up and down arrow keys will move you through the history of commands you have entered in the terminal. So you can recover something you typed previously and then directly run it again, or edit it and then run the modified version. You run the command by pressing <Enter>, which you can do regardless of where your cursor currently is on the line you are editing.
 
@@ -1072,7 +1070,7 @@ You can navigate within a line using the usual arrows but also:
 * `Ctrl-y` pastes in whatever was deleted previously with Ctrl-k
 * `Ctrl-r` enables an [interactive history search](http://www.techrepublic.com/article/keyboard-shortcuts-in-bash-and-zsh/)
 
-## 7.3) Saving your code as a shell script
+### 7.3 Saving your code as a shell script
 
 Often (particularly as you learn more sophisticated shell functionality) you will want to save your shell syntax in the form of a code file, called a script, that you could run another time.
 
@@ -1097,7 +1095,7 @@ chmod ugo+x mvStat243.sh  # make the script executable by everyone
 
 The inital './' is needed because UNIX is not expecting there to be an executable file in this particular directory. 
 
-# 8) Questions
+## 8 Questions
 
 1) Try to run the following command `mkdir ~/projects/drought`. It will fail. Look in the help information on `mkdir` to figure out how to make it work without first creating the *projects* directory.
 
