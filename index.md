@@ -61,7 +61,7 @@ scflocal@gandalf:~/stat243-fall-2020>
 
 In the remainder of this tutorial, we'll show the default `$` prompt in front of commands to distinguish between commands and output that gets printed to the screen. If you're copying and pasting, you'll need to omit the `$`.
 
-Note that if you see `>` instead of the usual prompt, that means the shell thinks you haven't finished entering your command and is expecting more input from you. If you're not sure what to do, type `<Ctrl-c>` (the control key and 'c' at the same time) to get back to the usual prompt.
+Note that if you see `>` instead of the usual prompt, that means the shell thinks you haven't finished entering your command and is expecting more input from you. If you're not sure what to do, type `Ctrl-c` (the control key and 'c' at the same time) to get back to the usual prompt.
 
 Let's start by running a command, `whoami`, that prints out the username of the current user:
 ```bash
@@ -85,7 +85,7 @@ First we'll download the materials for this tutorial.
 
 To *clone* (i.e., copy) a repository (in this case from GitHub) we do the following. Note that *berkeley-scf* is the "organization" and *tutorial-unix-basics* is the repository. Note that everything below that follows the `#` symbol is a comment and not executed.
 
-Here we'll first use the `cd` command to go to our home directory and then use `git clone` to download materials to a subdirectory (which will be called `tutorial-unix-basics`) within our home directory. 
+Here we'll first use the `cd` command (for "change directory") to go to our home directory and then use `git clone` to download materials to a subdirectory (which will be called `tutorial-unix-basics`) within our home directory. 
 
 ```bash
 $ cd
@@ -120,7 +120,7 @@ Receiving objects: 100% (974/974), 20.55 MiB | 21.65 MiB/s, done.
 Resolving deltas: 100% (520/520), done.
 ```
 
-Now suppose that whoever controls the repository makes some changes to the materials in the repository and you want an updated copy of the repository on your computer. Simply `cd` (for "change directory") into any directory in the repository and run `git pull`.
+Now suppose that whoever controls the repository makes some changes to the materials in the repository online and you want an updated copy of the repository on your computer. Simply use `cd` to go into any directory in the repository materials on your computer and run `git pull`.
 
 ```bash
 $ cd stat243-fall-2020
@@ -143,7 +143,7 @@ We'll start by thinking about the filesystem, which organizes our information/da
 
 Anytime you are at the UNIX command line, you have a *working directory*, which is your current location in the file system. 
 
-Here's how you can see where you are using the "print working directory" command:
+Here's how you can see where you are using the `pwd` ("print working directory") command:
 
 ```bash
 $ pwd
@@ -153,7 +153,7 @@ $ pwd
 /home/scflocal/stat243-fall-2020
 ```
 
-and here's how you list the files in the working directory...
+and here's how you use `ls` to list the files (and subdirectories) in the working directory...
 
 ```bash
 $ ls
@@ -165,7 +165,7 @@ data  howtos  project  ps  README.md  sections  syllabus.lyx  syllabus.pdf  unit
 
 Now suppose I want to be in a different directory so I can see what is there or do things to the files in that directory.
 
-The command you need is `cd` and an important concept you need to become familiar with is the notion of relative and absolute *path*. A path is the set of nested directories that specify a subdirectory of interest.
+The command you need is `cd` and an important concept you need to become familiar with is the notion of 'relative' versus 'absolute' *path*. A path is the set of nested directories that specify a location of interest on the filesystem.
 
 First let's go to our home directory, which is generally where our files will be. Simply running `cd` will do that.
 
@@ -212,7 +212,7 @@ $ pwd
 /home/scflocal/stat243-fall-2020
 ```
 
-We can combine `..` with use of relative paths. Here we'll go up a directory and the down to a different subdirectory.
+We can get more complicated in our use of `..` with relative paths. Here we'll go up a directory and the down to a different subdirectory.
 
 ```bash
 $ cd units
@@ -237,7 +237,7 @@ $ pwd
 
 All of the above examples used relative paths to navigate based on your working directory at the moment you ran the command.
 
-We can instead use absolute paths so that it doesn't matter where we are when we run the command. Specifying an absolute path is done by having your path start with `/`, such as `/home/scflocal`. If the path doesn't start with `/` then it is interpreted as being a relative path, relative to your working directory. Here we'll go to the `units` subdirectory but using an absolute path. 
+We can instead use absolute paths so that it doesn't matter where we are when we run the command. Specifying an absolute path is done by having your path start with `/`, such as `/home/scflocal`. If the path doesn't start with `/` then it is interpreted as being a relative path, relative to your working directory. Here we'll go to the `units` subdirectory again, but this time using an absolute path. 
 
 ```bash
 $ cd /home/scflocal/stat243-fall-2020/units 
@@ -286,8 +286,7 @@ Often (as is the case here), that would print out a lot of files and directories
 
 The dot (`.`) means "this directory", so the top of the tree here is the `sections` directory itself, within which there are subdirectories, `01`, `02`, `03`, etc. Then within each of these are files and further subdirectories (as seen in the case of `01`, which has subdirectories named `data` and `solutions`.)
 
-If we consider the entire filesystem, the top, or root of the tree, is the `/` directory. Within `/` there are subdirectories, such as `/home` (which contains users' home directories where all of the files owned by a user are stored) and `/bin` (containing UNIX programs, aka 'binaries'). If there is a user named *scflocal*, everything specific to that user would be stored in `/home/scflocal`. The shortcut `~scflocal` refers to `/home/scflocal`. If you are the *scflocal* user, you can also refer to `/home/scflocal` by the shortcut `~`.
-
+If we consider the entire filesystem, the top, or root of the tree, is the `/` directory. Within `/` there are subdirectories, such as `/home` (which contains users' home directories where all of the files owned by a user are stored) and `/bin` (containing UNIX programs, aka 'binaries'). We'll use `ls` again, this time telling it the directory to operate on:
 
 ```bash
 $ ls /
@@ -297,6 +296,9 @@ $ ls /
 accounts  bin   dev  home  lib32  libx32      media   mnt  proc  run   scratch  snap  sys     tmp  var
 app       boot  etc  lib   lib64  lost+found  mirror  opt  root  sbin  server   srv   system  usr
 ```
+
+If there is a user named *scflocal*, everything specific to that user would be stored in `/home/scflocal`. The shortcut `~scflocal` refers to `/home/scflocal`. If you are the *scflocal* user, you can also refer to `/home/scflocal` by the shortcut `~`.
+
 
 ```bash
 $ ls /home
@@ -373,7 +375,7 @@ data/  howtos/  project/  ps/  README.md  sections/  syllabus.lyx  syllabus.pdf 
 ```
 
 
-Next we'll use multiple options to the `ls` command. `-l` shows extended information about files/directories. `-t` shows files/directories in order of the time at which they were last modified and `-r` shows in reverse order. Before run `ls`, I'll create an empty file using the `touch` command. Given this, what file do you expect to be displayed last when you do the following?
+Next we'll use multiple options to the `ls` command. `-l` shows extended information about files/directories. `-t` shows files/directories in order of the time at which they were last modified and `-r` shows in reverse order. Before I run `ls`, I'll create an empty file using the `touch` command. Given this, what file do you expect to be displayed last when you do the following?
 
 ```bash
 $ cd ../tutorial-unix-basics
@@ -394,8 +396,14 @@ drwxrwxr-x 9 scflocal scflocal  4096 Dec 28 13:09 stat243-fall-2020
 ```
 
 While each command has its own syntax, there are some rules usually
-followed. Generally, executing a command consists of four things: the command,
-command option(s), argument(s), and line acceptance, as in this example:
+followed. Generally, executing a command consists of four things:
+
+  - the command
+  - command option(s)
+  - argument(s) 
+  - line acceptance
+  
+Here's an example:
 
 ```bash
 $ wc -l example.txt
@@ -410,11 +418,11 @@ specifying to count the number of lines, `example.txt` is the argument, and the
 line acceptance is indicated by hitting the `Enter` key at the end of
 the line.
 
-So that invocation counts the number of lines in the file named example.txt.
+So that invocation counts the number of lines in the file named `example.txt`.
 
 The spaces are required and distinguish the different parts of the invocation. For this reason,
 it's generally a bad idea to have spaces within file names. But if you do, you can
-use quotation marks to demark the file name, e.g.,
+use quotation marks to distinguish the file name, e.g.,
 
 ```bash
 $ ls -l "name of my file with spaces.txt"
@@ -477,7 +485,8 @@ $ # This is ignored
 $ ls  # Everything after the # is ignored
 ```
 ```
-example.txt  myfile  README.md  stat243-fall-2020  tmp.txt  unix-basics.html  unix-basics.md  unix-basics.Rmd
+example.txt  myfile  README.md  stat243-fall-2020  tmp.txt  unix-basics.html
+unix-basics.md  unix-basics.Rmd
 ```
 
 
@@ -489,7 +498,7 @@ Essentially all UNIX commands have  help information (called a man page), access
 $ man ls
 ```
 
-Once you are in the man page, you can navigate by hitting the space bar (to scroll down) and the up and down arrows. You can search by typing `/`, typing the string you want to search for and hitting return. You can use `n` and `p` for the next and previous search hits and `q` to quit out of the search.
+Once you are in the man page, you can navigate by hitting the space bar (to scroll down) and the up and down arrows. You can search by typing `/`, typing the string you want to search for and hitting `<Enter>`. You can use `n` and `p` for the next and previous search hits and `q` to quit out of the search.
 
 Unfortunately man pages are often quite long, hard to understand, and without examples. But the information you need is usually there if you take the time to look for it.
 
@@ -519,7 +528,7 @@ $ which python
 
 ## 5.1 Copying and removing files
 
-You'll often want to make a copy of a file, move it between directories, or remove it. When we move the file, the use of `/.` means to use the same name as the original file.
+You'll often want to make a copy of a file, move it between directories, or remove it. 
 
 ```bash
 $ cd ~/stat243-fall-2020/units
@@ -528,6 +537,8 @@ $ mv unit8-bigData-new.py /tmp/.
 $ cd /tmp
 $ ls -lrt
 ```
+
+When we moved the file, the use of `/.` in `/tmp/.` indicates we want to use the same name as the original file.
 
 ```
 total 12
@@ -606,13 +617,17 @@ $ rm -r /tmp/stat243/ps   # remove the ps directory and anything contained withi
 $ ls /tmp/stat243         # this should be empty now
 ```
 
-You can use a variant of `cp` to copy files between different UNIX-like machines. Suppose I have access to the machine *radagast.berkeley.edu* and that my user name on that machine is *scf1*. I can copy a file to that machine or from that machine as follows. 
+You can use a variant of `cp` named `scp` to copy files between different UNIX-like machines. Suppose I have access to the machine *radagast.berkeley.edu* and that my user name on that machine is *scf1*. I can copy a file to that machine or from that machine as follows. 
 
 ```bash
 $ cd ~/stat243-fall-2020/units
-$ # copy the file to the Desktop subdirectory of the scf1 home directory on the remote machine:
+
+$ # From the machine you're on to another machine
+$ # Copy the file to the Desktop subdirectory of the scf1 home directory on the remote machine
 $ scp unit1-unix.sh scf1@radagast.berkeley.edu:~/Desktop/.
-$ # copy a file from the /tmp directory of the remote machine to a specific directory on this machine
+
+$ # From another machine to the machine you're on
+$ # Copy a file from the /tmp directory of the remote machine to a specific directory on this machine
 $ scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2020/data/.
 ```
 
@@ -1056,11 +1071,11 @@ The shell provides a number of useful shortcuts, of which we highlight a couple 
 
 ## 7.1 Tab completion
 
-The shell will try to auto-complete the names of commands/programs or of files when you type part of the name and then hit <Tab>. This can save quite a bit of typing, particularly for long file names. 
+The shell will try to auto-complete the names of commands/programs or of files when you type part of the name and then hit `<Tab>`. This can save quite a bit of typing, particularly for long file names. 
 
 ## 7.2 Command history
 
-The up and down arrow keys will move you through the history of commands you have entered in the terminal. So you can recover something you typed previously and then directly run it again, or edit it and then run the modified version. You run the command by pressing <Enter>, which you can do regardless of where your cursor currently is on the line you are editing.
+The up and down arrow keys will move you through the history of commands you have entered in the terminal. So you can recover something you typed previously and then directly run it again, or edit it and then run the modified version. You run the command by pressing `<Enter>`, which you can do regardless of where your cursor currently is on the line you are editing.
 
 There's also lots more functionality along these lines that we won't go into here.
 
@@ -1069,7 +1084,7 @@ You can navigate within a line using the usual arrows but also:
 * `Ctrl-a` moves to the beginning of the line
 * `Ctrl-e` moves to the end of the line
 * `Ctrl-k` deletes the rest of the line starting at the cursor
-* `Ctrl-y` pastes in whatever was deleted previously with Ctrl-k
+* `Ctrl-y` pastes in whatever was deleted previously with `Ctrl-k`
 * `Ctrl-r` enables an [interactive history search](http://www.techrepublic.com/article/keyboard-shortcuts-in-bash-and-zsh/)
 
 ## 7.3 Saving your code as a shell script
