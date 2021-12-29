@@ -11,7 +11,7 @@ author: Christopher Paciorek
 
 This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or Mac OS X) environment. In particular, it covers using the UNIX command line interface, a powerful way to carry out operations on a computer and to automate tasks.  Being familiar with operating on the command line will allow you (with some practice and training) to do things more quickly and in a way that can be reproduced later. That's hard or impossible to do if you are doing point-and-click or drag-and-drop operations in a File Manager or Finder window.
 
-Materials for this tutorial, including the Markdown file that was used to create this document are available on GitHub at (https://github.com/berkeley-scf/tutorial-unix-basics).  
+Materials for this tutorial, including the Markdown file that was used to create this document are [available on GitHub](https://github.com/berkeley-scf/tutorial-unix-basics).
 
 Software Carpentry has a very nice introductory lesson on the [basics of the shell](https://swcarpentry.github.io/shell-novice/). It also has an accompanying [YouTube video](https://www.youtube.com/watch?v=8c1BL5b47kg). Episodes 1-3 (the first 20 minutes) cover the material that is in this tutorial.
 
@@ -39,12 +39,13 @@ I've generated this document based on using the bash shell on a computer running
 
 Here are some options for accessing a UNIX command line interface:
 
-  - MacOS: If you'd like to work on your own Mac, you'll find the Terminal under `Applications -> Utilities -> Terminal`).
+  - MacOS: If you'd like to work on your own Mac, you'll find the Terminal under
+      `Applications -> Utilities -> Terminal`.
   - Windows:
       - If you have a sufficiently new version of Windows 10, you can use the [Windows Subsystem for Linux](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide), which will provide you with an Ubuntu shell running bash on your own machine.
       - If you have access to remote machines running Linux, you can login to them using programs such as MobaXTerm and Putty. Once logged in, you'll find yourself in a Terminal window on the remote machine.
   - JupyterHub: If you have access to a JupyterHub, you will likely be able to start a Terminal session under "New".
-  - Cloud-based options: You could also try a cloud service such as Google [Cloud Shell](shell.cloud.google.com).
+  - Cloud-based options: You could also try a cloud service such as Google [Cloud Shell](https://shell.cloud.google.com).
 
 Note that you probably shouldn't use `Git Bash` as its functionality is limited. 
 
@@ -64,8 +65,8 @@ To *clone* (i.e., copy) a repository (in this case from GitHub) we do the follow
 
 Here we'll first use the `cd` command to go to our home directory and then use `git clone` to download materials to a subdirectory (which will be called `tutorial-unix-basics`) within our home directory. 
 
-```{bash, git-clone, eval=FALSE}
-cd  
+```bash
+cd
 git clone https://github.com/berkeley-scf/tutorial-unix-basics
 ```
 
@@ -83,7 +84,7 @@ When you run `git clone` you'll see some text indicating the progress of the clo
 
 Next let's clone a more extensive repository - we'll get the materials for my Statistics 243 class at UC Berkeley from Fall 2020. 
 
-```{bash, git-clone2}
+```
 git clone https://github.com/berkeley-stat243/stat243-fall-2020
 ```
 
@@ -99,7 +100,7 @@ Resolving deltas: 100% (520/520), done.
 
 Now suppose that whoever controls the repository makes some changes to the materials in the repository and you want an updated copy of the repository on your computer. Simply `cd` (for "change directory") into any directory in the repository and run `git pull`.
 
-```{bash, git-pull}  
+```bash, git-pull  
 cd stat243-fall-2020
 git pull
 ```
@@ -131,7 +132,7 @@ scflocal@gandalf:~/stat243-fall-2020>
 In the remainder of this tutorial, we won't show the prompt, but you'll always see it when you are in the shell. Note that if you see `>` instead of the usual prompt, that means the shell thinks you haven't finished entering your command and is expecting more input from you. If you're not sure what to do, type <Ctrl-c> (the control key and 'c' at the same time) to get back to the usual prompt.
 
 Let's start by running a command, `whoami`, that prints out the username of the current user:
-```{bash, whoami}
+```bash, whoami
 whoami
 ```
 
@@ -148,12 +149,12 @@ Anytime you are at the UNIX command line, you have a *working directory*, which 
 
 Here's how you can see where you are using the "print working directory" command:
 
-```{bash, pwd1}
+```bash, pwd1
 pwd
 ```
 and here's how you list the files in the working directory...
 
-```{bash, ls}
+```bash, ls
 ls
 ```
 
@@ -167,7 +168,7 @@ The command you need is `cd` and an important concept you need to become familia
 
 First let's go to our home directory, which is generally where our files will be. Simply running `cd` will do that.
 
-```{bash cd1}
+```bash cd1
 cd  
 pwd
 ```
@@ -178,7 +179,7 @@ pwd
 
 Now let's go into a subdirectory. We can use `cd` with the name of the subdirectory. The subdirectory is found 'relative' to our working directory, i.e., found from where we currently are.
 
-```{bash cd2}
+```bash cd2
 cd stat243-fall-2020 
 pwd
 ```
@@ -189,7 +190,7 @@ pwd
 
 We could also navigate through nested subdirectories. For example, after going back to our home directory, let's go to the `units` subdirectory of the `stat243-fall-2020` subdirectory. The `/` is a separate character that distinguishes the nested subdirectories.
 
-```{bash cd3}
+```bash cd3
 cd
 cd stat243-fall-2020/units
 pwd
@@ -201,7 +202,7 @@ pwd
 
 You can access the parent directory of any directory using `..`:
 
-```{bash cd4}
+```bash cd4
 cd ..  
 pwd
 ```
@@ -212,7 +213,7 @@ pwd
 
 We can combine `..` with use of relative paths. Here we'll go up a directory and the down to a different subdirectory.
 
-```{bash cd5}
+```bash cd5
 cd units
 cd ../data 
 pwd
@@ -224,7 +225,7 @@ pwd
 
 And here we'll go up two directories and then down to another subdirectory.
 
-```{bash cd6}
+```bash cd6
 cd ../../tutorial-unix-basics  # go up two directories and down
 pwd
 ```
@@ -237,7 +238,7 @@ All of the above examples used relative paths to navigate based on your working 
 
 We can instead use absolute paths so that it doesn't matter where we are when we run the command. Specifying an absolute path is done by having your path start with `/`, such as `/home/scflocal`. If the path doesn't start with `/` then it is interpreted as being a relative path, relative to your working directory. Here we'll go to the `units` subdirectory but using an absolute path. 
 
-```{bash cd-abs}
+```bash cd-abs
 cd /home/scflocal/stat243-fall-2020/units 
 pwd
 ```
@@ -254,7 +255,7 @@ The filesystem is basically a upside-down tree.
 
 For example, if we just consider the `stat243-fall-2020/sections` directory, we can see the tree structure using `tree`:
 
-```{bash tree, eval=FALSE}
+```bash tree
 cd /home/scflocal/stat243-fall-2020/sections
 tree
 ```
@@ -287,7 +288,7 @@ The dot (`.`) means "this directory", so the top of the tree here is the `sectio
 If we consider the entire filesystem, the top, or root of the tree, is the `/` directory. Within `/` there are subdirectories, such as `/home` (which contains users' home directories where all of the files owned by a user are stored) and `/bin` (containing UNIX programs, aka 'binaries'). If there is a user named *scflocal*, everything specific to that user would be stored in `/home/scflocal`. The shortcut `~scflocal` refers to `/home/scflocal`. If you are the *scflocal* user, you can also refer to `/home/scflocal` by the shortcut `~`.
 
 
-```{bash, filesystem1}
+```bash, filesystem1
 ls /
 ```
 
@@ -296,11 +297,11 @@ accounts  bin   dev  home  lib32  libx32      media   mnt  proc  run   scratch  
 app       boot  etc  lib   lib64  lost+found  mirror  opt  root  sbin  server   srv   system  usr
 ```
 
-```{bash, filesystem2}
+```bash, filesystem2
 ls /home
 ```
 
-```{bash, filesystem3}
+```bash, filesystem3
 cd /home/scflocal
 pwd
 ```
@@ -312,7 +313,7 @@ scflocal  shiny
 Go to the home directory of the current user (which happens to be the `scflocal` user):
 
 
-```{bash, filesystem4}
+```bash, filesystem4
 cd ~
 pwd
 ```
@@ -323,7 +324,7 @@ pwd
 
 Go to the home directory of the scflocal user explicitly:
 
-```{bash, filesystem5}
+```bash, filesystem5
 cd ~scflocal
 pwd
 ```
@@ -334,7 +335,7 @@ pwd
 
 Another useful directory is `/tmp`, which is a good place to put temporary files that you only need briefly and don't need to save. These will disappear when a machine is rebooted. 
 
-```{bash, filesystem6}
+```bash, filesystem6
 cd /tmp
 ls
 ```
@@ -346,7 +347,7 @@ tmp.txt
 
 We can return to the most recent directory we were in like this:
 
-```{bash, filesystem7}
+```bash, filesystem7
 cd -
 pwd
 ```
@@ -361,7 +362,7 @@ pwd
 
 Let's look more at various ways to use commands. We just saw the `ls` command. Here's one way we can modify the behavior of the command by passing a command option. Here the `-F` option (also called a 'flag') shows directories by appending `/` to anything that is a directory (rather than a file) and a `*` to anything that is an executable (i.e., a program).
 
-```{bash, lsF}
+```bash, lsF
 cd stat243-fall-2020
 ls -F
 ```
@@ -373,7 +374,7 @@ data/  howtos/  project/  ps/  README.md  sections/  syllabus.lyx  syllabus.pdf 
 
 Next we'll use multiple options to the `ls` command. `-l` shows extended information about files/directories. `-t` shows files/directories in order of the time at which they were last modified and `-r` shows in reverse order. Before run `ls`, I'll create an empty file using the `touch` command. Given this, what file do you expect to be displayed last when you do the following?
 
-```{bash, lslrt}
+```bash, lslrt
 cd ../tutorial-unix-basics
 touch myfile
 ls -lrt
@@ -395,7 +396,7 @@ While each command has its own syntax, there are some rules usually
 followed. Generally, executing a command consists of four things: the command,
 command option(s), argument(s), and line acceptance, as in this example:
 
-```{bash, commands-ex, eval=FALSE}
+```bash, commands-ex
 wc -l example.txt
 ```
 
@@ -414,7 +415,7 @@ The spaces are required and distinguish the different parts of the invocation. F
 it's generally a bad idea to have spaces within file names. But if you do, you can
 use quotation marks to demark the file name, e.g.,
 
-```{bash, spaces}
+```bash, spaces
 ls -l "name of my file with spaces.txt"
 ```
 
@@ -430,7 +431,7 @@ Arguments are usually one or more files or directories.
 Often we can specify an option either in short form (as with `-l` here)
 or long form (`--lines` here), as seen in the following equivalent invocations:
 
-```{bash, options1}
+```bash, options1
 wc -l example.txt
 wc --lines example.txt
 ```
@@ -442,7 +443,7 @@ wc --lines example.txt
 We can also ask for the number of characters with the `-m` option, which can
 be combined with the `-l` option equivalently in two ways:
 
-```{bash, options2}
+```bash, options2
 wc -lm example.txt
 wc -l -m example.txt
 ```
@@ -455,7 +456,7 @@ wc -l -m example.txt
 Options will often take values, e.g., if we want to get the first two lines of the file,
 the following invocations are equivalent:
 
-```{bash, options3}
+```bash, options3
 head -n 2 example.txt
 head --lines=2 example.txt
 head --lines 2 example.txt
@@ -470,7 +471,7 @@ This is a file
 
 Anything that follows `#` is a comment and is ignored.
 
-```{bash, comments}
+```bash, comments
 # This is ignored
 ls  # Everything after the # is ignored
 ```
@@ -483,7 +484,7 @@ example.txt  myfile  README.md  stat243-fall-2020  tmp.txt  unix-basics.html  un
 
 Essentially all UNIX commands have  help information (called a man page), accessed using `man`.
 
-```{bash, man, eval=FALSE}
+```bash, man
 man ls
 ```
 
@@ -493,7 +494,7 @@ Unfortunately man pages are often quite long, hard to understand, and without ex
 
 Also, UNIX commands as well as other programs run from the command line often provide help information via the `--help` option:
 
-```{bash, help, eval=FALSE}
+```bash, help,
 ls --help
 ```
 
@@ -501,7 +502,7 @@ ls --help
 
 You can see if a command or program is installed (and where it is installed) using `which`.
 
-```{bash, which}
+```bash, which
 which grep
 which R
 which python
@@ -519,7 +520,7 @@ which python
 
 You'll often want to make a copy of a file, move it between directories, or remove it. When we move the file, the use of `/.` means to use the same name as the original file.
 
-```{bash, cp}
+```bash, cp
 cd ~/stat243-fall-2020/units
 cp unit8-bigData.py unit8-bigData-new.py
 mv unit8-bigData-new.py /tmp/.
@@ -533,7 +534,7 @@ total 12
 -rw-rw-r-- 1 scflocal scflocal 9914 Dec 28 13:36 unit8-bigData-new.py
 ```
 
-```{bash, rm}
+```bash, rm
 rm unit8-bigData-new.py
 ls -lrt
 ```
@@ -547,7 +548,7 @@ total 0
 
 
 The `mv` command is also used if you want to rename a file. 
-```{bash, mv}
+```bash, mv
 cd ~/stat243-fall-2020/units
 mv unit8-bigData.py unit8-bigData-processing.py
 ls
@@ -571,7 +572,7 @@ provision-github.json   unit12-integ.R                 unit3-bash-sol.sh    unit
 
 We can copy and remove entire directories. The `-p` flag preserves the time stamp and other information associated with the files/directories, while the `-r` option copies recursively, such that the directory and all its contents (all child files and directories) are also copied.
 
-```{bash, cp-all1}
+```bash, cp-all1
 cd ~/stat243-fall-2020
 cp -pr ps /tmp/.  # copy the ps directory into /tmp
 cd /tmp
@@ -599,14 +600,14 @@ total 4184
 -rw-rw-r-- 1 scflocal scflocal  153646 Dec 28 13:15 unit_test_examples.pdf
 ```
 
-```{bash, cp-all2}
+```bash, cp-all2
 rm -r /tmp/stat243/ps   # remove the ps directory and anything contained within it
 ls /tmp/stat243         # this should be empty now
 ```
 
 You can use a variant of `cp` to copy files between different UNIX-like machines. Suppose I have access to the machine *radagast.berkeley.edu* and that my user name on that machine is *scf1*. I can copy a file to that machine or from that machine as follows. 
 
-```{bash, scp, eval=FALSE}
+```bash, scp
 cd ~/stat243-fall-2020/units
 # copy the file to the Desktop subdirectory of the scf1 home directory on the remote machine:
 scp unit1-unix.sh scf1@radagast.berkeley.edu:~/Desktop/.
@@ -616,7 +617,7 @@ scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2020/data/.
 
 ### 5.2 File permissions
 
-```{bash, lsl}
+```bash, lsl
 cd ~/stat243-fall-2020
 ls -l  # this lists files in 'long' format
 ```
@@ -645,7 +646,7 @@ When using the `-l` flag to `ls`, you'll see extensive information about each fi
 
 Let's look in detail at the information in the first column returned by `ls -l`. 
 
-```{bash, perm-ex}
+```bash, perm-ex
 echo "first line" > tmp.txt  # create a text file we can play with that contains "first line"
 ls -l
 ```
@@ -680,7 +681,7 @@ Thus we specify one of 'u', 'g', or 'o', followed by a '+' to add permission or 
 
 As a simple example, let's prevent anyone from reading the `tmp.txt` file. We then try to print the contents of the file to the screen with the command `cat`, but we are denied.
 
-```{bash, chmod1}
+```bash, chmod1
 chmod u-r tmp.txt # prevent owner from reading
 chmod g-r tmp.txt # prevent users in the file's group from reading
 chmod o-r tmp.txt # prevent others from reading
@@ -689,7 +690,7 @@ ls -l tmp.txt
 ```
 --w--w---- 1 scflocal scflocal 11 Dec 28 13:39 tmp.txt
 ```
-```{bash, chmod1-cat}
+```bash, chmod1-cat
 cat tmp.txt
 ```
 ```
@@ -698,7 +699,7 @@ cat: tmp.txt: Permission denied
 
 That can actually be accomplished all at once, like this:
 
-```{bash, chmod2}
+```bash, chmod2
 chmod ugo-r tmp.txt # prevent all three
 ls -l tmp.txt
 ```
@@ -709,7 +710,7 @@ ls -l tmp.txt
 
 Or if we wanted to remove read and write permission:
 
-```{bash, chmod3}
+```bash, chmod3
 chmod ugo-rw tmp.txt # prevent all three
 # The next command would usually add a line to the file, but we don't have permission to write to it
 echo "added line" >> tmp.txt  
@@ -721,7 +722,7 @@ echo "added line" >> tmp.txt
 
 Now let's restore read and write permission to the owner:
 
-```{bash, chmod4}
+```bash, chmod4
 chmod u+rw tmp.txt
 echo "added line" >> tmp.txt
 cat tmp.txt
@@ -740,7 +741,7 @@ But the extension is just a convention -- changing the file name doesn't change 
 
 So if I create a simple text file as follows, we see that it's still just a simple text file even if I give it a name that would suggest it's a PDF.
 
-```{bash, ext}
+```bash, ext
 echo "hello" > hello.txt
 mv hello.txt hello.pdf
 cat hello.pdf
@@ -759,7 +760,7 @@ However, changing the extension may prevent a program from using the file simply
 
 The `zip` utility compresses in a format compatible with zip files for Windows:
 
-```{bash, zip, eval=FALSE}
+```bash, zip
 cd ~
 zip -r data.zip ~/stat243-fall-2020/data
 ```
@@ -774,7 +775,7 @@ zip -r data.zip ~/stat243-fall-2020/data
   adding: home/scflocal/stat243-fall-2020/data/precipData.txt (deflated 78%)
   adding: home/scflocal/stat243-fall-2020/data/coop.txt.gz (deflated 1%)
 ```
-```{bash, zip-ls}
+```bash, zip-ls
 ls -l data.zip
 ```
 ```
@@ -783,7 +784,7 @@ ls -l data.zip
 
 `gzip` is a standard UNIX compression utility to compress individual files:
 
-```{bash, gzip1}
+```bash, gzip1
 cd ~/stat243-fall-2020/data
 ls -l precip.txt
 ```
@@ -792,7 +793,7 @@ ls -l precip.txt
 -rw-rw-r-- 1 scflocal scflocal 2766472 Dec 28 13:15 precip.txt
 ```
 
-```{bash, gzip2}
+```bash, gzip2
 cd ~/stat243-fall-2020/data
 gzip precip.txt
 ls -l precip.txt.gz   # This is rather smaller than the uncompressed file.
@@ -805,7 +806,7 @@ ls -l precip.txt.gz   # This is rather smaller than the uncompressed file.
 
 Finally, the `tar` utility will combine multiple files and directories into a single archive. 
 
-```{bash, tar1}
+```bash, tar1
 cd
 tar -cvf data.tar stat243-fall-2020/data
 ```
@@ -821,7 +822,7 @@ stat243-fall-2020/data/precip.txt.gz
 stat243-fall-2020/data/coop.txt.gz
 ```
 
-```{bash, tar1-ls}
+```bash, tar1-ls
 ls -l data.tar
 ```
 
@@ -831,7 +832,7 @@ ls -l data.tar
 
 Adding the `-z` flag also gzips the result.
 
-```{bash, tar2}
+```bash, tar2
 tar -cvzf data.tgz stat243-fall-2020/data
 ```
 
@@ -846,7 +847,7 @@ stat243-fall-2020/data/precip.txt.gz
 stat243-fall-2020/data/coop.txt.gz
 ```
 
-```{bash, tar2-ls}
+```bash, tar2-ls
 ls -l data.tgz
 ```
 
@@ -856,7 +857,7 @@ ls -l data.tgz
 
 Now let's move that *tarball* (as it is called) to a new directory and unzip and expand it using the -x flag. 
 
-```{bash, tar3}
+```bash, tar3
 mv data.tgz /tmp
 cd /tmp
 tar -xvzf data.tgz
@@ -874,7 +875,7 @@ stat243-fall-2020/data/coop.txt.gz
 ```
 
 You can see the whole directory structure of what was archived has been recovered in the new location:
-```{bash, tar4}
+```bash, tar4
 ls -l /tmp/stat243-fall-2020/data
 ```
 
@@ -894,7 +895,7 @@ total 4064
 
 You can can see how much disk space is being used versus available as follows. The 'Mounted' column will generally identify the parts of the filesystem in a more user-friendly way than the 'Filesystem' column.
 
-```{bash, df1}
+```bash, df1
 df -h
 ```
 
@@ -916,7 +917,7 @@ In general, you'll want to look at the '/' line, and on standard UNIX machines p
 
 We can see usage in specific directories like this:
 
-```{bash, df2}
+```bash, df2
 cd ~/stat243-fall-2020/sections
 du -h
 ```
@@ -944,7 +945,7 @@ Here we see that the total usage is 4.7 MB, with, for example, 260 KB of that in
 
 If we only want a summary of usage for each top-level subdirectory, rather than showing all nested subdirectories:
 
-```{bash, df3}
+```bash, df3
 cd ~/stat243-fall-2020
 du -h -d 1
 ```
@@ -966,7 +967,7 @@ Linux machines (but not Macs) have system information provided in a few special 
 
 `/proc/cpuinfo` shows information on each processor. 
 
-```{bash, infofiles1}
+```bash, infofiles1
 head -n 30 /proc/cpuinfo
 ```
 
@@ -1009,7 +1010,7 @@ This indicates  there are at least two processors (numbered 0 and 1) [we'd need 
 
 This file has information on the memory available:
 
-```{bash, infofiles2}
+```bash, infofiles2
 head -n 10 /proc/meminfo
 ```
 
@@ -1028,7 +1029,7 @@ Inactive(anon):  1374888 kB
 
 The key line is the *MemTotal* line, indicating 163 GB of RAM.
 
-```{bash, infofiles3}
+```bash, infofiles3
 cat /etc/issue
 ```
 
@@ -1040,7 +1041,7 @@ We're running Ubuntu version 20.04.
 
 We can also use commands to get information:
 
-```{bash}
+```bash
 nproc  # how many processors?
 ```
 
@@ -1075,7 +1076,7 @@ You can navigate within a line using the usual arrows but also:
 Often (particularly as you learn more sophisticated shell functionality) you will want to save your shell syntax in the form of a code file, called a script, that you could run another time.
 
 For example, suppose you often need to do the following series of steps:
-```{bash, script, eval=FALSE}
+```bash, script 
 cd 
 tar -cvzf stat243.tgz stat243-fall-2020
 mv stat243.tgz /tmp
@@ -1088,7 +1089,7 @@ You can put those lines into a file, say, mvStat243.sh, which will generally end
 
 Then we can run the code in the file as follows. (Results not shown here.)
 
-```{bash, run-script, eval=FALSE}
+```bash, run-script 
 chmod ugo+x mvStat243.sh  # make the script executable by everyone
 ./mvStat243.sh  # run it
 ```
@@ -1112,7 +1113,7 @@ The inital './' is needed because UNIX is not expecting there to be an executabl
 7) Where is *grep* installed on the system? What are some other programs/executables that are installed in the same directory?
 
 
-```{bash, cleanup, echo=FALSE, eval=FALSE}
+```bash, cleanup
 if [ -f ~/stat243-fall-2020/data/precip.txt.gz ]; then gunzip ~/stat243-fall-2020/data/precip.txt.gz 
 fi
 if [ -f ~/data.tar ]; then rm -rf ~/data.tar
