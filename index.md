@@ -622,20 +622,22 @@ You can use a variant of `cp` named `scp` to copy files between different UNIX-l
 ```bash
 $ cd ~/stat243-fall-2020/units
 
-$ # From the machine you're on to another machine
+$ # FROM the machine you're on TO another machine
 $ # Copy the file to the Desktop subdirectory of the scf1 home directory on the remote machine
 $ scp unit1-unix.sh scf1@radagast.berkeley.edu:~/Desktop/.
 
-$ # From another machine to the machine you're on
+$ # FROM another machine TO the machine you're on
 $ # Copy a file from the /tmp directory of the remote machine to a specific directory on this machine
 $ scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2020/data/.
 ```
 
 ## 5.2 File permissions
 
+UNIX allows you to control who has access to a given file (or directory) and how the user can interact with the file (or directory). We can see what permissions are set using the `-l` flag to `ls`.
+
 ```bash
 $ cd ~/stat243-fall-2020
-$ ls -l  # this lists files in 'long' format
+$ ls -l  
 ```
 
 ```
@@ -685,7 +687,7 @@ The first column actually contains 10 individual single-character columns. Items
 
 Following that first character are three triplets of file permission information. Each triplet contains read ('r'), write ('w') and execute ('x') information. The first `rwx` triplet (the second through fourth characters) indicates if the owner of the file can read, write, and execute a file (or directory). The second `rwx` triplet (the fifth through seventh characters) indicates if anyone in the group that the file belongs to can read, write and execute a file (or directory). The third triplet (the eighth through tenth characters) pertains to any other user. Dashes mean that a given user does not have that kind of access to the given file.
 
-For example, for the *syllabus.pdf* file, the owner of the file can read it and can modify the file by writing to it (the first triplet is 'rw-'), as can users in the group the file belongs to. But for all other users, they can only read it (the third triplet is 'r--').
+For example, for the *syllabus.pdf* file, the owner of the file can read it and can modify the file by writing to it (the first triplet is 'rw-'), as can users in the group the file belongs to. But for other users, they can only read it (the third triplet is 'r--').
 
 We can change the permissions by indicating the type of user and the kind of access we want to add or remove. The type of user is one of:
 
@@ -696,6 +698,16 @@ We can change the permissions by indicating the type of user and the kind of acc
 Thus we specify one of 'u', 'g', or 'o', followed by a '+' to add permission or a '-' to remove permission and finally by the kind of permission: 'r' for read access, 'w' for write access, and 'x' for execution access. 
 
 As a simple example, let's prevent anyone from reading the `tmp.txt` file. We then try to print the contents of the file to the screen with the command `cat`, but we are denied.
+
+First recall the current permissions:
+
+```bash
+$ ls -l tmp.txt
+```
+```
+-rw-rw-r--  1 scflocal scflocal    11 Dec 28 13:39 tmp.txt
+```
+Now we remove the read permissions:
 
 ```bash
 $ chmod u-r tmp.txt # prevent owner from reading
@@ -728,7 +740,8 @@ Or if we wanted to remove read and write permission:
 
 ```bash
 $ chmod ugo-rw tmp.txt # prevent all three
-$ # The next command would usually add a line to the file, but we don't have permission to write to it
+$ # The next command would usually add a line to the file, 
+$ # but we don't have permission to write to it
 $ echo "added line" >> tmp.txt  
 ```
 
@@ -753,18 +766,20 @@ added line
 
 The format a file is in is deterined by the actual content of the file. In many cases, files have extensions such as `.csv` (for comma-separated text files), `.pdf` for PDFs, `.jpg` for JPEG files. The extension is a convention that helps us and programs distinguish different kinds of files and therefore know how to manipulate/interpret the files.
 
-But the extension is just a convention -- changing the file name doesn't change the file format.
+**But the extension is just a convention -- changing the file name doesn't change the file format!**
 
-So if I create a simple text file as follows, we see that it's still just a simple text file even if I give it a name that would suggest it's a PDF.
+So if make a copy of the `example.txt` file but name it `example.pdf`, we see that it's still just a simple text file even if I give it a name that would suggest it's a PDF.
 
 ```bash
-$ echo "hello" > hello.txt
-$ mv hello.txt hello.pdf
-$ cat hello.pdf
+$ cp example.txt example.pdf
+$ cat example.pdf
 ```
 
 ```
-hello
+Hello there.
+This is a file
+that contains
+4 lines.
 ```
 
 
@@ -909,7 +924,7 @@ total 4064
 
 ## 6.2 Disk usage
 
-You can can see how much disk space is being used versus available as follows. The 'Mounted' column will generally identify the parts of the filesystem in a more user-friendly way than the 'Filesystem' column.
+You can can see how much disk space is being used versus available as follows. The 'Mounted on' column will generally identify the parts of the filesystem in a more user-friendly way than the 'Filesystem' column.
 
 ```bash
 $ df -h
@@ -1116,7 +1131,7 @@ The inital './' is needed because UNIX is not expecting there to be an executabl
 
 1) Try to run the following command `mkdir ~/projects/drought`. It will fail. Look in the help information on `mkdir` to figure out how to make it work without first creating the *projects* directory.
 
-2) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space. Modify this command to get the ascending order.
+2) Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space. Modify this command to get the result in the ascending order.
 
 3) Change the permissions on the file `stat243-fall-2020/units/unit2-bash.sh` to be readable by the user and the group, writeable by the user, and executable by all users.
 
@@ -1126,6 +1141,6 @@ The inital './' is needed because UNIX is not expecting there to be an executabl
 
 6) The `ls` command is itself an executable installed on the system. Where is it located?
 
-7) Where is *grep* installed on the system? What are some other programs/executables that are installed in the same directory?
+7) Where is `gzip` installed on the system? What are some other commands/executables that are installed in the same directory?
 
 
