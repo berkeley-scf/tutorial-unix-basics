@@ -123,8 +123,8 @@ Resolving deltas: 100% (520/520), done.
 Now suppose that whoever controls the repository makes some changes to the materials in the repository and you want an updated copy of the repository on your computer. Simply `cd` (for "change directory") into any directory in the repository and run `git pull`.
 
 ```bash
-cd stat243-fall-2020
-git pull
+$ cd stat243-fall-2020
+$ git pull
 ```
 
 ```
@@ -187,9 +187,9 @@ pwd
 We could also navigate through nested subdirectories. For example, after going back to our home directory, let's go to the `units` subdirectory of the `stat243-fall-2020` subdirectory. The `/` is a separate character that distinguishes the nested subdirectories.
 
 ```bash
-cd
-cd stat243-fall-2020/units
-pwd
+$ cd
+$ cd stat243-fall-2020/units
+$ pwd
 ```
 
 ```
