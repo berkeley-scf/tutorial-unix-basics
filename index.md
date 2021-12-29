@@ -18,13 +18,7 @@ Software Carpentry has a very nice introductory lesson on the [basics of the she
 This tutorial by Christopher Paciorek is licensed under a Creative Commons Attribution 3.0 Unported License.
 
 <!--
-#pandoc --number-sections spark.md -o spark.html
-#Rscript -e "library(knitr); knit('spark.Rmd')"
-#pandoc --mathjax --number-sections spark.md -o spark.html
--->
-
-<!--
-Build this under the scflocal account on gandalf
+Determine output under the scflocal account on gandalf
 -->
 
 ## 1.2 The shell
@@ -51,6 +45,34 @@ Note that you probably shouldn't use `Git Bash` as its functionality is limited.
 
 Once you're in a Terminal window, you'll be interacting with the shell and you can enter commands to get information and work with the system. Commands often have optional arguments (flags) that are specified with a minus in front of them, as we'll see. 
 
+## 1.4 Getting started
+
+Once we are in a terminal, we'll see the "prompt", which indicates that the shell is waiting for us to enter commands. Sometimes the prompt is just `$`:
+
+```
+$
+```
+
+but often it contains information about the username of the current user and the directory on the filesystem that we are in, e.g., showing that the current user is 'scflocal', on the machine named 'gandalf' in the 'stat243-fall-2020' (sub)directory in the user's home directory (indicated by `~`).
+
+```
+scflocal@gandalf:~/stat243-fall-2020>
+```
+
+In the remainder of this tutorial, we'll show the default `$` prompt in front of commands to distinguish between commands and output that gets printed to the screen. If you're copying and pasting, you'll need to omit the `$`.
+
+Note that if you see `>` instead of the usual prompt, that means the shell thinks you haven't finished entering your command and is expecting more input from you. If you're not sure what to do, type <Ctrl-c> (the control key and 'c' at the same time) to get back to the usual prompt.
+
+Let's start by running a command, `whoami`, that prints out the username of the current user:
+```bash
+$ whoami
+```
+
+```
+scflocal
+```
+
+
 # 2 Using `git` for version control
 
 We'll discuss `git` briefly, both because it is an important and useful tool, and because it's the easiest way for us to get a set of files to work with in this tutorial. 
@@ -66,8 +88,8 @@ To *clone* (i.e., copy) a repository (in this case from GitHub) we do the follow
 Here we'll first use the `cd` command to go to our home directory and then use `git clone` to download materials to a subdirectory (which will be called `tutorial-unix-basics`) within our home directory. 
 
 ```bash
-cd
-git clone https://github.com/berkeley-scf/tutorial-unix-basics
+$ cd
+$ git clone https://github.com/berkeley-scf/tutorial-unix-basics
 ```
 
 ```
@@ -85,7 +107,7 @@ When you run `git clone` you'll see some text indicating the progress of the clo
 Next let's clone a more extensive repository - we'll get the materials for my Statistics 243 class at UC Berkeley from Fall 2020. 
 
 ```
-git clone https://github.com/berkeley-stat243/stat243-fall-2020
+$ git clone https://github.com/berkeley-stat243/stat243-fall-2020
 ```
 
 ```
@@ -115,33 +137,7 @@ We'll discuss how to use `cd` in more detail in the next section.
 
 # 3 Files and directories
 
-## 3.1 Getting started
-
-Once we are in a terminal, we'll see the "prompt", which indicates that the shell is waiting for us to enter commands. Sometimes the prompt is just `$`:
-
-```
-$
-```
-
-but often it contains information about the username of the current user and the directory on the filesystem that we are in, e.g., showing that the current user is 'scflocal', on the machine named 'gandalf' in the 'stat243-fall-2020' (sub)directory in the user's home directory (indicated by `~`).
-
-```
-scflocal@gandalf:~/stat243-fall-2020>
-```
-
-In the remainder of this tutorial, we won't show the prompt, but you'll always see it when you are in the shell. Note that if you see `>` instead of the usual prompt, that means the shell thinks you haven't finished entering your command and is expecting more input from you. If you're not sure what to do, type <Ctrl-c> (the control key and 'c' at the same time) to get back to the usual prompt.
-
-Let's start by running a command, `whoami`, that prints out the username of the current user:
-```bash
-whoami
-```
-
-```
-scflocal
-```
-
-
-## 3.2 Moving around and listing information
+## 3.1 Moving around and listing information
 
 We'll start by thinking about the filesystem, which organizes our information/data into files on the computer's disk.
 
@@ -249,7 +245,7 @@ pwd
 
 Note that using absolute paths in scripts is generally a bad idea because the script wouldn't generally work correctly if run on a different machine (which will generally have a different filesystem structure).
 
-## 3.3 The filesystem
+## 3.2 The filesystem
 
 The filesystem is basically a upside-down tree.
 
