@@ -146,12 +146,17 @@ Anytime you are at the UNIX command line, you have a *working directory*, which 
 Here's how you can see where you are using the "print working directory" command:
 
 ```bash
-pwd
+$ pwd
 ```
+
+```
+/home/scflocal/stat243-fall-2020
+```
+
 and here's how you list the files in the working directory...
 
 ```bash
-ls
+$ ls
 ```
 
 ```
@@ -165,8 +170,8 @@ The command you need is `cd` and an important concept you need to become familia
 First let's go to our home directory, which is generally where our files will be. Simply running `cd` will do that.
 
 ```bash
-cd  
-pwd
+$ cd
+$ pwd
 ```
 
 ```
@@ -176,8 +181,8 @@ pwd
 Now let's go into a subdirectory. We can use `cd` with the name of the subdirectory. The subdirectory is found 'relative' to our working directory, i.e., found from where we currently are.
 
 ```bash
-cd stat243-fall-2020 
-pwd
+$ cd stat243-fall-2020 
+$ pwd
 ```
 
 ```
@@ -199,8 +204,8 @@ $ pwd
 You can access the parent directory of any directory using `..`:
 
 ```bash
-cd ..  
-pwd
+$ cd ..
+$ pwd
 ```
 
 ```
@@ -210,9 +215,9 @@ pwd
 We can combine `..` with use of relative paths. Here we'll go up a directory and the down to a different subdirectory.
 
 ```bash
-cd units
-cd ../data 
-pwd
+$ cd units
+$ cd ../data 
+$ pwd
 ```
 
 ```
@@ -222,8 +227,8 @@ pwd
 And here we'll go up two directories and then down to another subdirectory.
 
 ```bash
-cd ../../tutorial-unix-basics  # go up two directories and down
-pwd
+$ cd ../../tutorial-unix-basics  # go up two directories and down
+$ pwd
 ```
 
 ```
@@ -235,8 +240,8 @@ All of the above examples used relative paths to navigate based on your working 
 We can instead use absolute paths so that it doesn't matter where we are when we run the command. Specifying an absolute path is done by having your path start with `/`, such as `/home/scflocal`. If the path doesn't start with `/` then it is interpreted as being a relative path, relative to your working directory. Here we'll go to the `units` subdirectory but using an absolute path. 
 
 ```bash
-cd /home/scflocal/stat243-fall-2020/units 
-pwd
+$ cd /home/scflocal/stat243-fall-2020/units 
+$ pwd
 ```
 
 ```
@@ -252,8 +257,8 @@ The filesystem is basically a upside-down tree.
 For example, if we just consider the `stat243-fall-2020/sections` directory, we can see the tree structure using `tree`:
 
 ```bash
-cd /home/scflocal/stat243-fall-2020/sections
-tree
+$ cd /home/scflocal/stat243-fall-2020/sections
+$ tree
 ```
 
 Often (as is the case here), that would print out a lot of files and directories, so I'll just print out the first few lines of the result here:
@@ -285,7 +290,7 @@ If we consider the entire filesystem, the top, or root of the tree, is the `/` d
 
 
 ```bash
-ls /
+$ ls /
 ```
 
 ```
@@ -294,12 +299,12 @@ app       boot  etc  lib   lib64  lost+found  mirror  opt  root  sbin  server   
 ```
 
 ```bash
-ls /home
+$ ls /home
 ```
 
 ```bash
-cd /home/scflocal
-pwd
+$ cd /home/scflocal
+$ pwd
 ```
 
 ```
@@ -310,8 +315,8 @@ Go to the home directory of the current user (which happens to be the `scflocal`
 
 
 ```bash
-cd ~
-pwd
+$ cd ~
+$ pwd
 ```
 
 ```
@@ -321,8 +326,8 @@ pwd
 Go to the home directory of the scflocal user explicitly:
 
 ```bash
-cd ~scflocal
-pwd
+$ cd ~scflocal
+$ pwd
 ```
 
 ```
@@ -332,8 +337,8 @@ pwd
 Another useful directory is `/tmp`, which is a good place to put temporary files that you only need briefly and don't need to save. These will disappear when a machine is rebooted. 
 
 ```bash
-cd /tmp
-ls
+$ cd /tmp
+$ ls
 ```
 
 ```
@@ -344,8 +349,8 @@ tmp.txt
 We can return to the most recent directory we were in like this:
 
 ```bash
-cd -
-pwd
+$ cd -
+$ pwd
 ```
 
 ```
@@ -359,8 +364,8 @@ pwd
 Let's look more at various ways to use commands. We just saw the `ls` command. Here's one way we can modify the behavior of the command by passing a command option. Here the `-F` option (also called a 'flag') shows directories by appending `/` to anything that is a directory (rather than a file) and a `*` to anything that is an executable (i.e., a program).
 
 ```bash
-cd stat243-fall-2020
-ls -F
+$ cd stat243-fall-2020
+$ ls -F
 ```
 
 ```
@@ -371,9 +376,9 @@ data/  howtos/  project/  ps/  README.md  sections/  syllabus.lyx  syllabus.pdf 
 Next we'll use multiple options to the `ls` command. `-l` shows extended information about files/directories. `-t` shows files/directories in order of the time at which they were last modified and `-r` shows in reverse order. Before run `ls`, I'll create an empty file using the `touch` command. Given this, what file do you expect to be displayed last when you do the following?
 
 ```bash
-cd ../tutorial-unix-basics
-touch myfile
-ls -lrt
+$ cd ../tutorial-unix-basics
+$ touch myfile
+$ ls -lrt
 ```
 
 ```
@@ -393,7 +398,7 @@ followed. Generally, executing a command consists of four things: the command,
 command option(s), argument(s), and line acceptance, as in this example:
 
 ```bash
-wc -l example.txt
+$ wc -l example.txt
 ```
 
 ```
@@ -412,7 +417,7 @@ it's generally a bad idea to have spaces within file names. But if you do, you c
 use quotation marks to demark the file name, e.g.,
 
 ```bash
-ls -l "name of my file with spaces.txt"
+$ ls -l "name of my file with spaces.txt"
 ```
 
 Also, capitalization matters. For example `-l` and `-L` are different options.
@@ -428,8 +433,8 @@ Often we can specify an option either in short form (as with `-l` here)
 or long form (`--lines` here), as seen in the following equivalent invocations:
 
 ```bash
-wc -l example.txt
-wc --lines example.txt
+$ wc -l example.txt
+$ wc --lines example.txt
 ```
 ```
 4 example.txt
@@ -440,8 +445,8 @@ We can also ask for the number of characters with the `-m` option, which can
 be combined with the `-l` option equivalently in two ways:
 
 ```bash
-wc -lm example.txt
-wc -l -m example.txt
+$ wc -lm example.txt
+$ wc -l -m example.txt
 ```
 
 ```
@@ -453,9 +458,9 @@ Options will often take values, e.g., if we want to get the first two lines of t
 the following invocations are equivalent:
 
 ```bash
-head -n 2 example.txt
-head --lines=2 example.txt
-head --lines 2 example.txt
+$ head -n 2 example.txt
+$ head --lines=2 example.txt
+$ head --lines 2 example.txt
 ```
 
 ```
@@ -468,8 +473,8 @@ This is a file
 Anything that follows `#` is a comment and is ignored.
 
 ```bash
-# This is ignored
-ls  # Everything after the # is ignored
+$ # This is ignored
+$ ls  # Everything after the # is ignored
 ```
 ```
 example.txt  myfile  README.md  stat243-fall-2020  tmp.txt  unix-basics.html  unix-basics.md  unix-basics.Rmd
@@ -481,7 +486,7 @@ example.txt  myfile  README.md  stat243-fall-2020  tmp.txt  unix-basics.html  un
 Essentially all UNIX commands have  help information (called a man page), accessed using `man`.
 
 ```bash
-man ls
+$ man ls
 ```
 
 Once you are in the man page, you can navigate by hitting the space bar (to scroll down) and the up and down arrows. You can search by typing `/`, typing the string you want to search for and hitting return. You can use `n` and `p` for the next and previous search hits and `q` to quit out of the search.
@@ -491,7 +496,7 @@ Unfortunately man pages are often quite long, hard to understand, and without ex
 Also, UNIX commands as well as other programs run from the command line often provide help information via the `--help` option:
 
 ```bash
-ls --help
+$ ls --help
 ```
 
 ## 4.5 Seeing if a command or program is available
@@ -499,9 +504,9 @@ ls --help
 You can see if a command or program is installed (and where it is installed) using `which`.
 
 ```bash
-which grep
-which R
-which python
+$ which grep
+$ which R
+$ which python
 ```
 
 ```
@@ -517,11 +522,11 @@ which python
 You'll often want to make a copy of a file, move it between directories, or remove it. When we move the file, the use of `/.` means to use the same name as the original file.
 
 ```bash
-cd ~/stat243-fall-2020/units
-cp unit8-bigData.py unit8-bigData-new.py
-mv unit8-bigData-new.py /tmp/.
-cd /tmp
-ls -lrt
+$ cd ~/stat243-fall-2020/units
+$ cp unit8-bigData.py unit8-bigData-new.py
+$ mv unit8-bigData-new.py /tmp/.
+$ cd /tmp
+$ ls -lrt
 ```
 
 ```
@@ -531,8 +536,8 @@ total 12
 ```
 
 ```bash
-rm unit8-bigData-new.py
-ls -lrt
+$ rm unit8-bigData-new.py
+$ ls -lrt
 ```
 
 ```
@@ -545,9 +550,9 @@ total 0
 
 The `mv` command is also used if you want to rename a file. 
 ```bash
-cd ~/stat243-fall-2020/units
-mv unit8-bigData.py unit8-bigData-processing.py
-ls
+$ cd ~/stat243-fall-2020/units
+$ mv unit8-bigData.py unit8-bigData-processing.py
+$ ls
 ```
 
 ```
@@ -569,12 +574,12 @@ provision-github.json   unit12-integ.R                 unit3-bash-sol.sh    unit
 We can copy and remove entire directories. The `-p` flag preserves the time stamp and other information associated with the files/directories, while the `-r` option copies recursively, such that the directory and all its contents (all child files and directories) are also copied.
 
 ```bash
-cd ~/stat243-fall-2020
-cp -pr ps /tmp/.  # copy the ps directory into /tmp
-cd /tmp
-mkdir stat243
-mv ps stat243     # move the ps directory into the stat243 directory
-ls -l stat243/ps
+$ cd ~/stat243-fall-2020
+$ cp -pr ps /tmp/.  # copy the ps directory into /tmp
+$ cd /tmp
+$ mkdir stat243
+$ mv ps stat243     # move the ps directory into the stat243 directory
+$ ls -l stat243/ps
 ```
 
 ```
@@ -597,25 +602,25 @@ total 4184
 ```
 
 ```bash
-rm -r /tmp/stat243/ps   # remove the ps directory and anything contained within it
-ls /tmp/stat243         # this should be empty now
+$ rm -r /tmp/stat243/ps   # remove the ps directory and anything contained within it
+$ ls /tmp/stat243         # this should be empty now
 ```
 
 You can use a variant of `cp` to copy files between different UNIX-like machines. Suppose I have access to the machine *radagast.berkeley.edu* and that my user name on that machine is *scf1*. I can copy a file to that machine or from that machine as follows. 
 
 ```bash
-cd ~/stat243-fall-2020/units
-# copy the file to the Desktop subdirectory of the scf1 home directory on the remote machine:
-scp unit1-unix.sh scf1@radagast.berkeley.edu:~/Desktop/.
-# copy a file from the /tmp directory of the remote machine to a specific directory on this machine
-scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2020/data/.
+$ cd ~/stat243-fall-2020/units
+$ # copy the file to the Desktop subdirectory of the scf1 home directory on the remote machine:
+$ scp unit1-unix.sh scf1@radagast.berkeley.edu:~/Desktop/.
+$ # copy a file from the /tmp directory of the remote machine to a specific directory on this machine
+$ scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2020/data/.
 ```
 
 ## 5.2 File permissions
 
 ```bash
-cd ~/stat243-fall-2020
-ls -l  # this lists files in 'long' format
+$ cd ~/stat243-fall-2020
+$ ls -l  # this lists files in 'long' format
 ```
 
 ```
@@ -643,8 +648,8 @@ When using the `-l` flag to `ls`, you'll see extensive information about each fi
 Let's look in detail at the information in the first column returned by `ls -l`. 
 
 ```bash
-echo "first line" > tmp.txt  # create a text file we can play with that contains "first line"
-ls -l
+$ echo "first line" > tmp.txt  # create a text file we can play with that contains "first line"
+$ ls -l
 ```
 
 ```
@@ -678,16 +683,16 @@ Thus we specify one of 'u', 'g', or 'o', followed by a '+' to add permission or 
 As a simple example, let's prevent anyone from reading the `tmp.txt` file. We then try to print the contents of the file to the screen with the command `cat`, but we are denied.
 
 ```bash
-chmod u-r tmp.txt # prevent owner from reading
-chmod g-r tmp.txt # prevent users in the file's group from reading
-chmod o-r tmp.txt # prevent others from reading
-ls -l tmp.txt
+$ chmod u-r tmp.txt # prevent owner from reading
+$ chmod g-r tmp.txt # prevent users in the file's group from reading
+$ chmod o-r tmp.txt # prevent others from reading
+$ ls -l tmp.txt
 ```
 ```
 --w--w---- 1 scflocal scflocal 11 Dec 28 13:39 tmp.txt
 ```
 ```bash
-cat tmp.txt
+$ cat tmp.txt
 ```
 ```
 cat: tmp.txt: Permission denied
@@ -696,8 +701,8 @@ cat: tmp.txt: Permission denied
 That can actually be accomplished all at once, like this:
 
 ```bash
-chmod ugo-r tmp.txt # prevent all three
-ls -l tmp.txt
+$ chmod ugo-r tmp.txt # prevent all three
+$ ls -l tmp.txt
 ```
 ```
 --w--w---- 1 scflocal scflocal 11 Dec 28 13:39 tmp.txt
@@ -707,9 +712,9 @@ ls -l tmp.txt
 Or if we wanted to remove read and write permission:
 
 ```bash
-chmod ugo-rw tmp.txt # prevent all three
-# The next command would usually add a line to the file, but we don't have permission to write to it
-echo "added line" >> tmp.txt  
+$ chmod ugo-rw tmp.txt # prevent all three
+$ # The next command would usually add a line to the file, but we don't have permission to write to it
+$ echo "added line" >> tmp.txt  
 ```
 
 ```
@@ -719,9 +724,9 @@ echo "added line" >> tmp.txt
 Now let's restore read and write permission to the owner:
 
 ```bash
-chmod u+rw tmp.txt
-echo "added line" >> tmp.txt
-cat tmp.txt
+$ chmod u+rw tmp.txt
+$ echo "added line" >> tmp.txt
+$ cat tmp.txt
 ```
 
 ```
@@ -738,9 +743,9 @@ But the extension is just a convention -- changing the file name doesn't change 
 So if I create a simple text file as follows, we see that it's still just a simple text file even if I give it a name that would suggest it's a PDF.
 
 ```bash
-echo "hello" > hello.txt
-mv hello.txt hello.pdf
-cat hello.pdf
+$ echo "hello" > hello.txt
+$ mv hello.txt hello.pdf
+$ cat hello.pdf
 ```
 
 ```
@@ -757,8 +762,8 @@ However, changing the extension may prevent a program from using the file simply
 The `zip` utility compresses in a format compatible with zip files for Windows:
 
 ```bash
-cd ~
-zip -r data.zip ~/stat243-fall-2020/data
+$ cd ~
+$ zip -r data.zip ~/stat243-fall-2020/data
 ```
 
 ```
@@ -772,7 +777,7 @@ zip -r data.zip ~/stat243-fall-2020/data
   adding: home/scflocal/stat243-fall-2020/data/coop.txt.gz (deflated 1%)
 ```
 ```bash
-ls -l data.zip
+$ ls -l data.zip
 ```
 ```
 -rw-rw-r-- 1 scflocal scflocal 2873870 Dec 28 13:52 data.zip
@@ -781,8 +786,8 @@ ls -l data.zip
 `gzip` is a standard UNIX compression utility to compress individual files:
 
 ```bash
-cd ~/stat243-fall-2020/data
-ls -l precip.txt
+$ cd ~/stat243-fall-2020/data
+$ ls -l precip.txt
 ```
 
 ```
@@ -790,9 +795,9 @@ ls -l precip.txt
 ```
 
 ```bash
-cd ~/stat243-fall-2020/data
-gzip precip.txt
-ls -l precip.txt.gz   # This is rather smaller than the uncompressed file.
+$ cd ~/stat243-fall-2020/data
+$ gzip precip.txt
+$ ls -l precip.txt.gz   # This is rather smaller than the uncompressed file.
 ```
 
 ```
@@ -803,8 +808,8 @@ ls -l precip.txt.gz   # This is rather smaller than the uncompressed file.
 Finally, the `tar` utility will combine multiple files and directories into a single archive. 
 
 ```bash
-cd
-tar -cvf data.tar stat243-fall-2020/data
+$ cd
+$ tar -cvf data.tar stat243-fall-2020/data
 ```
 
 ```
@@ -819,7 +824,7 @@ stat243-fall-2020/data/coop.txt.gz
 ```
 
 ```bash
-ls -l data.tar
+$ ls -l data.tar
 ```
 
 ```
@@ -829,7 +834,7 @@ ls -l data.tar
 Adding the `-z` flag also gzips the result.
 
 ```bash
-tar -cvzf data.tgz stat243-fall-2020/data
+$ tar -cvzf data.tgz stat243-fall-2020/data
 ```
 
 ```
@@ -844,7 +849,7 @@ stat243-fall-2020/data/coop.txt.gz
 ```
 
 ```bash
-ls -l data.tgz
+$ ls -l data.tgz
 ```
 
 ```
@@ -854,9 +859,9 @@ ls -l data.tgz
 Now let's move that *tarball* (as it is called) to a new directory and unzip and expand it using the -x flag. 
 
 ```bash
-mv data.tgz /tmp
-cd /tmp
-tar -xvzf data.tgz
+$ mv data.tgz /tmp
+$ cd /tmp
+$ tar -xvzf data.tgz
 ```
 
 ```
@@ -872,7 +877,7 @@ stat243-fall-2020/data/coop.txt.gz
 
 You can see the whole directory structure of what was archived has been recovered in the new location:
 ```bash
-ls -l /tmp/stat243-fall-2020/data
+$ ls -l /tmp/stat243-fall-2020/data
 ```
 
 ```
@@ -892,7 +897,7 @@ total 4064
 You can can see how much disk space is being used versus available as follows. The 'Mounted' column will generally identify the parts of the filesystem in a more user-friendly way than the 'Filesystem' column.
 
 ```bash
-df -h
+$ df -h
 ```
 
 ```
@@ -914,8 +919,8 @@ In general, you'll want to look at the '/' line, and on standard UNIX machines p
 We can see usage in specific directories like this:
 
 ```bash
-cd ~/stat243-fall-2020/sections
-du -h
+$ cd ~/stat243-fall-2020/sections
+$ du -h
 ```
 
 ```
@@ -942,8 +947,8 @@ Here we see that the total usage is 4.7 MB, with, for example, 260 KB of that in
 If we only want a summary of usage for each top-level subdirectory, rather than showing all nested subdirectories:
 
 ```bash
-cd ~/stat243-fall-2020
-du -h -d 1
+$ cd ~/stat243-fall-2020
+$ du -h -d 1
 ```
 
 ```
@@ -964,7 +969,7 @@ Linux machines (but not Macs) have system information provided in a few special 
 `/proc/cpuinfo` shows information on each processor. 
 
 ```bash
-head -n 30 /proc/cpuinfo
+$ head -n 30 /proc/cpuinfo
 ```
 
 ```
@@ -1007,7 +1012,7 @@ This indicates  there are at least two processors (numbered 0 and 1) [we'd need 
 This file has information on the memory available:
 
 ```bash
-head -n 10 /proc/meminfo
+$ head -n 10 /proc/meminfo
 ```
 
 ```
@@ -1026,7 +1031,7 @@ Inactive(anon):  1374888 kB
 The key line is the *MemTotal* line, indicating 163 GB of RAM.
 
 ```bash
-cat /etc/issue
+$ cat /etc/issue
 ```
 
 ```
@@ -1038,7 +1043,7 @@ We're running Ubuntu version 20.04.
 We can also use commands to get information:
 
 ```bash
-nproc  # how many processors?
+$ nproc  # how many processors?
 ```
 
 ```
@@ -1073,21 +1078,21 @@ Often (particularly as you learn more sophisticated shell functionality) you wil
 
 For example, suppose you often need to do the following series of steps:
 ```bash
-cd 
-tar -cvzf stat243.tgz stat243-fall-2020
-mv stat243.tgz /tmp
-cd /tmp
-tar -xvzf stat243.tgz
-rm -rf data
+$ cd 
+$ tar -cvzf stat243.tgz stat243-fall-2020
+$ mv stat243.tgz /tmp
+$ cd /tmp
+$ tar -xvzf stat243.tgz
+$ rm -rf data
 ```
 
-You can put those lines into a file, say, mvStat243.sh, which will generally end in .sh.
+You can put those lines into a file, say, `mvStat243.sh`, which will generally end in .sh.
 
 Then we can run the code in the file as follows. (Results not shown here.)
 
 ```bash
-chmod ugo+x mvStat243.sh  # make the script executable by everyone
-./mvStat243.sh  # run it
+$ chmod ugo+x mvStat243.sh  # make the script executable by everyone
+$ ./mvStat243.sh  # run it
 ```
 
 The inital './' is needed because UNIX is not expecting there to be an executable file in this particular directory. 
@@ -1109,17 +1114,3 @@ The inital './' is needed because UNIX is not expecting there to be an executabl
 7) Where is *grep* installed on the system? What are some other programs/executables that are installed in the same directory?
 
 
-```bash
-if [ -f ~/stat243-fall-2020/data/precip.txt.gz ]; then gunzip ~/stat243-fall-2020/data/precip.txt.gz 
-fi
-if [ -f ~/data.tar ]; then rm -rf ~/data.tar
-fi
-if [ -f ~/data.tgz ]; then rm -rf ~/data.tgz
-fi
-if [ -d /tmp/stat243 ]; then rm -rf /tmp/stat243 
-fi
-if [ -d /tmp/units ]; then rm -rf /tmp/units 
-fi
-if [ -f ~/stat243-fall-2020/units/unit8-bigData-processing.py ]; then mv -f ~/stat243-fall-2020/units/unit8-bigData-processing.py ~/stat243-fall-2020/units/unit8-bigData.py
-fi
-```
