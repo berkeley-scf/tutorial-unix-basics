@@ -4,3 +4,4 @@ plugins:
 title: UNIX basics tutorial
 description: Introductory training materials for working on the UNIX command line.
 show_downloads: false
+logo: logo.svg
