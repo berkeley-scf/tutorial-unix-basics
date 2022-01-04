@@ -16,7 +16,8 @@
     <div class="wrapper">
       <header>
         {% if site.logo %}
-          <img src="{{site.logo | relative_url}}" height=20 alt="Berkeley Statistics Logo" />
+        <img style="margin-bottom:5mm;" src="{{site.logo | relative_url}}" height=30 alt="Berkeley Statistics Logo" />
+        <p></p>
         {% endif %}
 
         <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
