@@ -41,7 +41,7 @@ Here are some options for accessing a UNIX command line interface:
   - JupyterHub: If you have access to a JupyterHub, you will likely be able to start a Terminal session under "New".
   - Cloud-based options: You could also try a cloud service such as Google [Cloud Shell](https://shell.cloud.google.com).
 
-Note that you probably shouldn't use `Git Bash` as its functionality is limited. 
+> **Warning**: You probably shouldn't use `Git Bash` as its functionality is limited. 
 
 Once you're in a Terminal window, you'll be interacting with the shell and you can enter commands to get information and work with the system. Commands often have optional arguments (flags) that are specified with a minus in front of them, as we'll see. 
 
@@ -662,7 +662,7 @@ When using the `-l` flag to `ls`, you'll see extensive information about each fi
   - (column 6-8) the last time the file was modified
   - (column 9) name of the file
   
-Here's a graphical summary (which also indicates that the commands `chmod`, `chown`, and `chgrp` can be used to change aspects of the file permissions and ownership).
+Here's a graphical summary of the information for a file named "file.txt", whose owner is "root" and group is "users" (which also indicates that the commands `chmod`, `chown`, and `chgrp` can be used to change aspects of the file permissions and ownership).
 
 ![Schematic of file attributes.](assets/img/ls_format.png)
 
@@ -769,7 +769,7 @@ added line
 
 ## 5.3 File names and extensions
 
-The format a file is in is deterined by the actual content of the file. In many cases, files have extensions such as `.csv` (for comma-separated text files), `.pdf` for PDFs, `.jpg` for JPEG files. The extension is a convention that helps us and programs distinguish different kinds of files and therefore know how to manipulate/interpret the files.
+The format a file is in is determined by the **actual content** of the file. In many cases, files have extensions such as `.csv` (for comma-separated text files), `.pdf` for PDFs, `.jpg` for JPEG files. The extension is a convention that helps us and programs distinguish different kinds of files and therefore know how to manipulate/interpret the files.
 
 **But the extension is just a convention -- changing the file name doesn't change the file format!**
 
