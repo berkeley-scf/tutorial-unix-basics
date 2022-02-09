@@ -212,7 +212,7 @@ $ pwd
 /home/scflocal/stat243-fall-2020
 ```
 
-We can get more complicated in our use of `..` with relative paths. Here we'll go up a directory and the down to a different subdirectory.
+We can get more complicated in our use of `..` with relative paths. Here we'll go up a directory and then down to a different subdirectory.
 
 ```bash
 $ cd units
@@ -556,7 +556,7 @@ total 0
 -rw-rw-r-- 1 scflocal scflocal 0 Dec 28 13:31 hello.txt
 ```
 
-**I used `rm` above to remove the file. Be very careful about removing files - there is no Trash folder in UNIX - once a file is removed, it's gone for good.**
+> **DANGER**: I used `rm` above to remove the file. Be very careful about removing files - there is no Trash folder in UNIX - once a file is removed, it's gone for good.
 
 
 The `mv` command is also used if you want to rename a file. 
@@ -661,6 +661,11 @@ When using the `-l` flag to `ls`, you'll see extensive information about each fi
   - (column 5) the size of the file in bytes
   - (column 6-8) the last time the file was modified
   - (column 9) name of the file
+  
+Here's a graphical summary (which also indicates that the commands `chmod`, `chown`, and `chgrp` can be used to change aspects of the file permissions and ownership).
+
+![Schematic of file attributes.](assets/img/ls_format.png)
+
 
 Let's look in detail at the information in the first column returned by `ls -l`. 
 
@@ -1088,11 +1093,8 @@ The shell provides a number of useful shortcuts, of which we highlight a couple 
 
 The shell will try to auto-complete the names of commands/programs or of files when you type part of the name and then hit `<Tab>`. This can save quite a bit of typing, particularly for long file names. 
 
-## 7.2 Command history
 
-The up and down arrow keys will move you through the history of commands you have entered in the terminal. So you can recover something you typed previously and then directly run it again, or edit it and then run the modified version. You run the command by pressing `<Enter>`, which you can do regardless of where your cursor currently is on the line you are editing.
-
-There's also lots more functionality along these lines that we won't go into here.
+## 7.2 Keyboard shortcuts
 
 You can navigate within a line using the usual arrows but also:
 
@@ -1102,7 +1104,13 @@ You can navigate within a line using the usual arrows but also:
 * `Ctrl-y` pastes in whatever was deleted previously with `Ctrl-k`
 * `Ctrl-r` enables an [interactive history search](http://www.techrepublic.com/article/keyboard-shortcuts-in-bash-and-zsh/)
 
-## 7.3 Saving your code as a shell script
+## 7.3 Command history
+
+The up and down arrow keys will move you through the history of commands you have entered in the terminal. So you can recover something you typed previously and then directly run it again, or edit it and then run the modified version. You run the command by pressing `<Enter>`, which you can do regardless of where your cursor currently is on the line you are editing.
+
+There's also lots more functionality along these lines that we won't go into here.
+
+## 7.4 Saving your code as a shell script
 
 Often (particularly as you learn more sophisticated shell functionality) you will want to save your shell syntax in the form of a code file, called a script, that you could run another time.
 
