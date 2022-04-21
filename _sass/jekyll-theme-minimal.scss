@@ -218,6 +218,20 @@ footer {
   -webkit-font-smoothing:subpixel-antialiased;
 }
 
+.menu {
+    position:fixed;
+    top:0px;
+    font-size:20px;
+    background-color:white;
+    width:100%;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+.main {
+    margin-top: 50px;
+}
+
 // This causes weird behavior of toc within header appearing at top of page
 // if we have 960, 720 for the two separate @media blocs;
 // Instead have both come into effect at same width.
