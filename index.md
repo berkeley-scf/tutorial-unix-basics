@@ -25,7 +25,7 @@ Determine output under the scflocal account on gandalf
 
 Operating on the UNIX command line is also known as "using the terminal" and "using the shell".
 
-The shell is the UNIX program that you interact with when in a terminal window interacting with a UNIX-style operating system (e.g., Linux or MacOS). The shell sits between you and the operating system and provides useful commands and functionality. Basically, the shell is a program that serves to run other commands for you and show you the results. There are actually different shells that you can use, of which `bash` is very common and is the default on many systems. In recent versions of MacOS, `zsh` is the default shell.
+The shell is the UNIX program that you interact with when in a terminal window interacting with a UNIX-style operating system (e.g., Linux or MacOS). The shell sits between you and the operating system and provides useful commands and functionality. Basically, the shell is a program that serves to run other commands for you and show you the results. There are actually different shells that you can use, of which `bash` is very common and is the default on many systems. In recent versions of MacOS, `zsh` is the default shell. zsh is an extension of bash, so you should be able to use zsh based on this tutorial.
 
 I've generated this document based on using the bash shell on a computer running the Ubuntu Linux version 20.04 operating system, but you should be able to replicate most of the steps in this tutorial in other UNIX command line environments, ideally using the bash or zsh shells. 
 
@@ -634,7 +634,20 @@ $ scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2020/data/.
 
 ## 5.2 File names and extensions
 
-The format a file is in is determined by the **actual content** of the file. In many cases, files have extensions such as `.csv` (for comma-separated text files), `.pdf` for PDFs, `.jpg` for JPEG files. The extension is a convention that helps us and programs distinguish different kinds of files and therefore know how to manipulate/interpret the files.
+The format a file is in is determined by the **actual content** of the file. You can determine the file format using `file`:
+
+```bash
+$ file test.py
+$ file test.pdf
+```
+
+```
+test.py: Python script, ASCII text executable
+test.pdf: PDF document, version 1.5
+```
+
+
+In many cases, files have extensions such as `.csv` (for comma-separated text files), `.pdf` for PDFs, `.jpg` for JPEG files. The extension is a convention that helps us and programs distinguish different kinds of files and therefore know how to manipulate/interpret the files.
 
 **But the extension is just a convention -- changing the file name doesn't change the file format!**
 
@@ -652,6 +665,13 @@ that contains
 4 lines.
 ```
 
+```bash
+$ file example.pdf
+```
+
+```
+example.pdf: ASCII text
+```
 
 However, changing the extension may prevent a program from using the file simply because the program was written to assume that files in a certain format have a certain extension.
 

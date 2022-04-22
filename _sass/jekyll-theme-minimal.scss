@@ -232,6 +232,14 @@ footer {
     margin-top: 50px;
 }
 
+// Prevent anchor link from disappearing behind top nav.
+// https://markus.oberlehner.net/blog/simple-solution-for-anchor-links-behind-sticky-headers/
+html {
+  @media (min-height: 32em) {
+    scroll-padding-top: 100px; // 1
+  }
+}
+
 // This causes weird behavior of toc within header appearing at top of page
 // if we have 960, 720 for the two separate @media blocs;
 // Instead have both come into effect at same width.
