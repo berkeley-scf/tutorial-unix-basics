@@ -1020,6 +1020,14 @@ $ ./mvStat243.sh  # run it
 
 The inital './' is needed because UNIX is not expecting there to be an executable file in this particular directory. 
 
+You'll generally want to have the first line of your shell scripts indicate the shell to be used to execute the script, e.g., putting
+
+```
+#!/bin/bash
+```
+
+as the first line for bash scripts.
+
 # 8 Questions
 
 1) Try to run the following command `mkdir ~/projects/drought`. It will fail. Look in the help information on `mkdir` to figure out how to make it work without first creating the *projects* directory.
