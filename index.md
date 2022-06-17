@@ -106,7 +106,7 @@ When you run `git clone` you'll see some text indicating the progress of the clo
 
 Next let's clone a more extensive repository - we'll get the materials for my Statistics 243 class at UC Berkeley from Fall 2020. 
 
-```
+```bash
 $ git clone https://github.com/berkeley-stat243/stat243-fall-2020
 ```
 
