@@ -513,15 +513,12 @@ $ ls --help
 You can see if a command or program is installed (and where it is installed) using `which`.
 
 ```bash
-$ which grep
-$ which R
-$ which python
-```
-
-```
-/usr/bin/grep
-/usr/bin/R
-/usr/local/linux/anaconda3.8/bin/python
+$ type grep
+grep is /usr/bin/grep
+$ type R
+R is /usr/bin/R
+$ type python
+python is /usr/local/linux/anaconda3.8/bin/python
 ```
 
 # 5 Working with files
