@@ -3,11 +3,11 @@ title: The basics of working on the UNIX command line
 layout: default
 author: Christopher Paciorek
 ---
+# 1 The basics of working on the UNIX command line
 
+## 1 Introduction
 
-# 1 Introduction
-
-## 1.1 This Tutorial
+### 1.1 This Tutorial
 
 This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or Mac OS X) environment. In particular, it covers using the UNIX command line interface, a powerful way to carry out operations on a computer and to automate tasks.  Being familiar with operating on the command line will allow you (with some practice and training) to do things more quickly and in a way that can be reproduced later. That's hard or impossible to do if you are doing point-and-click or drag-and-drop operations in a File Manager or Finder window.
 
@@ -21,7 +21,7 @@ This tutorial by Christopher Paciorek is licensed under a Creative Commons Attri
 Determine output under the scflocal account on gandalf
 -->
 
-## 1.2 The shell
+### 1.2 The shell
 
 Operating on the UNIX command line is also known as "using the terminal" and "using the shell".
 
@@ -29,7 +29,7 @@ The shell is the UNIX program that you interact with when in a terminal window i
 
 I've generated this document based on using the bash shell on a computer running the Ubuntu Linux version 20.04 operating system, but you should be able to replicate most of the steps in this tutorial in other UNIX command line environments, ideally using the bash or zsh shells. 
 
-## 1.3 Accessing a UNIX command line interface
+### 1.3 Accessing a UNIX command line interface
 
 Here are some options for accessing a UNIX command line interface:
 
@@ -45,7 +45,7 @@ Here are some options for accessing a UNIX command line interface:
 
 Once you're in a Terminal window, you'll be interacting with the shell and you can enter commands to get information and work with the system. Commands often have optional arguments (flags) that are specified with a minus in front of them, as we'll see. 
 
-## 1.4 Getting started
+### 1.4 Getting started
 
 Once we are in a terminal, we'll see the "prompt", which indicates that the shell is waiting for us to enter commands. Sometimes the prompt is just `$`:
 
@@ -73,7 +73,7 @@ scflocal
 ```
 
 
-# 2 Using `git` for version control
+## 2 Using `git` for version control
 
 We'll discuss `git` briefly, both because it is an important and useful tool, and because it's the easiest way for us to get a set of files to work with in this tutorial. 
 
@@ -135,9 +135,9 @@ In this case, since no changes had been made, git simply reports that things are
 
 We'll discuss how to use `cd` in more detail in the next section.
 
-# 3 Files and directories
+## 3 Files and directories
 
-## 3.1 Moving around and listing information
+### 3.1 Moving around and listing information
 
 We'll start by thinking about the filesystem, which organizes our information/data into files on the computer's disk.
 
@@ -250,7 +250,7 @@ $ pwd
 
 Note that using absolute paths in scripts is generally a bad idea because the script wouldn't generally work correctly if run on a different machine (which will generally have a different filesystem structure).
 
-## 3.2 The filesystem
+### 3.2 The filesystem
 
 The filesystem is basically a upside-down tree.
 
@@ -359,9 +359,9 @@ $ pwd
 /home/scflocal
 ```
 
-# 4 Using commands
+## 4 Using commands
 
-## 4.1 Overview
+### 4.1 Overview
 
 Let's look more at various ways to use commands. We just saw the `ls` command. Here's one way we can modify the behavior of the command by passing a command option. Here the `-F` option (also called a 'flag') shows directories by appending `/` to anything that is a directory (rather than a file) and a `*` to anything that is an executable (i.e., a program).
 
@@ -435,7 +435,7 @@ without either options or arguments.
 
 Arguments are usually one or more files or directories.
 
-## 4.2 Options
+### 4.2 Options
 
 Often we can specify an option either in short form (as with `-l` here)
 or long form (`--lines` here), as seen in the following equivalent invocations:
@@ -476,7 +476,7 @@ Hello there.
 This is a file
 ```
 
-## 4.3 Comments
+### 4.3 Comments
 
 Anything that follows `#` is a comment and is ignored.
 
@@ -490,7 +490,7 @@ unix-basics.md  unix-basics.Rmd
 ```
 
 
-## 4.4 Getting help with UNIX commands
+### 4.4 Getting help with UNIX commands
 
 Essentially all UNIX commands have  help information (called a man page), accessed using `man`.
 
@@ -923,7 +923,7 @@ cpu family	: 6
 ```
 
 
-This indicates  there are at least two processors (numbered 0 and 1) [we'd need to see the whole file to see if there are more]. Each is an Intel Core i7. 
+This indicates there are at least two processors -- numbered 0 and 1 (we'd need to see the whole file to see if there are more). Each is an Intel Core i7. 
 
 
 This file has information on the memory available:

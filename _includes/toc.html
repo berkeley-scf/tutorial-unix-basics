@@ -39,7 +39,7 @@
             * sanitize      (bool)   : false  - when set to true, the headers will be stripped of any HTML in the TOC
             * class         (string) :   ''   - a CSS class assigned to the TOC
             * id            (string) :   ''   - an ID to assigned to the TOC
-            * h_min         (int)    :   1    - the minimum TOC header level to use; any header lower than this value will be ignored
+            * h_min         (int)    :   2    - the minimum TOC header level to use; any header lower than this value will be ignored
             * h_max         (int)    :   6    - the maximum TOC header level to use; any header greater than this value will be ignored
             * ordered       (bool)   : false  - when set to true, an ordered list will be outputted instead of an unordered list
             * item_class    (string) :   ''   - add custom class(es) for each list item; has support for '%level%' placeholder, which is the current heading level
@@ -71,7 +71,7 @@
     {% assign orderedList = include.ordered | default: false %}
     {% assign baseURL = include.base_url | default: include.baseurl | default: '' %}
     {% assign skipNoIDs = include.skip_no_ids | default: include.skipNoIDs | default: false %}
-    {% assign minHeader = include.h_min | default: 1 %}
+    {% assign minHeader = include.h_min | default: 2 %}
     {% assign maxHeader = include.h_max | default: 6 %}
     {% assign nodes = include.html | strip | split: '<h' %}
 
