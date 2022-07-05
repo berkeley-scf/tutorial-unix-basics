@@ -3,7 +3,7 @@ title: The basics of working on the UNIX command line
 layout: default
 author: Christopher Paciorek
 ---
-# 1 The basics of working on the UNIX command line
+# The basics of working on the UNIX command line
 
 ## 1 Introduction
 
@@ -508,7 +508,7 @@ Also, UNIX commands as well as other programs run from the command line often pr
 $ ls --help
 ```
 
-## 4.5 Seeing if a command or program is available
+### 4.5 Seeing if a command or program is available
 
 You can see if a command or program is installed (and where it is installed) using `which`.
 
@@ -521,9 +521,9 @@ $ type python
 python is /usr/local/linux/anaconda3.8/bin/python
 ```
 
-# 5 Working with files
+## 5 Working with files
 
-## 5.1 Copying and removing files
+### 5.1 Copying and removing files
 
 You'll often want to make a copy of a file, move it between directories, or remove it. 
 
@@ -629,7 +629,7 @@ $ scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/stat243-fall-2020/data/.
 ```
 
 
-## 5.2 File names and extensions
+### 5.2 File names and extensions
 
 The format a file is in is determined by the **actual content** of the file. You can determine the file format using `file`:
 
@@ -672,9 +672,9 @@ example.pdf: ASCII text
 
 However, changing the extension may prevent a program from using the file simply because the program was written to assume that files in a certain format have a certain extension.
 
-# 6 Other useful tools and information
+## 6 Other useful tools and information
 
-## 6.1 Compressing and uncompressing files
+### 6.1 Compressing and uncompressing files
 
 The `zip` utility compresses in a format compatible with zip files for Windows:
 
@@ -809,7 +809,7 @@ total 4064
 ```
 
 
-## 6.2 Disk usage
+### 6.2 Disk usage
 
 You can can see how much disk space is being used versus available as follows. The 'Mounted on' column will generally identify the parts of the filesystem in a more user-friendly way than the 'Filesystem' column.
 
@@ -879,7 +879,7 @@ $ du -h -d 1
 44M	.
 ```
 
-## 6.3 Machine information
+### 6.3 Machine information
 
 Linux machines (but not Macs) have system information provided in a few special files.
 
@@ -967,16 +967,16 @@ $ nproc  # how many processors?
 8
 ```
 
-# 7 The shell
+## 7 The shell
 
 The shell provides a number of useful shortcuts, of which we highlight a couple here.
 
-## 7.1 Tab completion
+### 7.1 Tab completion
 
 The shell will try to auto-complete the names of commands/programs or of files when you type part of the name and then hit `<Tab>`. This can save quite a bit of typing, particularly for long file names. 
 
 
-## 7.2 Keyboard shortcuts
+### 7.2 Keyboard shortcuts
 
 You can navigate within a line using the usual arrows but also:
 
@@ -986,13 +986,13 @@ You can navigate within a line using the usual arrows but also:
 * `Ctrl-y` pastes in whatever was deleted previously with `Ctrl-k`
 * `Ctrl-r` enables an [interactive history search](http://www.techrepublic.com/article/keyboard-shortcuts-in-bash-and-zsh/)
 
-## 7.3 Command history
+### 7.3 Command history
 
 The up and down arrow keys will move you through the history of commands you have entered in the terminal. So you can recover something you typed previously and then directly run it again, or edit it and then run the modified version. You run the command by pressing `<Enter>`, which you can do regardless of where your cursor currently is on the line you are editing.
 
 There's also lots more functionality along these lines that we won't go into here.
 
-## 7.4 Saving your code as a shell script
+### 7.4 Saving your code as a shell script
 
 Often (particularly as you learn more sophisticated shell functionality) you will want to save your shell syntax in the form of a code file, called a script, that you could run another time.
 
@@ -1025,7 +1025,7 @@ You'll generally want to have the first line of your shell scripts indicate the 
 
 as the first line for bash scripts.
 
-# 8 Questions
+## 8 Questions
 
 1) Try to run the following command `mkdir ~/projects/drought`. It will fail. Look in the help information on `mkdir` to figure out how to make it work without first creating the *projects* directory.
 
