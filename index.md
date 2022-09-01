@@ -1015,7 +1015,7 @@ $ chmod ugo+x mvStat243.sh  # make the script executable by everyone
 $ ./mvStat243.sh  # run it
 ```
 
-The inital './' is needed because UNIX is not expecting there to be an executable file in this particular directory. 
+The initial './' is needed because UNIX is not expecting there to be an executable file in this particular directory. 
 
 You'll generally want to have the first line of your shell scripts indicate the shell to be used to execute the script, e.g., putting
 
