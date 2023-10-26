@@ -510,7 +510,7 @@ $ ls --help
 
 ### 4.5 Seeing if a command or program is available
 
-You can see if a command or program is installed (and where it is installed) using `which`.
+You can see if a command or program is installed (and where it is installed) using `type`.
 
 ```bash
 $ type grep
