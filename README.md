@@ -3,7 +3,7 @@ tutorial-unix-basics
 
 Tutorial on the basics of the UNIX command line.
 
-Please see the overview page at the [GitHub pages site](https://berkeley-scf.github.io/tutorial-unix-basics) to easily view the materials in a browser.
+Please see the [tutorial website](https://computing.stat.berkeley.edu/tutorial-unix-basics) to easily view the materials in a browser.
 
 This tutorial covers:
 

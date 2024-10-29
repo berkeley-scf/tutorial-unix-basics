@@ -1,0 +1,20 @@
+project:
+  type: website
+
+website:
+  site-url: https://computing.stat.berkeley.edu/tutorial-unix-basics
+  sidebar:
+    style: docked
+    title: "SCF UNIX Basics Tutorial"
+    logo: assets/stat_bear.png
+    logo-alt: "UC Berkeley Statistics logo"
+    tools:
+      - icon: github
+        href: https://github.com/berkeley-scf/tutorial-unix-basics
+        aria-label: GitHub
+
+format:
+  html:
+    theme: cosmo
+    css: assets/styles.css
+    toc: true
