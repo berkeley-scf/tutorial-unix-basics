@@ -335,7 +335,8 @@ it's generally a bad idea to have spaces within file names on a UNIX system. But
 use quotation marks to distinguish the file name, e.g.,
 
 ```{bash}
-ls -l "name of my file with spaces.txt"
+echo "some text" > "filename with spaces.txt"
+ls -l "filename with spaces.txt"
 ```
 
 Also, capitalization matters. For example `-l` and `-L` are different options.
@@ -497,12 +498,12 @@ The extension is just a convention -- changing the file name doesn't change the 
 So if make a copy of the `example.txt` file but name it `example.pdf`, we see that it's still just a simple text file even if I give it a name that would suggest it's a PDF.
 
 ```{bash}
-cp example.txt example.pdf
-cat example.pdf
+cp silly_example.txt silly_example.pdf
+cat silly_example.pdf
 ```
 
 ```{bash}
-file example.pdf
+file silly_example.pdf
 ```
 
 However, changing the extension may prevent a program from using the file simply because the program was written to assume that files in a certain format have a certain extension.
