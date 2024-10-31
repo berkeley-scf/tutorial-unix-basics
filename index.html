@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.54">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-10-31">
+
+<title>The basics of working on the UNIX command line</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">The basics of working on the UNIX command line</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://statistics.berkeley.edu" class="sidebar-logo-link">
+      <img src="./assets/img/logo.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">SCF UNIX Basics Tutorial</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/berkeley-scf/tutorial-unix-basics" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">The basics of working on the UNIX command line</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">1 Introduction</a>
+  <ul class="collapse">
+  <li><a href="#this-tutorial" id="toc-this-tutorial" class="nav-link" data-scroll-target="#this-tutorial">1.1 This Tutorial</a></li>
+  <li><a href="#the-shell" id="toc-the-shell" class="nav-link" data-scroll-target="#the-shell">1.2 The shell</a></li>
+  <li><a href="#accessing-a-unix-command-line-interface" id="toc-accessing-a-unix-command-line-interface" class="nav-link" data-scroll-target="#accessing-a-unix-command-line-interface">1.3 Accessing a UNIX command line interface</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">1.4 Getting started</a></li>
+  </ul></li>
+  <li><a href="#using-git-for-version-control" id="toc-using-git-for-version-control" class="nav-link" data-scroll-target="#using-git-for-version-control">2 Using <code>git</code> for version control</a></li>
+  <li><a href="#files-and-directories" id="toc-files-and-directories" class="nav-link" data-scroll-target="#files-and-directories">3 Files and directories</a>
+  <ul class="collapse">
+  <li><a href="#moving-around-and-listing-information" id="toc-moving-around-and-listing-information" class="nav-link" data-scroll-target="#moving-around-and-listing-information">3.1 Moving around and listing information</a></li>
+  <li><a href="#the-filesystem" id="toc-the-filesystem" class="nav-link" data-scroll-target="#the-filesystem">3.2 The filesystem</a></li>
+  </ul></li>
+  <li><a href="#using-commands" id="toc-using-commands" class="nav-link" data-scroll-target="#using-commands">4 Using commands</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">4.1 Overview</a></li>
+  <li><a href="#options" id="toc-options" class="nav-link" data-scroll-target="#options">4.2 Options</a></li>
+  <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">4.3 Comments</a></li>
+  <li><a href="#getting-help-with-unix-commands" id="toc-getting-help-with-unix-commands" class="nav-link" data-scroll-target="#getting-help-with-unix-commands">4.4 Getting help with UNIX commands</a></li>
+  <li><a href="#seeing-if-a-command-or-program-is-available" id="toc-seeing-if-a-command-or-program-is-available" class="nav-link" data-scroll-target="#seeing-if-a-command-or-program-is-available">4.5 Seeing if a command or program is available</a></li>
+  </ul></li>
+  <li><a href="#working-with-files" id="toc-working-with-files" class="nav-link" data-scroll-target="#working-with-files">5 Working with files</a>
+  <ul class="collapse">
+  <li><a href="#copying-and-removing-files" id="toc-copying-and-removing-files" class="nav-link" data-scroll-target="#copying-and-removing-files">5.1 Copying and removing files</a></li>
+  <li><a href="#file-names-and-extensions" id="toc-file-names-and-extensions" class="nav-link" data-scroll-target="#file-names-and-extensions">5.2 File names and extensions</a></li>
+  </ul></li>
+  <li><a href="#other-useful-tools-and-information" id="toc-other-useful-tools-and-information" class="nav-link" data-scroll-target="#other-useful-tools-and-information">6 Other useful tools and information</a>
+  <ul class="collapse">
+  <li><a href="#compressing-and-uncompressing-files" id="toc-compressing-and-uncompressing-files" class="nav-link" data-scroll-target="#compressing-and-uncompressing-files">6.1 Compressing and uncompressing files</a></li>
+  <li><a href="#disk-usage" id="toc-disk-usage" class="nav-link" data-scroll-target="#disk-usage">6.2 Disk usage</a></li>
+  <li><a href="#machine-information" id="toc-machine-information" class="nav-link" data-scroll-target="#machine-information">6.3 Machine information</a></li>
+  </ul></li>
+  <li><a href="#the-shell-1" id="toc-the-shell-1" class="nav-link" data-scroll-target="#the-shell-1">7 The shell</a>
+  <ul class="collapse">
+  <li><a href="#tab-completion" id="toc-tab-completion" class="nav-link" data-scroll-target="#tab-completion">7.1 Tab completion</a></li>
+  <li><a href="#keyboard-shortcuts" id="toc-keyboard-shortcuts" class="nav-link" data-scroll-target="#keyboard-shortcuts">7.2 Keyboard shortcuts</a></li>
+  <li><a href="#command-history" id="toc-command-history" class="nav-link" data-scroll-target="#command-history">7.3 Command history</a></li>
+  <li><a href="#saving-your-code-as-a-shell-script" id="toc-saving-your-code-as-a-shell-script" class="nav-link" data-scroll-target="#saving-your-code-as-a-shell-script">7.4 Saving your code as a shell script</a></li>
+  </ul></li>
+  <li><a href="#practice-questions" id="toc-practice-questions" class="nav-link" data-scroll-target="#practice-questions">8 Practice questions</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The basics of working on the UNIX command line</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 31, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!--
+Determine output under the scflocal account on gandalf
+-->
+<section id="introduction" class="level1">
+<h1>1 Introduction</h1>
+<section id="this-tutorial" class="level2">
+<h2 class="anchored" data-anchor-id="this-tutorial">1.1 This Tutorial</h2>
+<p>This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or MacOs) environment. In particular, it covers using the UNIX command line interface, a powerful way to carry out operations on a computer and to automate tasks. Being familiar with operating on the command line will allow you (with some practice and training) to do things more quickly and in a way that can be reproduced later. That’s hard or impossible to do if you are doing point-and-click or drag-and-drop operations in a File Manager or Finder window.</p>
+<p>Materials for this tutorial, including the Quarto Markdown file that was used to create this document are <a href="https://github.com/berkeley-scf/tutorial-unix-basics">available on GitHub</a>.</p>
+<p>Software Carpentry has a very nice introductory lesson on the <a href="https://swcarpentry.github.io/shell-novice/">basics of the shell</a>. It also has an accompanying <a href="https://www.youtube.com/watch?v=8c1BL5b47kg">YouTube video</a>. Episodes 1-3 (the first 20 minutes) cover the material that is in this tutorial.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="License">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+License
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This tutorial by Christopher Paciorek is licensed under a Creative Commons Attribution 3.0 Unported License.</p>
+</div>
+</div>
+</section>
+<section id="the-shell" class="level2">
+<h2 class="anchored" data-anchor-id="the-shell">1.2 The shell</h2>
+<p>Operating on the UNIX command line is also known as “using the terminal” and “using the shell”.</p>
+<p>The shell is the UNIX program that you interact with when in a terminal window interacting with a UNIX-style operating system (e.g., Linux or MacOS). The shell sits between you and the operating system and provides useful commands and functionality. Basically, the shell is a program that serves to run other commands for you and show you the results. There are actually different shells that you can use, of which <code>bash</code> is very common and is the default on many systems. In recent versions of MacOS, <code>zsh</code> is the default shell. zsh is an extension of bash, so you should be able to use zsh based on this tutorial.</p>
+<p>I’ve generated this document based on using the bash shell on a computer running the Ubuntu Linux version 22.04 operating system, but you should be able to replicate most of the steps in this tutorial in other UNIX command line environments, ideally using the bash or zsh shells.</p>
+</section>
+<section id="accessing-a-unix-command-line-interface" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-a-unix-command-line-interface">1.3 Accessing a UNIX command line interface</h2>
+<p>Here are some options for accessing a UNIX command line interface:</p>
+<ul>
+<li>MacOS: If you’d like to work on your own Mac, you’ll find the Terminal under <code>Applications -&gt; Utilities -&gt; Terminal</code>.</li>
+<li>Windows:
+<ul>
+<li>If you have a sufficiently new version of Windows 10, you can use the <a href="https://msdn.microsoft.com/en-us/commandline/wsl/install_guide">Windows Subsystem for Linux</a>, which will provide you with an Ubuntu shell running bash on your own machine.</li>
+<li>If you have access to remote machines running Linux, you can login to them using programs such as MobaXTerm and Putty. Once logged in, you’ll find yourself in a Terminal window on the remote machine.</li>
+</ul></li>
+<li>JupyterHub: If you have access to a JupyterHub, you will likely be able to start a Terminal session under “New”.</li>
+<li>Cloud-based options: You could also try a cloud service such as Google <a href="https://shell.cloud.google.com">Cloud Shell</a>.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled" title="Don't use Git Bash for this tutorial">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Don’t use Git Bash for this tutorial
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You probably shouldn’t use <code>Git Bash</code> to follow this tutorial as its functionality is limited.</p>
+</div>
+</div>
+<p>Once you’re in a Terminal window, you’ll be interacting with the shell and you can enter commands to get information and work with the system. Commands often have optional arguments (flags) that are specified with a minus in front of them, as we’ll see.</p>
+</section>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">1.4 Getting started</h2>
+<p>Once we are in a terminal, we’ll see the “prompt”, which indicates that the shell is waiting for us to enter commands. Sometimes the prompt is just <code>$</code>:</p>
+<div class="cell-output">
+<p>$</p>
+</div>
+<p>but often it contains information about the username of the current user and the directory on the filesystem that we are in. For example, here a prompt that shows that the current user is ‘scflocal’, on the machine named ‘gandalf’ in the ‘tutorial-unix-basics’ (sub)directory in the user’s home directory (indicated by <code>~</code>):</p>
+<div class="cell-output">
+<p>scflocal@gandalf:~/tutorial-unix-basics&gt;</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Tutorial code formatting">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tutorial code formatting
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the remainder of this tutorial, you won’t see the prompt in front of the commands. All commands will appear in a grey background, with the output (if any) following the code.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="When the shell is waiting for more information">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+When the shell is waiting for more information
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that if you simply see <code>&gt;</code> instead of the usual prompt, that means the shell thinks you haven’t finished entering your command (usually that you haven’t finished entering a string) and is expecting more input from you. If you see a newline but nothing else, the shell probably expects you to enter some text for it to process.</p>
+<p>If you’re not sure what to do, type <code>Ctrl-c</code> (the control key and ‘c’ at the same time) to get back to the usual prompt.</p>
+</div>
+</div>
+<p>Let’s start by running a command, <code>whoami</code>, that prints out the username of the current user:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>scflocal</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="using-git-for-version-control" class="level1">
+<h1>2 Using <code>git</code> for version control</h1>
+<p>We’ll discuss <code>git</code> briefly, both because it is an important and useful tool, and because it’s the easiest way for us to get a set of files to work with in this tutorial.</p>
+<p>Git is an important tool to become familiar with, at least at the basic level. Git allows you to share files between different computers and different people and for people to collaborate on projects together. In particular, it is a version control tool that allows you to have different versions of your files and to go back to earlier versions of your files. Git stores the files for a project in a <em>repository</em>.</p>
+<p>For our purposes here, we’ll simply use Git to download materials from GitHub, a website that stores Git repositories in the cloud.</p>
+<p>First we’ll download the materials for this tutorial.</p>
+<p>To <em>clone</em> (i.e., copy) a repository (in this case from GitHub) we do the following. Note that <code>berkeley-scf</code> is the <em>organization</em> and <code>tutorial-unix-basics</code> is the <em>repository</em>. Note that everything below that follows the <code>#</code> symbol is a comment and not executed.</p>
+<p>Here we’ll first use the <code>cd</code> command (for “change directory”) to go to our home directory and then use <code>git clone</code> to download materials to a subdirectory (which will be called <code>tutorial-unix-basics</code>) within our home directory.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/berkeley-scf/tutorial-unix-basics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output">
+<pre><code>Cloning into 'tutorial-unix-basics'...
+remote: Enumerating objects: 387, done.
+remote: Counting objects: 100% (66/66), done.
+remote: Compressing objects: 100% (45/45), done.
+remote: Total 387 (delta 37), reused 46 (delta 19), pack-reused 321 (from 1)
+Receiving objects: 100% (387/387), 779.53 KiB | 5.27 MiB/s, done.
+Resolving deltas: 100% (199/199), done.</code></pre>
+</div>
+<p>Now suppose that whoever controls the repository makes some changes to the materials in the repository online and you want an updated copy of the repository on your computer. Simply use <code>cd</code> to go into any directory in the repository materials on your computer and run <code>git pull</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> tutorial-unix-basics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Already up to date.</code></pre>
+</div>
+</div>
+<p>In this case, since no changes had been made, git simply reports that things are up-to-date.</p>
+<p>We’ll discuss how to use <code>cd</code> in more detail in the next section.</p>
+</section>
+<section id="files-and-directories" class="level1">
+<h1>3 Files and directories</h1>
+<section id="moving-around-and-listing-information" class="level2">
+<h2 class="anchored" data-anchor-id="moving-around-and-listing-information">3.1 Moving around and listing information</h2>
+<p>We’ll start by thinking about the filesystem, which organizes our information/data into files on the computer’s disk.</p>
+<p>Anytime you are at the UNIX command line, you have a <em>working directory</em>, which is your current location in the file system.</p>
+<p>Here’s how you can see where you are using the <code>pwd</code> (“print working directory”) command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/scflocal/tutorial-unix-basics</code></pre>
+</div>
+</div>
+<p>and here’s how you use <code>ls</code> to list the files (and subdirectories) in the working directory…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>assets
+_config.yml
+example.text
+example.txt
+filename with spaces.txt
+_freeze
+_includes
+index.qmd
+index.rmarkdown
+_layouts
+mv_assets.sh
+myfile
+name of my file with spaces.txt
+_quarto.yml
+README.md
+_sass
+_site</code></pre>
+</div>
+</div>
+<p>Now suppose I want to be in a different directory so I can see what is there or do things to the files in that directory.</p>
+<p>The command you need is <code>cd</code> and an important concept you need to become familiar with is the notion of ‘relative’ versus ‘absolute’ <em>path</em>. A path is the set of nested directories that specify a location of interest on the filesystem.</p>
+<p>First let’s go to our home directory, which is generally where our files will be. Simply running <code>cd</code> will do that.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/scflocal</code></pre>
+</div>
+</div>
+<p>Now let’s go into a subdirectory. We can use <code>cd</code> with the name of the subdirectory. The subdirectory is found ‘relative’ to our working directory, i.e., found from where we currently are.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> tutorial-unix-basics</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output">
+<p>/home/scflocal/tutorial-unix-basics</p>
+</div>
+<p>We could also navigate through nested subdirectories. For example, after going back to our home directory, let’s go to the <code>assets</code> subdirectory of the <code>tutorial-unix-basics</code> subdirectory. The <code>/</code> is a separate character that distinguishes the nested subdirectories.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> tutorial-unix-basics/assets</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/scflocal/tutorial-unix-basics/assets</code></pre>
+</div>
+</div>
+<p>You can access the parent directory of any directory using <code>..</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output">
+<p>/home/scflocal/tutorial-unix-basics/assets /home/scflocal/tutorial-unix-basics</p>
+</div>
+<p>We can get more complicated in our use of <code>..</code> with relative paths. Here we’ll go up a directory and then down to a different subdirectory.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> assets</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../_includes </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/scflocal/tutorial-unix-basics/_includes</code></pre>
+</div>
+</div>
+<p>And here we’ll go up two directories and then down to another subdirectory.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../../Desktop  <span class="co"># go up two directories and down</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output">
+<p>/home/scflocal/Desktop</p>
+</div>
+<p>All of the above examples used relative paths to navigate based on your working directory at the moment you ran the command.</p>
+<p>We can instead use absolute paths so that it doesn’t matter where we are when we run the command. Specifying an absolute path is done by having your path start with <code>/</code>, such as <code>/home/scflocal</code>. If the path doesn’t start with <code>/</code> then it is interpreted as being a relative path, relative to your working directory. Here we’ll go to the <code>units</code> subdirectory again, but this time using an absolute path.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/scflocal/tutorial-unix-basics/assets</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/scflocal/tutorial-unix-basics/assets</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Absolute paths are not robust">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Absolute paths are not robust
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that using absolute paths in scripts is generally a bad idea because the script wouldn’t generally work correctly if run on a different machine (which will generally have a different filesystem structure) or as a different user (who will have a different home directory).</p>
+</div>
+</div>
+</section>
+<section id="the-filesystem" class="level2">
+<h2 class="anchored" data-anchor-id="the-filesystem">3.2 The filesystem</h2>
+<p>The filesystem is basically a upside-down tree.</p>
+<p>For example, if we just consider the <code>tutorial-unix-basics</code> directory, we can see the tree structure using <code>tree</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>.
+├── assets
+│&nbsp;&nbsp; ├── css
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── style.scss
+│&nbsp;&nbsp; ├── fonts
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-700
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-700.eot
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-700.svg
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-700.ttf
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-700.woff
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; └── Noto-Sans-700.woff2
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-700italic
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-700italic.eot
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-700italic.svg
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-700italic.ttf
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-700italic.woff
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; └── Noto-Sans-700italic.woff2
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-italic
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-italic.eot
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-italic.svg
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-italic.ttf
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── Noto-Sans-italic.woff
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; └── Noto-Sans-italic.woff2
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── Noto-Sans-regular
+│&nbsp;&nbsp; │&nbsp;&nbsp;     ├── Noto-Sans-regular.eot
+│&nbsp;&nbsp; │&nbsp;&nbsp;     ├── Noto-Sans-regular.svg
+│&nbsp;&nbsp; │&nbsp;&nbsp;     ├── Noto-Sans-regular.ttf
+│&nbsp;&nbsp; │&nbsp;&nbsp;     ├── Noto-Sans-regular.woff
+│&nbsp;&nbsp; │&nbsp;&nbsp;     └── Noto-Sans-regular.woff2
+│&nbsp;&nbsp; ├── img
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── logo.svg
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── ls_format.png
+│&nbsp;&nbsp; ├── js
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── scale.fix.js
+│&nbsp;&nbsp; ├── stat_bear.png
+│&nbsp;&nbsp; └── styles.css
+├── _config.yml
+├── example.text
+├── example.txt
+├── filename with spaces.txt
+├── _freeze
+│&nbsp;&nbsp; ├── index
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── execute-results
+│&nbsp;&nbsp; │&nbsp;&nbsp;     └── html.json
+│&nbsp;&nbsp; └── site_libs
+│&nbsp;&nbsp;     └── clipboard
+│&nbsp;&nbsp;         └── clipboard.min.js
+├── _includes
+│&nbsp;&nbsp; └── toc.html
+├── index.qmd
+├── index.rmarkdown
+├── _layouts
+│&nbsp;&nbsp; └── default.html
+├── mv_assets.sh
+├── myfile
+├── name of my file with spaces.txt
+├── _quarto.yml
+├── README.md
+├── _sass
+│&nbsp;&nbsp; ├── fonts.scss
+│&nbsp;&nbsp; ├── jekyll-theme-minimal.scss
+│&nbsp;&nbsp; ├── jekyll-theme-minimal.scss.bak
+│&nbsp;&nbsp; ├── minimal.scss
+│&nbsp;&nbsp; └── rouge-github.scss
+└── _site
+
+18 directories, 46 files</code></pre>
+</div>
+</div>
+<p>The dot (<code>.</code>) means “this directory”, so the top of the tree here is the <code>tutorial-unix-basics</code> directory itself, within which there are subdirectories, <code>asset</code>, <code>_includes</code>, <code>_layouts</code>, etc. Then within each of these are files and further subdirectories (as seen in the case of <code>assets</code>, which has subdirectories named <code>css</code> and <code>fonts</code>.)</p>
+<p>If we consider the entire filesystem, the top, or root of the tree, is the <code>/</code> directory. Within <code>/</code> there are subdirectories, such as <code>/home</code> (which contains users’ home directories where all of the files owned by a user are stored) and <code>/bin</code> (containing UNIX programs, aka ‘binaries’). We’ll use <code>ls</code> again, this time telling it the directory to operate on:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>accounts
+app
+bin
+boot
+dev
+etc
+home
+lib
+lib32
+lib64
+libx32
+lost+found
+media
+mirror
+mnt
+opt
+pool0
+proc
+root
+run
+sbin
+scratch
+server
+srv
+swap.img
+sys
+system
+tmp
+usr
+var</code></pre>
+</div>
+</div>
+<p>If there is a user named <code>scflocal</code>, everything specific to that user would be stored in the user’s <em>home directory</em>. Here that is <code>/home/scflocal</code>, but the exact location may differ on different systems. The shortcut <code>~scflocal</code> refers to the <code>scflocal</code> home directory, <code>/home/scflocal</code>. If you are the <code>scflocal</code> user, you can also refer to your home directory by the shortcut <code>~</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /home</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>scflocal
+shiny</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/scflocal</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/scflocal</code></pre>
+</div>
+</div>
+<p>Go to the home directory of the current user (which happens to be the <code>scflocal</code> user):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/scflocal</code></pre>
+</div>
+</div>
+<p>Go to the home directory of the scflocal user explicitly:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~scflocal</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/scflocal</code></pre>
+</div>
+</div>
+<p>Another useful directory is <code>/tmp</code>, which is a good place to put temporary files that you only need briefly and don’t need to save. These will disappear when a machine is rebooted.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>assets
+assets.tgz
+quarto-session71f9ea197eacbf29
+RtmpMQcgrV
+Temp-76c6318d-4f54-44d2-8bd9-d9a42eeeb7ce
+test</code></pre>
+</div>
+</div>
+<p>We can return to the most recent directory we were in like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="at">-</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell-output">
+<p>/home/scflocal</p>
+</div>
+</section>
+</section>
+<section id="using-commands" class="level1">
+<h1>4 Using commands</h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">4.1 Overview</h2>
+<p>Let’s look more at various ways to use commands. We just saw the <code>ls</code> command. Here’s one way we can modify the behavior of the command by passing a command option. Here the <code>-F</code> option (also called a ‘flag’) shows directories by appending <code>/</code> to anything that is a directory (rather than a file) and a <code>*</code> to anything that is an executable (i.e., a program).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-F</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>assets/
+_config.yml
+example.text
+example.txt
+filename with spaces.txt
+_freeze/
+_includes/
+index.qmd
+index.rmarkdown
+_layouts/
+mv_assets.sh
+myfile
+name of my file with spaces.txt
+_quarto.yml
+README.md
+_sass/
+_site/</code></pre>
+</div>
+</div>
+<p>Next we’ll use multiple options to the <code>ls</code> command. <code>-l</code> shows extended information about files/directories. <code>-t</code> shows files/directories in order of the time at which they were last modified and <code>-r</code> shows in reverse order. Before I run <code>ls</code>, I’ll create an empty file using the <code>touch</code> command. Given this, what file do you expect to be displayed last when you do the following?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> myfile</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lrt</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total 112
+drwxr-xr-x 2 scflocal scflocal  4096 Oct 29 15:17 _sass
+drwxr-xr-x 2 scflocal scflocal  4096 Oct 29 15:17 _layouts
+drwxr-xr-x 2 scflocal scflocal  4096 Oct 29 15:17 _includes
+-rw-r--r-- 1 scflocal scflocal   291 Oct 29 15:17 _config.yml
+-rw-r--r-- 1 scflocal scflocal   567 Oct 30 16:35 README.md
+-rw-r--r-- 1 scflocal scflocal     6 Oct 30 16:38 name of my file with spaces.txt
+-rw-r--r-- 1 scflocal scflocal    52 Oct 30 16:45 example.text
+-rw-r--r-- 1 scflocal scflocal    91 Oct 30 17:00 mv_assets.sh
+-rw-r--r-- 1 scflocal scflocal    51 Oct 30 17:03 example.txt
+drwxr-xr-x 4 scflocal scflocal  4096 Oct 30 17:18 _freeze
+drwxr-xr-x 6 scflocal scflocal  4096 Oct 31 13:54 assets
+-rw-r--r-- 1 scflocal scflocal   531 Oct 31 14:34 _quarto.yml
+-rw-r--r-- 1 scflocal scflocal    10 Oct 31 14:38 filename with spaces.txt
+-rw-r--r-- 1 scflocal scflocal 26755 Oct 31 14:42 index.qmd
+drwxr-xr-x 2 scflocal scflocal  4096 Oct 31 14:42 _site
+-rw-r--r-- 1 scflocal scflocal 27079 Oct 31 14:42 index.rmarkdown
+-rw-r--r-- 1 scflocal scflocal     0 Oct 31 14:42 myfile</code></pre>
+</div>
+</div>
+<p>While each command has its own syntax, there are some rules usually followed. Generally, executing a command consists of four things:</p>
+<ul>
+<li>the command</li>
+<li>command option(s)</li>
+<li>argument(s)</li>
+<li>line acceptance</li>
+</ul>
+<p>Here’s an example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> example.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4 example.txt</code></pre>
+</div>
+</div>
+<p>In the above example, <code>wc</code> is the command, <code>-l</code> is a command option specifying to count the number of lines, <code>example.txt</code> is the argument, and the line acceptance is indicated by hitting the <code>Enter</code> key at the end of the line.</p>
+<p>So that invocation counts the number of lines in the file named <code>example.txt</code>.</p>
+<p>The spaces are required and distinguish the different parts of the invocation. For this reason, it’s generally a bad idea to have spaces within file names on a UNIX system. But if you do, you can use quotation marks to distinguish the file name, e.g.,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some text"</span> <span class="op">&gt;</span> <span class="st">"filename with spaces.txt"</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> <span class="st">"filename with spaces.txt"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-rw-r--r-- 1 scflocal scflocal 10 Oct 31 14:42 filename with spaces.txt</code></pre>
+</div>
+</div>
+<p>Also, capitalization matters. For example <code>-l</code> and <code>-L</code> are different options.</p>
+<p>Note that options, arguments, or both might not be included in some cases. Recall that we’ve used <code>ls</code> without either options or arguments.</p>
+<p>Arguments are usually one or more files or directories.</p>
+</section>
+<section id="options" class="level2">
+<h2 class="anchored" data-anchor-id="options">4.2 Options</h2>
+<p>Often we can specify an option either in short form (as with <code>-l</code> here) or long form (<code>--lines</code> here), as seen in the following equivalent invocations:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> example.txt</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">--lines</span> example.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4 example.txt
+4 example.txt</code></pre>
+</div>
+</div>
+<p>We can also ask for the number of characters with the <code>-m</code> option, which can be combined with the <code>-l</code> option equivalently in two ways:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-lm</span> example.txt</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> <span class="at">-m</span> example.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 4 51 example.txt
+ 4 51 example.txt</code></pre>
+</div>
+</div>
+<p>Options will often take values, e.g., if we want to get the first two lines of the file, the following invocations are equivalent:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 2 example.txt</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">--lines</span><span class="op">=</span>2 example.txt</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">--lines</span> 2 example.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello there.
+This is a file
+Hello there.
+This is a file
+Hello there.
+This is a file</code></pre>
+</div>
+</div>
+</section>
+<section id="comments" class="level2">
+<h2 class="anchored" data-anchor-id="comments">4.3 Comments</h2>
+<p>Anything that follows <code>#</code> is a comment and is ignored.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is ignored</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>  <span class="co"># Everything after the # is ignored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>assets
+_config.yml
+example.text
+example.txt
+filename with spaces.txt
+_freeze
+_includes
+index.qmd
+index.rmarkdown
+_layouts
+mv_assets.sh
+myfile
+name of my file with spaces.txt
+_quarto.yml
+README.md
+_sass
+_site</code></pre>
+</div>
+</div>
+</section>
+<section id="getting-help-with-unix-commands" class="level2">
+<h2 class="anchored" data-anchor-id="getting-help-with-unix-commands">4.4 Getting help with UNIX commands</h2>
+<p>Essentially all UNIX commands have help information (called a man page), accessed using <code>man</code>. We won’t show the results here as they are rather long.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">man</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You should try it yourself to practice viewing man pages. Once you are in the man page, you can navigate by hitting the space bar (to scroll down) and the up and down arrows. You can search by typing <code>/</code>, typing the string you want to search for and hitting <code>&lt;Enter&gt;</code>. You can use <code>n</code> and <code>p</code> for the next and previous search hits and <code>q</code> to quit out of the search.</p>
+<p>Unfortunately man pages are often quite long, hard to understand, and without examples. But the information you need is usually there if you take the time to look for it.</p>
+<p>Also, UNIX commands as well as other programs run from the command line often provide help information via the <code>--help</code> option:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Again, we’re not showing the output as it is rather long.</p>
+</section>
+<section id="seeing-if-a-command-or-program-is-available" class="level2">
+<h2 class="anchored" data-anchor-id="seeing-if-a-command-or-program-is-available">4.5 Seeing if a command or program is available</h2>
+<p>You can see if a command or program is installed (and where it is installed) using <code>type</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span> grep</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span> R</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span> python</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>grep is /usr/bin/grep
+R is /usr/bin/R
+python is /usr/local/linux/miniforge-3.12/bin/python</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="working-with-files" class="level1">
+<h1>5 Working with files</h1>
+<section id="copying-and-removing-files" class="level2">
+<h2 class="anchored" data-anchor-id="copying-and-removing-files">5.1 Copying and removing files</h2>
+<p>You’ll often want to make a copy of a file, move it between directories, or remove it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> example.txt example-new.txt</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> example-new.txt /tmp/.</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lrt</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>cp: missing file operand
+Try 'cp --help' for more information.
+total 468
+drwx------  2 scflocal scflocal   4096 Oct 29 15:21 Temp-76c6318d-4f54-44d2-8bd9-d9a42eeeb7ce
+drwxr-xr-x  6 scflocal scflocal   4096 Oct 31 13:54 assets
+drwxr-xr-x  2 scflocal scflocal   4096 Oct 31 14:38 test
+-rw-r--r--  1 scflocal scflocal 453183 Oct 31 14:38 assets.tgz
+drwx------ 37 scflocal scflocal   4096 Oct 31 14:42 quarto-session71f9ea197eacbf29
+drwx------  2 scflocal scflocal   4096 Oct 31 14:42 RtmpMQcgrV
+-rw-r--r--  1 scflocal scflocal     51 Oct 31 14:42 example-new.txt</code></pre>
+</div>
+</div>
+<p>When we moved the file, the use of <code>/.</code> in <code>/tmp/.</code> indicates we want to use the same name as the original file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> example-new.txt</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lrt</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total 464
+drwx------  2 scflocal scflocal   4096 Oct 29 15:21 Temp-76c6318d-4f54-44d2-8bd9-d9a42eeeb7ce
+drwxr-xr-x  6 scflocal scflocal   4096 Oct 31 13:54 assets
+drwxr-xr-x  2 scflocal scflocal   4096 Oct 31 14:38 test
+-rw-r--r--  1 scflocal scflocal 453183 Oct 31 14:38 assets.tgz
+drwx------ 37 scflocal scflocal   4096 Oct 31 14:42 quarto-session71f9ea197eacbf29
+drwx------  2 scflocal scflocal   4096 Oct 31 14:42 RtmpMQcgrV</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="`rm` is forever">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<code>rm</code> is forever
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I used <code>rm</code> above to remove the file. Be very careful about removing files - there is no Trash folder in UNIX - once a file is removed, it’s gone for good.</p>
+</div>
+</div>
+<p>The <code>mv</code> command is also used if you want to rename a file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/tutorial-unix-basics</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> example.txt silly_example.txt</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>assets
+_config.yml
+example.text
+filename with spaces.txt
+_freeze
+_includes
+index.qmd
+index.rmarkdown
+_layouts
+mv_assets.sh
+myfile
+name of my file with spaces.txt
+_quarto.yml
+README.md
+_sass
+silly_example.txt
+_site</code></pre>
+</div>
+</div>
+<p>We can copy and remove entire directories. The <code>-p</code> flag preserves the time stamp and other information associated with the files/directories, while the <code>-r</code> option copies recursively, such that the directory and all its contents (all child files and directories) are also copied.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-pr</span> assets /tmp/.  <span class="co"># Copy the assets directory into /tmp.</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> test</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> assets test     <span class="co"># Move the assets directory into the test directory.</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> test/assets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mkdir: cannot create directory ‘test’: File exists
+total 112
+drwxr-xr-x 2 scflocal scflocal  4096 Oct 29 15:17 css
+drwxr-xr-x 6 scflocal scflocal  4096 Oct 29 15:17 fonts
+drwxr-xr-x 2 scflocal scflocal  4096 Oct 29 15:17 img
+drwxr-xr-x 2 scflocal scflocal  4096 Oct 29 15:17 js
+-rw-r--r-- 1 scflocal scflocal 92106 Oct 30 17:10 stat_bear.png
+-rw-r--r-- 1 scflocal scflocal    69 Oct 31 13:54 styles.css</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> /tmp/test/assets   <span class="co"># Remove the ps directory and anything contained within it.</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /tmp/test              <span class="co"># This should be empty now.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can use a variant of <code>cp</code> named <code>scp</code> to copy files between different UNIX-like machines. Suppose I have access to the machine <em>radagast.berkeley.edu</em> and that my user name on that machine is <em>scf1</em>. I can copy a file to that machine or from that machine as follows.</p>
+<p>(Note that I am not running the code in the process of generating this document.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/tutorial-unix-basics</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="co"># FROM the machine you're on TO another machine</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy the file to the Desktop subdirectory of the scf1 home directory on the remote machine</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> example.txt username@machinename.berkeley.edu:~/Desktop/.</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a><span class="co"># FROM another machine TO the machine you're on</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy a file from the /tmp directory of the remote machine to a specific directory on this machine</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> username@machinename.berkeley.edu:/tmp/data.txt ~/Downloads/.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="file-names-and-extensions" class="level2">
+<h2 class="anchored" data-anchor-id="file-names-and-extensions">5.2 File names and extensions</h2>
+<p>The format a file is in is determined by the <strong>actual content</strong> of the file. You can determine the file format using <code>file</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> index.qmd</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> /usr/local/linux/miniforge-3.12/lib/python3.12/site-packages/numpy/dtypes.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>index.qmd: exported SGML document, ASCII text, with very long lines (615)
+/usr/local/linux/miniforge-3.12/lib/python3.12/site-packages/numpy/dtypes.py: Python script, ASCII text executable</code></pre>
+</div>
+</div>
+<p>In many cases, files have extensions such as <code>.csv</code> (for comma-separated text files), <code>.pdf</code> for PDFs, <code>.jpg</code> for JPEG files. The extension is a convention that helps us and programs distinguish different kinds of files and therefore know how to manipulate/interpret the files.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Filename extensions don't determine the file type">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Filename extensions don’t determine the file type
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>The extension is just a convention – changing the file name doesn’t change the file format!</p>
+<p>So if make a copy of the <code>example.txt</code> file but name it <code>example.pdf</code>, we see that it’s still just a simple text file even if I give it a name that would suggest it’s a PDF.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> silly_example.txt silly_example.pdf</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> silly_example.pdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello there.
+This is a file
+that contains
+4 lines.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> silly_example.pdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>silly_example.pdf: ASCII text</code></pre>
+</div>
+</div>
+<p>However, changing the extension may prevent a program from using the file simply because the program was written to assume that files in a certain format have a certain extension.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="other-useful-tools-and-information" class="level1">
+<h1>6 Other useful tools and information</h1>
+<section id="compressing-and-uncompressing-files" class="level2">
+<h2 class="anchored" data-anchor-id="compressing-and-uncompressing-files">6.1 Compressing and uncompressing files</h2>
+<p>The <code>zip</code> utility compresses in a format compatible with zip files for Windows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zip</span> <span class="at">-r</span> assets.zip assets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  adding: assets/ (stored 0%)
+  adding: assets/css/ (stored 0%)
+  adding: assets/css/style.scss (stored 0%)
+  adding: assets/js/ (stored 0%)
+  adding: assets/js/scale.fix.js (deflated 62%)
+  adding: assets/fonts/ (stored 0%)
+  adding: assets/fonts/Noto-Sans-regular/ (stored 0%)
+  adding: assets/fonts/Noto-Sans-regular/Noto-Sans-regular.ttf (deflated 34%)
+  adding: assets/fonts/Noto-Sans-regular/Noto-Sans-regular.svg (deflated 66%)
+  adding: assets/fonts/Noto-Sans-regular/Noto-Sans-regular.woff2 (stored 0%)
+  adding: assets/fonts/Noto-Sans-regular/Noto-Sans-regular.eot (deflated 0%)
+  adding: assets/fonts/Noto-Sans-regular/Noto-Sans-regular.woff (deflated 1%)
+  adding: assets/fonts/Noto-Sans-700italic/ (stored 0%)
+  adding: assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.ttf (deflated 32%)
+  adding: assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff2 (stored 0%)
+  adding: assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.eot (deflated 0%)
+  adding: assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff (deflated 1%)
+  adding: assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.svg (deflated 68%)
+  adding: assets/fonts/Noto-Sans-700/ (stored 0%)
+  adding: assets/fonts/Noto-Sans-700/Noto-Sans-700.ttf (deflated 35%)
+  adding: assets/fonts/Noto-Sans-700/Noto-Sans-700.eot (deflated 0%)
+  adding: assets/fonts/Noto-Sans-700/Noto-Sans-700.svg (deflated 66%)
+  adding: assets/fonts/Noto-Sans-700/Noto-Sans-700.woff2 (stored 0%)
+  adding: assets/fonts/Noto-Sans-700/Noto-Sans-700.woff (deflated 1%)
+  adding: assets/fonts/Noto-Sans-italic/ (stored 0%)
+  adding: assets/fonts/Noto-Sans-italic/Noto-Sans-italic.svg (deflated 67%)
+  adding: assets/fonts/Noto-Sans-italic/Noto-Sans-italic.woff2 (stored 0%)
+  adding: assets/fonts/Noto-Sans-italic/Noto-Sans-italic.eot (deflated 0%)
+  adding: assets/fonts/Noto-Sans-italic/Noto-Sans-italic.ttf (deflated 31%)
+  adding: assets/fonts/Noto-Sans-italic/Noto-Sans-italic.woff (deflated 1%)
+  adding: assets/stat_bear.png (deflated 18%)
+  adding: assets/img/ (stored 0%)
+  adding: assets/img/logo.svg (deflated 70%)
+  adding: assets/img/ls_format.png (deflated 4%)
+  adding: assets/styles.css (deflated 4%)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> assets.zip</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-rw-r--r-- 1 scflocal scflocal 444635 Oct 31 14:42 assets.zip</code></pre>
+</div>
+</div>
+<p><code>gzip</code> is a standard UNIX compression utility to compress individual files:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> assets/img/ls_format.png test.png</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> test.png</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-rw-r--r-- 1 scflocal scflocal 52402 Oct 31 14:42 test.png</code></pre>
+</div>
+</div>
+<p>Here we see that gzip can’t compress the png file much, but it can help a lot with other formats.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> test.png</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> test.png.gz   <span class="co"># Not much smaller than the uncompressed file.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-rw-r--r-- 1 scflocal scflocal 50200 Oct 31 14:42 test.png.gz</code></pre>
+</div>
+</div>
+<p>Finally, the <code>tar</code> utility will combine multiple files and directories into a single archive.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-cvf</span> assets.tar assets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>assets/
+assets/css/
+assets/css/style.scss
+assets/js/
+assets/js/scale.fix.js
+assets/fonts/
+assets/fonts/Noto-Sans-regular/
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.ttf
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.svg
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.woff2
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.eot
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.woff
+assets/fonts/Noto-Sans-700italic/
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.ttf
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff2
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.eot
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.svg
+assets/fonts/Noto-Sans-700/
+assets/fonts/Noto-Sans-700/Noto-Sans-700.ttf
+assets/fonts/Noto-Sans-700/Noto-Sans-700.eot
+assets/fonts/Noto-Sans-700/Noto-Sans-700.svg
+assets/fonts/Noto-Sans-700/Noto-Sans-700.woff2
+assets/fonts/Noto-Sans-700/Noto-Sans-700.woff
+assets/fonts/Noto-Sans-italic/
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.svg
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.woff2
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.eot
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.ttf
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.woff
+assets/stat_bear.png
+assets/img/
+assets/img/logo.svg
+assets/img/ls_format.png
+assets/styles.css</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> assets.tar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-rw-r--r-- 1 scflocal scflocal 686080 Oct 31 14:42 assets.tar</code></pre>
+</div>
+</div>
+<p>Adding the <code>-z</code> flag also gzips the result. In that case there was more noticeable compression.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-cvzf</span> assets.tgz assets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>assets/
+assets/css/
+assets/css/style.scss
+assets/js/
+assets/js/scale.fix.js
+assets/fonts/
+assets/fonts/Noto-Sans-regular/
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.ttf
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.svg
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.woff2
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.eot
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.woff
+assets/fonts/Noto-Sans-700italic/
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.ttf
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff2
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.eot
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.svg
+assets/fonts/Noto-Sans-700/
+assets/fonts/Noto-Sans-700/Noto-Sans-700.ttf
+assets/fonts/Noto-Sans-700/Noto-Sans-700.eot
+assets/fonts/Noto-Sans-700/Noto-Sans-700.svg
+assets/fonts/Noto-Sans-700/Noto-Sans-700.woff2
+assets/fonts/Noto-Sans-700/Noto-Sans-700.woff
+assets/fonts/Noto-Sans-italic/
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.svg
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.woff2
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.eot
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.ttf
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.woff
+assets/stat_bear.png
+assets/img/
+assets/img/logo.svg
+assets/img/ls_format.png
+assets/styles.css</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> assets.tgz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-rw-r--r-- 1 scflocal scflocal 453183 Oct 31 14:42 assets.tgz</code></pre>
+</div>
+</div>
+<p>Now let’s move that <em>tarball</em> (as it is called) to a new directory and unzip and expand it using the -x flag.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> assets.tgz /tmp</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xvzf</span> assets.tgz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>assets/
+assets/css/
+assets/css/style.scss
+assets/js/
+assets/js/scale.fix.js
+assets/fonts/
+assets/fonts/Noto-Sans-regular/
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.ttf
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.svg
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.woff2
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.eot
+assets/fonts/Noto-Sans-regular/Noto-Sans-regular.woff
+assets/fonts/Noto-Sans-700italic/
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.ttf
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff2
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.eot
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.woff
+assets/fonts/Noto-Sans-700italic/Noto-Sans-700italic.svg
+assets/fonts/Noto-Sans-700/
+assets/fonts/Noto-Sans-700/Noto-Sans-700.ttf
+assets/fonts/Noto-Sans-700/Noto-Sans-700.eot
+assets/fonts/Noto-Sans-700/Noto-Sans-700.svg
+assets/fonts/Noto-Sans-700/Noto-Sans-700.woff2
+assets/fonts/Noto-Sans-700/Noto-Sans-700.woff
+assets/fonts/Noto-Sans-italic/
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.svg
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.woff2
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.eot
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.ttf
+assets/fonts/Noto-Sans-italic/Noto-Sans-italic.woff
+assets/stat_bear.png
+assets/img/
+assets/img/logo.svg
+assets/img/ls_format.png
+assets/styles.css</code></pre>
+</div>
+</div>
+<p>You can see the whole directory structure of what was archived has been recovered in the new location:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> /tmp/assets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total 112
+drwxr-xr-x 2 scflocal scflocal  4096 Oct 29 15:17 css
+drwxr-xr-x 6 scflocal scflocal  4096 Oct 29 15:17 fonts
+drwxr-xr-x 2 scflocal scflocal  4096 Oct 29 15:17 img
+drwxr-xr-x 2 scflocal scflocal  4096 Oct 29 15:17 js
+-rw-r--r-- 1 scflocal scflocal 92106 Oct 30 17:10 stat_bear.png
+-rw-r--r-- 1 scflocal scflocal    69 Oct 31 13:54 styles.css</code></pre>
+</div>
+</div>
+</section>
+<section id="disk-usage" class="level2">
+<h2 class="anchored" data-anchor-id="disk-usage">6.2 Disk usage</h2>
+<p>You can can see how much disk space is being used versus available as follows. The ‘Mounted on’ column will generally identify the parts of the filesystem in a more user-friendly way than the ‘Filesystem’ column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Filesystem                       Size  Used Avail Use% Mounted on
+/dev/sda2                         59G   32G   25G  57% /
+tmpfs                             63G   68M   63G   1% /dev/shm
+tmpfs                             13G   23M   13G   1% /run
+tmpfs                            5.0M     0  5.0M   0% /run/lock
+tmpfs                             13G   28K   13G   1% /run/user/3173
+tmpfs                             13G   28K   13G   1% /run/user/3520
+tmpfs                             13G   28K   13G   1% /run/user/3417
+tmpfs                             13G   28K   13G   1% /run/user/764
+tmpfs                             13G   28K   13G   1% /run/user/3023
+tmpfs                             13G   28K   13G   1% /run/user/3565
+tmpfs                             13G   28K   13G   1% /run/user/3530
+tmpfs                             13G   28K   13G   1% /run/user/3294
+tmpfs                             13G   28K   13G   1% /run/user/3066
+tmpfs                             13G   28K   13G   1% /run/user/3180
+tmpfs                             13G   40K   13G   1% /run/user/3189
+tmpfs                             13G   28K   13G   1% /run/user/3188
+tmpfs                             13G   32K   13G   1% /run/user/3605
+tmpfs                             13G   28K   13G   1% /run/user/3608
+tmpfs                             13G   32K   13G   1% /run/user/3466
+tmpfs                             13G   28K   13G   1% /run/user/3604
+tmpfs                             13G   28K   13G   1% /run/user/3218
+tmpfs                             13G   32K   13G   1% /run/user/3624
+tmpfs                            4.0M     0  4.0M   0% /sys/fs/cgroup
+/dev/sda3                         59G   34G   22G  61% /var
+/dev/sda4                        472G  2.7G  445G   1% /var/tmp
+/dev/sda5                        1.3T   76G  1.1T   7% /tmp
+oz.berkeley.edu:/pool0/system    6.0T  4.8T  1.3T  80% /system
+oz.berkeley.edu:/pool0/scratch    37T   33T  4.3T  89% /scratch
+oz.berkeley.edu:/pool0/accounts   66T   20T   47T  30% /accounts</code></pre>
+</div>
+</div>
+<p>In general, you’ll want to look at the ‘/’ line under <code>Mounted on</code>, and on standard UNIX machines possibly at ‘/tmp’, ‘/home’, and others.</p>
+<p>We can see usage in specific directories like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> assets</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>8.0K    ./css
+8.0K    ./js
+140K    ./fonts/Noto-Sans-regular
+140K    ./fonts/Noto-Sans-700italic
+140K    ./fonts/Noto-Sans-700
+132K    ./fonts/Noto-Sans-italic
+556K    ./fonts
+76K ./img
+748K    .</code></pre>
+</div>
+</div>
+<p>Here we see that the total usage is about a bit less than 700 KB, with, for example, about 70 KB of that in the <code>img</code> subdirectory.</p>
+<p>If we only want a summary of usage for each top-level subdirectory, rather than showing all nested subdirectories:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/tutorial-unix-basics</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-h</span> <span class="at">-d</span> 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>28K ./_sass
+8.0K    ./_layouts
+4.0K    ./_site
+16K ./_includes
+84K ./_freeze
+748K    ./assets
+1.5M    ./.git
+172K    ./.quarto
+3.8M    .</code></pre>
+</div>
+</div>
+</section>
+<section id="machine-information" class="level2">
+<h2 class="anchored" data-anchor-id="machine-information">6.3 Machine information</h2>
+<p>Linux machines (but not Macs) have system information provided in a few special files.</p>
+<p><code>/proc/cpuinfo</code> shows information on each processor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 30 /proc/cpuinfo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>processor   : 0
+vendor_id   : GenuineIntel
+cpu family  : 6
+model       : 45
+model name  : Intel(R) Xeon(R) CPU E5-2609 0 @ 2.40GHz
+stepping    : 7
+microcode   : 0x71a
+cpu MHz     : 2394.053
+cache size  : 10240 KB
+physical id : 0
+siblings    : 4
+core id     : 0
+cpu cores   : 4
+apicid      : 0
+initial apicid  : 0
+fpu     : yes
+fpu_exception   : yes
+cpuid level : 13
+wp      : yes
+flags       : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm epb pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid xsaveopt dtherm arat pln pts md_clear flush_l1d
+vmx flags   : vnmi preemption_timer invvpid ept_x_only ept_1gb flexpriority tsc_offset vtpr mtf vapic ept vpid unrestricted_guest ple
+bugs        : cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs itlb_multihit mmio_unknown
+bogomips    : 4800.18
+clflush size    : 64
+cache_alignment : 64
+address sizes   : 46 bits physical, 48 bits virtual
+power management:
+
+processor   : 1
+vendor_id   : GenuineIntel</code></pre>
+</div>
+</div>
+<p>This indicates there are at least two processors – numbered 0 and 1 (we’d need to see the whole file to see if there are more). Each is an Intel Core i7.</p>
+<p>This file has information on the memory available:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 10 /proc/meminfo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MemTotal:       131966464 kB
+MemFree:        22645656 kB
+MemAvailable:   98414788 kB
+Buffers:          588304 kB
+Cached:         32359372 kB
+SwapCached:      1249372 kB
+Active:         28592240 kB
+Inactive:       32685712 kB
+Active(anon):    3933376 kB
+Inactive(anon): 24488076 kB</code></pre>
+</div>
+</div>
+<p>The key line is the <em>MemTotal</em> line, indicating 132 GB of RAM.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /etc/issue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Ubuntu 22.04.1 LTS \n \l</code></pre>
+</div>
+</div>
+<p>We’re running Ubuntu version 22.04.</p>
+<p>We can also use commands to get information:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nproc</span>  <span class="co"># how many processors?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>8</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="the-shell-1" class="level1">
+<h1>7 The shell</h1>
+<p>The shell provides a number of useful shortcuts, of which we highlight a couple here.</p>
+<section id="tab-completion" class="level2">
+<h2 class="anchored" data-anchor-id="tab-completion">7.1 Tab completion</h2>
+<p>The shell will try to auto-complete the names of commands/programs or of files when you type part of the name and then hit <code>&lt;Tab&gt;</code>. This can save quite a bit of typing, particularly for long file names.</p>
+</section>
+<section id="keyboard-shortcuts" class="level2">
+<h2 class="anchored" data-anchor-id="keyboard-shortcuts">7.2 Keyboard shortcuts</h2>
+<p>You can navigate within a line using the usual arrows but also:</p>
+<ul>
+<li><code>Ctrl-a</code> moves to the beginning of the line</li>
+<li><code>Ctrl-e</code> moves to the end of the line</li>
+<li><code>Ctrl-k</code> deletes the rest of the line starting at the cursor</li>
+<li><code>Ctrl-y</code> pastes in whatever was deleted previously with <code>Ctrl-k</code></li>
+<li><code>Ctrl-r</code> enables an <a href="http://www.techrepublic.com/article/keyboard-shortcuts-in-bash-and-zsh/">interactive history search</a></li>
+</ul>
+</section>
+<section id="command-history" class="level2">
+<h2 class="anchored" data-anchor-id="command-history">7.3 Command history</h2>
+<p>The up and down arrow keys will move you through the history of commands you have entered in the terminal. So you can recover something you typed previously and then directly run it again, or edit it and then run the modified version. You run the command by pressing <code>&lt;Enter&gt;</code>, which you can do regardless of where your cursor currently is on the line you are editing.</p>
+<p>There’s also lots more functionality along these lines that we won’t go into here.</p>
+</section>
+<section id="saving-your-code-as-a-shell-script" class="level2">
+<h2 class="anchored" data-anchor-id="saving-your-code-as-a-shell-script">7.4 Saving your code as a shell script</h2>
+<p>Often (particularly as you learn more sophisticated shell functionality) you will want to save your shell syntax in the form of a code file, called a script, that you could run another time.</p>
+<p>For example, suppose you often need to do the following series of steps:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> </span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-cvzf</span> assets.tgz assets</span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> assets.tgz /tmp</span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xvzf</span> assets.tgz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can put those lines into a file, say, <code>mv_assets.sh</code>, which will generally end in .sh.</p>
+<p>Then we can run the code in the file as follows. (Results not shown here.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> ugo+x mv_assets.sh  <span class="co"># Make the script executable by everyone.</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./mv_assets.sh</span>            <span class="co"># Run it.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The initial <code>./</code> is needed because UNIX is not expecting there to be an executable file in this particular directory.</p>
+<p>You’ll generally want to have the first line of your shell scripts indicate the shell to be used to execute the script, so you’d want to put <code>#!/bin/bash</code> as the first line of <code>mv_assets.sh</code>.</p>
+</section>
+</section>
+<section id="practice-questions" class="level1">
+<h1>8 Practice questions</h1>
+<ol type="1">
+<li><p>Try to run the following command <code>mkdir ~/projects/drought</code>. It will fail. Look in the help information on <code>mkdir</code> to figure out how to make it work without first creating the <code>projects</code> directory.</p></li>
+<li><p>Figure out how to list out the files in a directory in order of decreasing file size, as a way to see easily what the big files are that are taking up the most space. Modify this command to get the result in the ascending order.</p></li>
+<li><p>Use both <code>zip</code> and <code>tar -cvzf</code> to compress the <code>tutorial-unix-basics</code> directory. Is one much smaller than the other?</p></li>
+<li><p>Figure out how to print out free disk space in terms of megabytes.</p></li>
+<li><p>The <code>ls</code> command is itself an executable installed on the system. Where is it located?</p></li>
+<li><p>Where is <code>gzip</code> installed on the system? What are some other commands/executables that are installed in the same directory?</p></li>
+<li><p>Practice with moving/removing/copying. Make a copy of the <code>tutorial-unix-basics</code> directory (and all its contents) in <code>/tmp</code>. Now use <code>cd</code> to go into the copied directory. Remove the <code>/tmp/tutorial-unix-basics/.git</code> directory. Now run <code>git status</code>. Congratulations, you should discover that you’ve turned a directory that is a Git repository into a directory that is not considered a git repository.</p></li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/computing\.stat\.berkeley\.edu\/tutorial-unix-basics");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
