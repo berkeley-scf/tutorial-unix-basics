@@ -387,21 +387,25 @@ ls  # Everything after the # is ignored
 
 ## 4.4 Getting help with UNIX commands
 
-Essentially all UNIX commands have  help information (called a man page), accessed using `man`.
+Essentially all UNIX commands have  help information (called a man page), accessed using `man`. We won't show the results here as they are rather long.
 
 ```{bash}
+#| eval: false
 man ls
 ```
 
-Once you are in the man page, you can navigate by hitting the space bar (to scroll down) and the up and down arrows. You can search by typing `/`, typing the string you want to search for and hitting `<Enter>`. You can use `n` and `p` for the next and previous search hits and `q` to quit out of the search.
+You should try it yourself to practice viewing man pages. Once you are in the man page, you can navigate by hitting the space bar (to scroll down) and the up and down arrows. You can search by typing `/`, typing the string you want to search for and hitting `<Enter>`. You can use `n` and `p` for the next and previous search hits and `q` to quit out of the search.
 
 Unfortunately man pages are often quite long, hard to understand, and without examples. But the information you need is usually there if you take the time to look for it.
 
 Also, UNIX commands as well as other programs run from the command line often provide help information via the `--help` option:
 
 ```{bash}
+#| eval: false
 ls --help
 ```
+
+Again, we're not showing the output as it is rather long.
 
 ## 4.5 Seeing if a command or program is available
 
@@ -431,15 +435,17 @@ When we moved the file, the use of `/.` in `/tmp/.` indicates we want to use the
 
 
 ```{bash}
+cd /tmp
 rm example-new.txt
 ls -lrt
 ```
 
 :::{.callout-important title="`rm` is forever"}
 I used `rm` above to remove the file. Be very careful about removing files - there is no Trash folder in UNIX - once a file is removed, it's gone for good.
-```
+:::
 
 The `mv` command is also used if you want to rename a file. 
+
 ```{bash}
 cd ~/tutorial-unix-basics
 mv example.txt silly_example.txt
@@ -517,20 +523,9 @@ However, changing the extension may prevent a program from using the file simply
 The `zip` utility compresses in a format compatible with zip files for Windows:
 
 ```{bash}
-cd ~
 zip -r assets.zip assets
 ```
 
-```
-  adding: home/scflocal/stat243-fall-2020/data/ (stored 0%)
-  adding: home/scflocal/stat243-fall-2020/data/RTADataSub.csv (deflated 77%)
-  adding: home/scflocal/stat243-fall-2020/data/precip.txt (deflated 87%)
-  adding: home/scflocal/stat243-fall-2020/data/hivSequ.csv (deflated 88%)
-  adding: home/scflocal/stat243-fall-2020/data/cpds.csv (deflated 70%)
-  adding: home/scflocal/stat243-fall-2020/data/IPs.RData (deflated 0%)
-  adding: home/scflocal/stat243-fall-2020/data/precipData.txt (deflated 78%)
-  adding: home/scflocal/stat243-fall-2020/data/coop.txt.gz (deflated 1%)
-```
 ```{bash}
 ls -l assets.zip
 ```
@@ -542,9 +537,12 @@ cp assets/img/ls_format.png test.png
 ls -l test.png
 ```
 
+Here we see that gzip can't compress the png file much, but it can help
+a lot with other formats.
+
 ```{bash}
 gzip test.png
-ls -l test.png.gz   # This is rather smaller than the uncompressed file.
+ls -l test.png.gz   # Not much smaller than the uncompressed file.
 ```
 
 
@@ -552,7 +550,6 @@ ls -l test.png.gz   # This is rather smaller than the uncompressed file.
 Finally, the `tar` utility will combine multiple files and directories into a single archive. 
 
 ```{bash}
-cd
 tar -cvf assets.tar assets
 ```
 
@@ -560,7 +557,7 @@ tar -cvf assets.tar assets
 ls -l assets.tar
 ```
 
-Adding the `-z` flag also gzips the result.
+Adding the `-z` flag also gzips the result. In that case there was more noticeable compression.
 
 ```{bash}
 tar -cvzf assets.tgz assets
@@ -605,7 +602,7 @@ du -h
 ```
 
 
-Here we see that the total usage is about 665 KB, with, for example, 74 KB of that in the `img` subdirectory.
+Here we see that the total usage is about a bit less than 700 KB, with, for example, about 70 KB of that in the `img` subdirectory.
 
 If we only want a summary of usage for each top-level subdirectory, rather than showing all nested subdirectories:
 
@@ -636,7 +633,7 @@ head -n 10 /proc/meminfo
 ```
 
 
-The key line is the *MemTotal* line, indicating 163 GB of RAM.
+The key line is the *MemTotal* line, indicating 132 GB of RAM.
 
 ```{bash}
 cat /etc/issue
@@ -699,14 +696,13 @@ Then we can run the code in the file as follows. (Results not shown here.)
 
 ```{bash}
 #| eval: false
-#!/bin/bash
 chmod ugo+x mv_assets.sh  # Make the script executable by everyone.
 ./mv_assets.sh            # Run it.
 ```
 
 The initial './' is needed because UNIX is not expecting there to be an executable file in this particular directory. 
 
-You'll generally want to have the first line of your shell scripts indicate the shell to be used to execute the script, e.g., putting `#!/bin/bash` as we did above for bash scripts.
+You'll generally want to have the first line of your shell scripts indicate the shell to be used to execute the script, so you'd want to put `#!/bin/bash` as the first line of `mv_assets.sh`.
 
 # 8 Questions
 
@@ -723,3 +719,10 @@ You'll generally want to have the first line of your shell scripts indicate the 
 6) Where is `gzip` installed on the system? What are some other commands/executables that are installed in the same directory?
 
 7) Practice with moving/removing/copying. Make a copy of the `tutorial-unix-basics` directory (and all its contents) in `/tmp`. Now use `cd` to go into the copied directory. Remove the `/tmp/tutorial-unix-basics/.git` directory. Now run `git status`. Congratulations, you should discover that you've turned a directory that is a Git repository into a directory that is not considered a git repository.
+
+```{bash}
+#| include: false
+mv silly_example.pdf example.txt
+rm assets.{tar,zip} test
+rm test.png.gz
+```
