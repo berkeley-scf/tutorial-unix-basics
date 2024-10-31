@@ -7,11 +7,14 @@ website:
     style: docked
     title: "SCF UNIX Basics Tutorial"
     logo: assets/img/logo.svg
+    logo-href: https://statistics.berkeley.edu
     logo-alt: "UC Berkeley Statistics logo"
     tools:
       - icon: github
         href: https://github.com/berkeley-scf/tutorial-unix-basics
         aria-label: GitHub
+    contents:
+      - href: index.qmd
 
 format:
   html:

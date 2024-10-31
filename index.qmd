@@ -1,14 +1,14 @@
 ---
 title: The basics of working on the UNIX command line
-author: Christopher Paciorek
-date: "2024-10-30"
+date: 2024-10-31
 format:
   html:
     theme: cosmo
     css: assets/styles.css
     toc: true
     code-copy: true
-    code-block-background: true
+    code-block-bg: true
+    code-block-border-left: "#31BAE9" 
 execute:
   freeze: auto
 engine: knitr
@@ -23,6 +23,7 @@ Determine output under the scflocal account on gandalf
 # 1 Introduction
 
 ## 1.1 This Tutorial
+
 
 This tutorial covers the basics of navigating in a UNIX-like (e.g., Linux or MacOs) environment. In particular, it covers using the UNIX command line interface, a powerful way to carry out operations on a computer and to automate tasks.  Being familiar with operating on the command line will allow you (with some practice and training) to do things more quickly and in a way that can be reproduced later. That's hard or impossible to do if you are doing point-and-click or drag-and-drop operations in a File Manager or Finder window.
 
@@ -65,15 +66,15 @@ Once you're in a Terminal window, you'll be interacting with the shell and you c
 
 Once we are in a terminal, we'll see the "prompt", which indicates that the shell is waiting for us to enter commands. Sometimes the prompt is just `$`:
 
-```
+:::{.cell-output}
 $
-```
+:::
 
 but often it contains information about the username of the current user and the directory on the filesystem that we are in. For example, here a prompt that shows that the current user is 'scflocal', on the machine named 'gandalf' in the 'tutorial-unix-basics' (sub)directory in the user's home directory (indicated by `~`):
 
-```
+:::{.cell-output}
 scflocal@gandalf:~/tutorial-unix-basics>
-```
+:::
 
 :::{.callout-note title="Tutorial code formatting"}
 In the remainder of this tutorial, you won't see the prompt in front of the commands. All commands will appear in a grey background, with the output (if any) following the code.
@@ -112,6 +113,7 @@ Here we'll first use the `cd` command (for "change directory") to go to our home
 cd
 git clone https://github.com/berkeley-scf/tutorial-unix-basics
 ```
+::: {.cell-output}
 ```
 Cloning into 'tutorial-unix-basics'...
 remote: Enumerating objects: 387, done.
@@ -121,6 +123,7 @@ remote: Total 387 (delta 37), reused 46 (delta 19), pack-reused 321 (from 1)
 Receiving objects: 100% (387/387), 779.53 KiB | 5.27 MiB/s, done.
 Resolving deltas: 100% (199/199), done.
 ```
+:::
 
 Now suppose that whoever controls the repository makes some changes to the materials in the repository online and you want an updated copy of the repository on your computer. Simply use `cd` to go into any directory in the repository materials on your computer and run `git pull`.
 
@@ -177,9 +180,9 @@ cd tutorial-unix-basics
 pwd
 ```
 
-```
+:::{.cell-output}
 /home/scflocal/tutorial-unix-basics
-```
+:::
 
 We could also navigate through nested subdirectories. For example, after going back to our home directory, let's go to the `assets` subdirectory of the `tutorial-unix-basics` subdirectory. The `/` is a separate character that distinguishes the nested subdirectories.
 
@@ -198,10 +201,10 @@ pwd
 cd ..
 pwd
 ```
-```
+:::{.cell-output}
 /home/scflocal/tutorial-unix-basics/assets
 /home/scflocal/tutorial-unix-basics
-```
+:::
 
 
 We can get more complicated in our use of `..` with relative paths. Here we'll go up a directory and then down to a different subdirectory.
@@ -221,9 +224,10 @@ cd ../../Desktop  # go up two directories and down
 pwd
 ```
 
-```
+:::{.cell-output}
+
 /home/scflocal/Desktop
-```
+:::
 
 All of the above examples used relative paths to navigate based on your working directory at the moment you ran the command.
 
@@ -302,9 +306,9 @@ cd -
 pwd
 ```
 
-```
+:::{.cell-output}
 /home/scflocal
-```
+:::
 
 # 4 Using commands
 
@@ -493,11 +497,11 @@ cd ~/tutorial-unix-basics
 
 # FROM the machine you're on TO another machine
 # Copy the file to the Desktop subdirectory of the scf1 home directory on the remote machine
-scp example.txt scf1@radagast.berkeley.edu:~/Desktop/.
+scp example.txt username@machinename.berkeley.edu:~/Desktop/.
 
 # FROM another machine TO the machine you're on
 # Copy a file from the /tmp directory of the remote machine to a specific directory on this machine
-scp scf1@radagast.berkeley.edu:/tmp/data.txt ~/Downloads/.
+scp username@machinename.berkeley.edu:/tmp/data.txt ~/Downloads/.
 ```
 
 
@@ -607,7 +611,7 @@ df -h
 ```
 
 
-In general, you'll want to look at the '/' line, and on standard UNIX machines possibly at '/tmp', '/home', and others.
+In general, you'll want to look at the '/' line under `Mounted on`, and on standard UNIX machines possibly at '/tmp', '/home', and others.
 
 We can see usage in specific directories like this:
 
@@ -662,9 +666,6 @@ We can also use commands to get information:
 nproc  # how many processors?
 ```
 
-```
-8
-```
 
 # 7 The shell
 
