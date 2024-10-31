@@ -464,8 +464,8 @@ ls -l test/assets
 ```
 
 ```{bash}
-rm -r /tmp/test/assets   # Remove the ps directory and anything contained within it.
-ls /tmp/test             # This should be empty now.
+rm -rf /tmp/test/assets   # Remove the ps directory and anything contained within it.
+ls /tmp/test              # This should be empty now.
 ```
 
 You can use a variant of `cp` named `scp` to copy files between different UNIX-like machines. Suppose I have access to the machine *radagast.berkeley.edu* and that my user name on that machine is *scf1*. I can copy a file to that machine or from that machine as follows.
@@ -723,5 +723,5 @@ You'll generally want to have the first line of your shell scripts indicate the 
 ```{bash}
 #| include: false
 mv silly_example.txt example.txt
-rm assets.{tar,zip} test silly_example.pdf test.png.z
+rm assets.{tar,zip} silly_example.pdf test.png.gz
 ```
