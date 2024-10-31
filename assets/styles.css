@@ -1,44 +1,5 @@
-.label {
-    border-radius: 9px;
-    padding: 5px;
-    color: white;
-}
-
-.label-Activity { background-color: #4767FF}
-.label-Event { background-color:  #facd05}
-.label-Lab { background-color: #7A2CAB}
-.label-Problem_Set { background-color: crimson}
-.label-Quiz { background-color: green}
-.label-Assignment { background-color: #ff6f36}
-
-
-th {
-    width: 20%;
-}
-
-td:first-of-type {
-    width: 60%;
-}
-
-td:last-of-type {
-    width: 20%;
-}
-
-table {
-    border: 2px solid;
-}
-
-button > a {
-    color: white;
-    text-decoration: none;
-}
-
-button {
-    border: none;
-}
-
-.border {
-  color:#069;
-  font-weight: bold;
+.cell-output {
+  background-color: lightgreen;
+  border-radius: 4px;
 }
 
