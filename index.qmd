@@ -1,7 +1,19 @@
 ---
 title: The basics of working on the UNIX command line
 author: Christopher Paciorek
+date: "2024-10-30"
+format:
+  html:
+    theme: cosmo
+    css: assets/styles.css
+    toc: true
+    code-copy: true
+    code-block-background: true
+execute:
+  freeze: auto
 engine: knitr
+ipynb-shell-interactivity: all
+code-overflow: wrap
 ---
 
 # 1 Introduction
