@@ -498,7 +498,7 @@ file /usr/local/linux/miniforge-3.12/lib/python3.12/site-packages/numpy/dtypes.p
 
 In many cases, files have extensions such as `.csv` (for comma-separated text files), `.pdf` for PDFs, `.jpg` for JPEG files. The extension is a convention that helps us and programs distinguish different kinds of files and therefore know how to manipulate/interpret the files.
 
-:::{.callout-tip title="Filename extensions don't determine the file type", collapse="false"}
+:::{.callout-tip title="Filename extensions don't determine the file type" collapse="false"}
 The extension is just a convention -- changing the file name doesn't change the file format!
 
 So if make a copy of the `example.txt` file but name it `example.pdf`, we see that it's still just a simple text file even if I give it a name that would suggest it's a PDF.
@@ -700,7 +700,7 @@ chmod ugo+x mv_assets.sh  # Make the script executable by everyone.
 ./mv_assets.sh            # Run it.
 ```
 
-The initial './' is needed because UNIX is not expecting there to be an executable file in this particular directory. 
+The initial `./` is needed because UNIX is not expecting there to be an executable file in this particular directory. 
 
 You'll generally want to have the first line of your shell scripts indicate the shell to be used to execute the script, so you'd want to put `#!/bin/bash` as the first line of `mv_assets.sh`.
 
@@ -722,7 +722,6 @@ You'll generally want to have the first line of your shell scripts indicate the 
 
 ```{bash}
 #| include: false
-mv silly_example.pdf example.txt
-rm assets.{tar,zip} test
-rm test.png.gz
+mv silly_example.txt example.txt
+rm assets.{tar,zip} test silly_example.pdf test.png.z
 ```
