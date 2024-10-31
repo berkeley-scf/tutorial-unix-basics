@@ -6,7 +6,7 @@ website:
   sidebar:
     style: docked
     title: "SCF UNIX Basics Tutorial"
-    logo: assets/stat_bear.png
+    logo: assets/img/logo.svg
     logo-alt: "UC Berkeley Statistics logo"
     tools:
       - icon: github
