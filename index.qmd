@@ -1,6 +1,6 @@
 ---
 title: The basics of working on the UNIX command line
-date: 2024-10-31
+date: 2026-09-03
 format:
   html:
     theme: cosmo
@@ -17,7 +17,10 @@ code-overflow: wrap
 ---
 
 <!--
-Determine output under the scflocal account on gandalf
+Run `quarto publish under the scflocal account on gandalf.
+Not clear if bash output being preserved in freeze file, which
+should enable running as other users but getting the file/dir
+info of the scflocal user.
 -->
 
 # 1 Introduction
@@ -413,7 +416,7 @@ Essentially all UNIX commands have  help information (called a man page), access
 man ls
 ```
 
-You should try it yourself to practice viewing man pages. Once you are in the man page, you can navigate by hitting the space bar (to scroll down) and the up and down arrows. You can search by typing `/`, typing the string you want to search for and hitting `<Enter>`. You can use `n` and `p` for the next and previous search hits and `q` to quit out of the search.
+You should try it yourself to practice viewing man pages. Once you are in the man page, you can navigate by hitting the space bar (to scroll down) and the up and down arrows. You can search by typing `/`, typing the string you want to search for and hitting `<Enter>`. You can use `n` and `p` for the next and previous search hits and `q` to quit.
 
 Unfortunately man pages are often quite long, hard to understand, and without examples. But the information you need is usually there if you take the time to look for it.
 
